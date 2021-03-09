@@ -1,0 +1,77 @@
+@import 'general.scss';
+
+:active, :hover, :focus {
+  outline: 0 !important;
+  outline-offset: 0;
+}
+
+
+.RegAuth--wrap{
+    width: 401px;
+    height: 397px;
+    margin: 0 auto;
+  .exit{
+    margin-right: -10px;
+    height: 33px;
+    width: 33px;
+    background-color: $main-color;
+    border-radius: 50%;
+    float: right;
+    a{
+      display: flex;
+      justify-content: center;
+      padding-top: 9px;
+      &--pic{
+        width: 10.5px;
+        height: 13px;
+      }
+    }
+  }
+
+  .RegAuth--outline{
+    margin: 0 auto;
+    width: 366px;
+    height: 17px;
+    box-shadow: 0px -1px 2px 1px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    border-radius: 8px 8px 0px 0px;
+  }
+
+  .RegAuth--inner{
+    form{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .input--wrapper{
+        border-bottom: solid $main-color 2px;
+        input{
+
+          border: none;
+        }
+      }
+    }
+
+
+    padding-top: 50px;
+
+    width: 385px;
+    height: 330px;
+    margin: 0 auto;
+    box-shadow: $whiteShadow;
+    border-radius: 8px;
+    z-index: 0;
+     .title{
+       position: relative;
+       z-index: 1;
+       border-left: 5px solid $main-color;
+       margin: 0 0 35px;
+       padding: 10px 0 10px 50px;
+       color: $main-color;
+       font-size: 27px;
+       font-weight: 600;
+       text-transform: uppercase;
+     }
+
+  }
+}
+

@@ -1,0 +1,180 @@
+@font-face {
+  font-family: Bahnschrift;
+  src: url("../fonts/BAHNSCHRIFT.TTF");
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: Bahnschrift;
+}
+
+header .nav--wrap .nav {
+  max-width: 1350px;
+  margin: 0 auto;
+  margin-top: 73px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+header .nav--wrap .nav .logo {
+  width: 135px;
+  height: 28px;
+}
+header .nav--wrap .nav--links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-decoration: none;
+}
+header .nav--wrap .nav--links .nav--link {
+  white-space: nowrap;
+  font-size: 20px;
+  padding-right: 80px;
+  line-height: 24px;
+  font-style: normal;
+  font-weight: normal;
+  height: 19px;
+}
+header .nav--wrap .nav--links .nav--link:nth-last-child(1) {
+  padding-right: 0px;
+}
+header .nav--wrap .nav--links .nav--link a {
+  text-decoration: none;
+  color: black;
+  text-transform: none;
+}
+header .nav--wrap .nav .telephone {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 55px;
+  margin-top: -15px;
+}
+header .nav--wrap .nav .telephone--left {
+  display: flex;
+  padding-right: 0px;
+  max-width: 205px;
+  padding-left: 45px;
+  align-items: center;
+}
+header .nav--wrap .nav .telephone--left p {
+  font-size: 18px;
+  padding-left: 10px;
+  padding-top: 5px;
+  font-weight: 500;
+}
+header .nav--wrap .nav .telephone--left .operator--logo {
+  object-fit: none;
+  padding-left: 7px;
+}
+header .nav--wrap .nav .telephone--right {
+  display: flex;
+  padding-left: 25px;
+  padding-right: 0px;
+  align-items: center;
+}
+header .nav--wrap .nav .telephone--right .telephone--vertical {
+  padding-top: 20px;
+  padding-left: 5px;
+}
+header .nav--wrap .nav .telephone--right .telephone--vertical p {
+  font-size: 18px;
+  line-height: 20px;
+  padding-left: 5px;
+}
+header .nav--wrap .nav .telephone--right .operator--logo {
+  object-fit: none;
+  padding-left: 7px;
+}
+
+.menu--right .menu--right--wrap .menu--right--top .round {
+  position: fixed;
+  top: 50.5vh;
+  left: 96.5vw;
+  width: 61px;
+  height: 61px;
+  border-radius: 50%;
+  line-height: 4em;
+  text-align: center;
+  background: #FFFFFF;
+  box-shadow: -1px 4px 10px rgba(0, 0, 0, 0.25);
+}
+.menu--right .menu--right--wrap .menu--right--top .round a {
+  text-decoration: none;
+  text-transform: none;
+  color: #000;
+  font-size: 18px;
+}
+.menu--right .menu--right--wrap .menu--right--down {
+  position: fixed;
+  top: 60.5vh;
+  left: 90vw;
+  overflow: hidden;
+  width: 276px;
+  height: 182px;
+  background: #FDFEFF;
+  box-shadow: -1px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  background: url("../img/arrow.svg") no-repeat center;
+  background-size: auto;
+  background-position: center;
+  background-position-y: 280px;
+}
+.main--pic {
+  z-index: 5;
+  padding-bottom: 33px;
+}
+.main--description {
+  text-align: left;
+  padding-top: 65px;
+  margin-left: -60px;
+  z-index: 5;
+}
+.main--description h2 {
+  font-size: 80px;
+  text-transform: uppercase;
+}
+.main--description h1 {
+  font-size: 180px;
+  text-transform: uppercase;
+  margin-left: -10px;
+  margin-top: -5px;
+}
+
+.main--offer {
+  max-width: 1300px;
+  z-index: 10;
+}
+.main--offer--sub {
+  display: flex;
+  justify-content: center;
+  margin-left: 31vw;
+}
+.main--offer--sub--left--description {
+  max-width: 296px;
+  font-size: 24px;
+  line-height: 29px;
+}
+.main--offer--sub--right {
+  padding-left: 50px;
+  margin-top: 2vh;
+}
+.main--offer--sub--right--button--link {
+  z-index: 10;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  text-align: center;
+  padding: 22px 35px 22px 35px;
+  background-color: #ee1c1c;
+  border-radius: 10px;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+/*# sourceMappingURL=styles.css.map */
