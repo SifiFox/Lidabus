@@ -1,1 +1,2 @@
 [Fri, 12 Mar 21 16:26:41 +0300] Registration failed
+[Fri, 12 Mar 21 16:59:46 +0300] Registration failed
