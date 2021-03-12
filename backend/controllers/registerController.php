@@ -1,9 +1,11 @@
 <?php
 include "../database/dbConnection.php";
+include "../utils/logger.php";
 
     $data = $_POST;
 
     if(!empty($data)){
+        session_start();
         $regPassword = "/^[%?^#$]?(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/";//* любое число раз подряд или отсутствовать
 
         $errorsArray = array();
@@ -12,10 +14,12 @@ include "../database/dbConnection.php";
             if(preg_match($regPassword, $data["password"])){ }
             else{
                 array_push($errorsArray, "Password error");
+                LogsRegFailed();
             }
         }
         else{
             array_push($errorsArray, "Not equal passwords");
+            LogsRegFailed();
         }
 
 
@@ -31,6 +35,7 @@ include "../database/dbConnection.php";
 
                 if(!empty($row[0])){
                     array_push($errorsArray, "This email is registered");
+                    LogsRegFailed();
                 }
             }
 
@@ -44,6 +49,7 @@ include "../database/dbConnection.php";
                 $query = "INSERT INTO users(Name, Email, PhoneNumber, Password) VALUES ('$name', '$email', '$phoneNumber', '$passwordHash')";
 
                 $result = mysqli_query($dbLink, $query) or die ("Ошибка запроса".mysqli_error($dbLink));
+                LogsRegAccepted();
             }
         }
 
