@@ -15,7 +15,7 @@ include "../../utils/logger.php";
 
     $resultRow = mysqli_fetch_assoc($result);
 
-    //Authorization for user
+    //Authorization for users
     if(!empty($resultRow["ID"])){
         if($resultRow["PhoneNumber"] == $phoneNumber){
             if($resultRow["Password"] == md5($password).$salt){
@@ -74,4 +74,5 @@ include "../../utils/logger.php";
         array_push($errorsArray, "ID is empty");
         LogsLoginFailed();
     }
-echo json_encode($errorsArray);
+
+    echo json_encode($errorsArray);
