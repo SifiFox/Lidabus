@@ -108,6 +108,77 @@ function getDriversTable(){
         logsDriversTableForAdminFailed();
     }
 }
+
+function createDriver(){
+    include "../../database/dbConnection.php";
+    include "../../utils/logger.php";
+
+    $salt = md5(1231);//так называемся соль для добавления защиты хэширования паролей
+    $data = $_POST;
+
+    if(!empty($data)){
+        session_start();
+        $regPassword = "/^[%?^#$]?(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/";//* любое число раз подряд или отсутствовать
+        $errorsArray = array();
+
+        if($data["password"] == $data["passwordConfirm"] && $data["password"] != null){
+            if(preg_match($regPassword, $data["password"])){ }
+            else{
+                array_push($errorsArray, "Password error");
+                LogsDriverRegFailed();
+            }
+        }
+        else{
+            array_push($errorsArray, "Not equal passwords");
+            LogsDriverRegFailed();
+        }
+
+
+        if(empty($errorsArray)){
+            $email = $data["Email"];
+            $query = "SELECT Email FROM users WHERE Email ='$email'";
+            $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+
+            if($result){
+                $row = mysqli_fetch_row($result);
+                if(!empty($row[0])){
+                    array_push($errorsArray, "This email is registered");
+                    LogsDriverRegFailed();
+                }
+            }
+
+            $phoneNumber = $data["phoneNumber"];
+            $query = "SELECT PhoneNumber FROM users WHERE PhoneNumber = '$phoneNumber'";
+            $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+
+            if($result){
+                $row = mysqli_fetch_row($result);
+                if(!empty($row[0])){
+                    array_push($errorsArray, "This phone number is registered");
+                    LogsDriverRegFailed();
+                }
+            }
+
+            if(empty($errorsArray)){
+                $password = $data["password"];
+                $name = $data["Name"];
+                $passwordHash = md5($password).$salt;
+
+                $query = "INSERT INTO users(Name, Email, PhoneNumber, Password, Role) VALUES ('$name', '$email', '$phoneNumber', '$passwordHash', 'Driver')";
+
+                $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+
+                LogsDriverRegAccepted();
+
+//                if($result){
+//                    header("Location: 'file where need location");
+//                }
+            }
+        }
+
+        echo json_encode($errorsArray);
+    }
+}
 ?>
 
 

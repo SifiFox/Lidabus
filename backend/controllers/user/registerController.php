@@ -1,6 +1,6 @@
 <?php
-include "../database/dbConnection.php";
-include "../utils/logger.php";
+include "../../database/dbConnection.php";
+include "../../utils/logger.php";
 
     $data = $_POST;
 

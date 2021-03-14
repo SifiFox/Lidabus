@@ -68,4 +68,18 @@
         fwrite($fp, $str);
         fclose($fp);
     }
+
+    function LogsDriverRegFailed(){
+        $str = "[".date(DATE_RFC822)."] Driver registration failed\n";
+        $fp = fopen("../logs.txt","a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsDriverRegAccepted(){
+        $str = "[".date(DATE_RFC822)."] Driver ".$_SESSION["Login"]." register\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
     ?>
