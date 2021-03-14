@@ -43,7 +43,7 @@ function renderAllUsersTableWithBlockButtonForAdmin(){
         }
         logsAllUsersTableWithBlockButtonForAdmin();
     }else{
-        logsALLUsersTableWithBlockButtonForAdminFailed();
+        logsAllUsersTableWithBlockButtonForAdminFailed();
     }
 }
 
@@ -71,12 +71,41 @@ function getUsersTable(){
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
     if($result){
-        for($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row){
-            logsUsersTableForAdminSuccess();
-            return $data;
+        $data = array(); // в этот массив запишем то, что выберем из базы
+
+        while($row = mysqli_fetch_assoc($result)){ // оформим каждую строку результата
+            // как ассоциативный массив
+            $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
         }
+
+        logsUsersTableForAdminSuccess();
+
+        echo json_encode($data); // и отдаём как json
     }else{
         logsUsersTableForAdminFailed();
+    }
+}
+
+function getDriversTable(){
+    include "../../database/dbConnection.php";
+    include "../../utils/logger.php";
+
+    $query = "SELECT * FROM users WHERE Role = 'Driver' ORDER BY ID";
+    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+
+    if($result){
+        $data = array(); // в этот массив запишем то, что выберем из базы
+
+        while($row = mysqli_fetch_assoc($result)){ // оформим каждую строку результата
+            // как ассоциативный массив
+            $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
+        }
+
+        logsDriversTableForAdminSuccess();
+
+        echo json_encode($data); // и отдаём как json
+    }else{
+        logsDriversTableForAdminFailed();
     }
 }
 ?>

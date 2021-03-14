@@ -54,4 +54,18 @@
         fwrite($fp, $str);
         fclose($fp);
     }
+
+    function logsDriversTableForAdminSuccess(){
+        $str = "[".date(DATE_RFC822)."] Drivers table for admin is success\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function logsDriversTableForAdminFailed(){
+        $str = "[".date(DATE_RFC822)."] Drivers table for admin is failed\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
     ?>
