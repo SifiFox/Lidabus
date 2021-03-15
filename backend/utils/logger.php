@@ -7,7 +7,7 @@
     }
 
     function LogsRegAccepted(){
-        $str = "[".date(DATE_RFC822)."] User ".$_SESSION["Login"]." register\n";
+        $str = "[".date(DATE_RFC822)."] User ".$_SESSION["Email"]." register\n";
         $fp = fopen("../logs.txt", "a+");
         fwrite($fp, $str);
         fclose($fp);
@@ -21,7 +21,7 @@
     }
 
     function LogsLoginAccepted(){
-        $str = "[".date(DATE_RFC822)."] User ".$_SESSION["Login"]." is login\n";
+        $str = "[".date(DATE_RFC822)."] User ".$_SESSION["Email"]." is login\n";
         $fp = fopen("../logs.txt", "a+");
         fwrite($fp, $str);
         fclose($fp);
@@ -77,7 +77,35 @@
     }
 
     function LogsDriverRegAccepted(){
-        $str = "[".date(DATE_RFC822)."] Driver ".$_SESSION["Login"]." register\n";
+        $str = "[".date(DATE_RFC822)."] Driver ".$_SESSION["Email"]." register\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsPromocodeFailed(){
+        $str = "[".date(DATE_RFC822)."] Promocode ".$_SESSION["Promocode"]." failed\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsPromocodeAccepted(){
+        $str = "[".date(DATE_RFC822)."] Promocode ".$_SESSION["Promocode"]." register\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsUserSetPromocodeFailed(){
+        $str = "[".date(DATE_RFC822)."] User set promocode ".$_SESSION["Promocode"]." failed\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsUserSetPromocodeAccepted(){
+        $str = "[".date(DATE_RFC822)."] User set promocode ".$_SESSION["Promocode"]." accepted\n";
         $fp = fopen("../logs.txt", "a+");
         fwrite($fp, $str);
         fclose($fp);
