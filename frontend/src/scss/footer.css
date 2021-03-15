@@ -1,0 +1,48 @@
+.footer--wrapper {
+  width: 100%;
+  height: 240px;
+  background-color: #ee1c1c;
+  color: #fff;
+}
+.footer--wrapper--inner {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 64px;
+}
+.footer--wrapper--inner .footer--socials {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 15px;
+}
+.footer--wrapper--inner .footer--nav {
+  display: flex;
+  height: 32px;
+  padding-top: 20px;
+}
+.footer--wrapper--inner .footer--nav--link {
+  padding: 0px 15px 0px 15px;
+  border-right: 1px solid #fff;
+  line-height: 24px;
+}
+.footer--wrapper--inner .footer--nav--link:last-child {
+  border-right: none;
+}
+.footer--wrapper--inner .footer--nav--link a {
+  text-transform: none;
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  line-height: 24px;
+}
+.footer--wrapper--inner .footer--contacts--wrapper .footer--contacts {
+  padding-top: 15px;
+}
+.footer--wrapper--inner .footer--contacts--wrapper .footer--contacts .footer--contact {
+  padding-top: 5px;
+}
+.footer--wrapper .copyrite {
+  text-align: center;
+  padding-top: 25px;
+}
+
+/*# sourceMappingURL=footer.css.map */

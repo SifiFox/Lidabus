@@ -15,6 +15,17 @@
         text-align: center;
         background: #FFFFFF;
         box-shadow: -1px 4px 10px rgba(0, 0, 0, 0.25);
+        .menu--profile--link{
+          background: #fff;
+          border: 0;
+          font-size: 18px;
+          width: 61px;
+          height: 61px;
+          border-radius: 50%;
+          outline: none;
+          cursor: pointer;
+        }
+       
         a{
           text-decoration: none;
           text-transform: none;

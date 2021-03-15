@@ -6,17 +6,19 @@ import {Link} from "react-router-dom";
 
 
 
-function InnerMenu(){
+function InnerMenu(props){
+
     return(
-
-
         <div className="menu--right">
             <div className="menu--right--wrap">
+
+
                 <div className="menu--right--top">
                     <div className="round">
-                        <Link to={'/login'} className="menu--profile--link" href="#">
+                        <button  className="menu--profile--link"
+                                 onClick={props.loginToggle} >
                             вход
-                        </Link>
+                        </button>
 
                     </div>
                 </div>

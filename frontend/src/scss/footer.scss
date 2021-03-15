@@ -1,0 +1,61 @@
+@import "general";
+
+
+.footer--wrapper{
+  width: 100%;
+  height: 240px;
+  background-color: $main-color;
+  color: #fff;
+  &--inner{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 64px;
+
+    .footer--socials{
+      display: flex;
+      justify-content: space-around;
+      padding-top: 15px;
+    }
+
+    .footer--nav{
+      display: flex;
+      height: 32px;
+      padding-top: 20px;
+      &--link{
+        padding: 0px 15px 0px 15px;
+        border-right: 1px solid #fff;
+        line-height: 24px;
+        &:last-child{
+          border-right: none;
+        }
+
+        a{
+          text-transform: none;
+          text-decoration: none;
+          color: #fff;
+          font-size: 20px;
+          line-height: 24px;
+        }
+      }
+    }
+
+    .footer--contacts--wrapper{
+      .footer--contacts{
+        padding-top: 15px;
+        .footer--contact{
+          padding-top: 5px;
+        }
+      }
+    }
+
+  }
+
+
+
+  .copyrite{
+   text-align: center;
+    padding-top: 25px;
+  }
+}
+
+
