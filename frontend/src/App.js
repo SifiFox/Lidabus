@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../src/scss/header.scss'
 import '../src/reset.css'
 import '../src/scss/_fonts.scss'
 import '../src/scss/modal.scss'
-
+import '../src/scss/general.scss'
 
 
 import InnerMenu from "./Components/InnerMenu";
@@ -53,6 +53,19 @@ function App() {
     }
 
 
+    useEffect(() => {
+        loadData()
+    }, [])
+
+    const loadData = () => {
+        fetch("http://lidabusdiplom.by/")
+            .then(response => {
+               console.log(response)
+            })
+    }
+
+
+
 
     const loginCompile = () => {
         const dataComp = {
@@ -67,12 +80,12 @@ function App() {
 
 
 
-
-
     const [modal, setModal] = useState({
         LoginModal: false,
         RegisterModal: false
     })
+
+
 
     return (
         <>
@@ -80,7 +93,7 @@ function App() {
         <InnerMenu
             loginToggle={() => setModal({
                 ...modal,
-                LoginModal: true
+                LoginModal: true,
             })
             }
         />
@@ -89,7 +102,6 @@ function App() {
 
 
         <LoginModal
-
             title={'Логин'}
             isLoginOpened={modal.LoginModal}
             switchToRegister={() =>
@@ -99,15 +111,12 @@ function App() {
                 RegisterModal: true
             }
             )}
-
             onModalClose={()=> setModal({
                 ...modal,
                 LoginModal: false,
                 RegisterModal: false
             }
-
             )}
-
 
             enterClick={(e) =>{
                 console.log('enter click')
@@ -189,6 +198,8 @@ function App() {
                     <Route exact path={"/"} component={Main}/>
                     <Route exact path={"/booking"} component={Booking}/>
                     <Route exact path={"/help"} component={Help}/>
+                    <Route exact path={"/contacts"} component={Help}/>
+                    <Route exact path={"/partners"} component={Help}/>
                 </Switch>
             </div>
         </div>

@@ -29,7 +29,6 @@
 .menu--right .menu--right--wrap .menu--right--down {
   position: fixed;
   top: 60.5vh;
-  left: 90vw;
   overflow: hidden;
   width: 276px;
   height: 182px;
@@ -37,11 +36,34 @@
   box-shadow: -1px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 }
+.menu--right .menu--right--wrap .menu--right--down.opened {
+  left: 90vw;
+  transition: left 0.3s;
+}
+.menu--right .menu--right--wrap .menu--right--down.closed {
+  left: 96vw;
+  transition: left 0.3s;
+}
+.menu--right .menu--right--wrap .menu--right--down a {
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+}
 .menu--right .menu--right--wrap .menu--right--down .menu--right--inner--top {
-  margin: 30px 0px 0px 10px;
+  margin: 40px 0px 0px 30px;
+}
+.menu--right .menu--right--wrap .menu--right--down .menu--right--inner--top p {
+  padding-left: 30px;
 }
 .menu--right .menu--right--wrap .menu--right--down .menu--right--inner--bottom {
-  margin: 10px;
+  margin: 25px 10px 10px 30px;
+  display: flex;
+  align-items: center;
+}
+.menu--right .menu--right--wrap .menu--right--down .menu--right--inner--bottom p {
+  padding-left: 20px;
 }
 
 /*# sourceMappingURL=InnerMenu.css.map */

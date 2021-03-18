@@ -66,7 +66,7 @@ export default class Register extends Component{
                                 Зарегистрироваться
                             </button>
 
-                            <Link to={'/login'}>
+                            <Link >
                                 У меня уже есть аккаунт
                             </Link>
                         </form>

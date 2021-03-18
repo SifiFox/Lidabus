@@ -131,6 +131,7 @@ header .nav--wrap .nav .telephone--right .operator--logo {
 }
 @media (max-width: 768px) {
   .hamburger-menu {
+    z-index: 100;
     visibility: visible;
   }
 

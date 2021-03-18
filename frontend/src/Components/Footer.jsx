@@ -46,7 +46,7 @@ function Footer() {
                 <ul className="footer--nav">
 
                     <li className="footer--nav--link">
-                        <Link to={'/'}>помощь</Link>
+                        <Link to={'/help'}>помощь</Link>
                     </li>
 
                     <li className="footer--nav--link">

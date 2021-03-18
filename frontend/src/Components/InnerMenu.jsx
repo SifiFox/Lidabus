@@ -3,15 +3,21 @@ import '../scss/InnerMenu.scss'
 import ask from '../img/ask.png'
 import call from '../img/call.png'
 import {Link} from "react-router-dom";
-
+import  { useState } from 'react'
 
 
 function InnerMenu(props){
 
-    return(
+
+    const [visible, setVisible] = useState({
+            visible: ''
+    })
+
+
+
+     return(
         <div className="menu--right">
             <div className="menu--right--wrap">
-
 
                 <div className="menu--right--top">
                     <div className="round">
@@ -24,17 +30,27 @@ function InnerMenu(props){
                 </div>
 
 
-                <div className="menu--right--down">
+                <div className={`menu--right--down ${visible ? 'opened' : 'closed'}`}
+                onClick={()=>{
+                    setVisible(!visible)
+                }}
+                >
 
                     <div className="menu--right--inner--top">
-                        <img src={ ask } alt="" />
-                        <Link to={"/"}/>
+
+                        <Link to={"/help"}>
+                            <img src={ ask } alt="" />
+                            <p>помощь</p>
+                        </Link>
 
                     </div>
 
                     <div className="menu--right--inner--bottom">
-                        <img src={call} alt="" />
 
+                        <Link to={"/"}>
+                            <img src={call} alt="" />
+                            <p>звонок</p>
+                        </Link>
                     </div>
 
                 </div>
@@ -47,5 +63,4 @@ function InnerMenu(props){
     )
 
 }
-
 export default InnerMenu

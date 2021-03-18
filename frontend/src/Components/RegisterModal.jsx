@@ -65,7 +65,7 @@ const RegisterModal = props => {
                                     Зарегистрироваться
                                 </button>
 
-                                <Link to={'/login'}
+                                <Link
                                     className='reg--secondary--button'
                                     onClick={props.switchToLogin}>
                                     У меня уже есть аккаунт

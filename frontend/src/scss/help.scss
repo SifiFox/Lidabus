@@ -1,0 +1,20 @@
+@import "general";
+
+.help--wrapper{
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+
+.help--main--description{
+  margin-top: 60px;
+  max-width: 880px;
+  line-height: 24px;
+  font-size: 20px;
+  p{
+    padding-left: 60px;
+  }
+  .sub--border{
+      border-left: 4px solid $main-color;
+  }
+}

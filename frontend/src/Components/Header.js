@@ -18,7 +18,7 @@ function Nav() {
 
                     <ul className="nav--links">
                         <li className="nav--link">
-                            <a href="/">Главная</a>
+                            <Link to={"/"}>Главная</Link>
                         </li>
 
                         <li className="nav--link">

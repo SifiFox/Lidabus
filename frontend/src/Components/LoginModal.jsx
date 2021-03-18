@@ -54,7 +54,7 @@ const LoginModal = props => {
                             </button>
 
                             <Link
-                                to={'/register'}
+
                                 className='secondary--button'
                                 onClick={props.switchToRegister}>
                                 Регистрация
