@@ -2,6 +2,8 @@
 include "../../database/dbConnection.php";
 include "../../utils/logger.php";
 
+    header("Access-Control-Allow-Origin: *");
+
     $data = $_POST;
 
     if(!empty($data)){
@@ -20,7 +22,6 @@ include "../../utils/logger.php";
             array_push($errorsArray, "Not equal passwords");
             LogsRegFailed();
         }
-
 
         if(empty($errorsArray)){
             $email = $data["Email"];

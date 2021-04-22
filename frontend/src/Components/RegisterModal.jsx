@@ -40,8 +40,8 @@ const RegisterModal = props => {
                             </div>
 
                             <div className="input--wrapper">
-                                <input id='phone' type="text" className="form--input" placeholder="Номер телефона"
-                                       onChange={e => props.phoneHandler(e)}
+                                <input id='phoneNumber' type="text" className="form--input" placeholder="Номер телефона"
+                                       onChange={e => props.phoneNumberHandler(e)}
                                 />
                             </div>
 

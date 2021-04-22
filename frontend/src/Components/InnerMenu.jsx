@@ -10,7 +10,7 @@ function InnerMenu(props){
 
 
     const [visible, setVisible] = useState({
-            visible: ''
+            visible: 'false'
     })
 
 
@@ -30,7 +30,7 @@ function InnerMenu(props){
                 </div>
 
 
-                <div className={`menu--right--down ${visible ? 'opened' : 'closed'}`}
+                <div className={`menu--right--down ${visible ? 'closed' : 'opened'}`}
                 onClick={()=>{
                     setVisible(!visible)
                 }}

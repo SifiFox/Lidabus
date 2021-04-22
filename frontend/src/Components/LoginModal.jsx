@@ -1,8 +1,11 @@
 import "../scss/modal.scss"
-import { fadeIn } from 'react-animations';
+
 import {Link} from "react-router-dom";
 
 import cross from '../img/cross.png'
+
+
+import { fadeIn } from 'react-animations';
 import styled, { keyframes } from 'styled-components';
 const Fade = styled.div`animation: 0.3s ${keyframes`${fadeIn}`} 1`;
 
@@ -10,9 +13,8 @@ const Fade = styled.div`animation: 0.3s ${keyframes`${fadeIn}`} 1`;
 
 const LoginModal = props => {
 
+
     return(
-
-
         <div className={`modal__wrapper ${props.isLoginOpened ? 'open' : 'close'}`} >
 
                 <div className="modal__body">
@@ -34,8 +36,8 @@ const LoginModal = props => {
                         onSubmit={props.enterClick}
                     >
                         <div className="input--wrapper">
-                            <input id='phone' type="text" className="form--input" placeholder="Номер телефона"
-                                   onChange={e => props.phoneHandler(e)}
+                            <input id='phoneNumber' type="text" className="form--input" placeholder="Номер телефона"
+                                   onChange={e => props.phoneNumberHandler(e)}
                             />
                         </div>
 
@@ -45,10 +47,9 @@ const LoginModal = props => {
                             />
                         </div>
 
-
-
                         <div className="regAuth--navigate">
                             <button className='main--button'
+                                // onClick={props.loginTest}
                             >
                                 Войти
                             </button>

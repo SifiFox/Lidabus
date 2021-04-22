@@ -2,10 +2,7 @@ import React from 'react';
 import '../scss/help.scss'
 import '../scss/general.scss'
 import HelpMain from "./HelpMain";
-import {Link} from "react-router-dom";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import Main from "./Main";
-import Booking from "./Booking";
 import Contacts from "./Contacts";
 import Partners from "./Partners";
 
@@ -31,7 +28,6 @@ import Partners from "./Partners";
 
             <Router>
                 <HelpMain/>
-
                     <div className="help-inner">
                         <Switch>
                             <Route component={Contacts} path={'/contacts'}/>

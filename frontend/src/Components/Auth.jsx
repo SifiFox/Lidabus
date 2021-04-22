@@ -15,7 +15,9 @@ export default class Auth extends Component{
             email: this.email,
             password: this.password,
         };
+
         console.log(data)
+
         axios.post('http://localhost:8000/login', data)
             .then(res => {
                 console.log(res)

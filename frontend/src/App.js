@@ -24,15 +24,15 @@ import RegisterModal from "./Components/RegisterModal";
 function App() {
 
 
-    const [phone, setPhone] = useState({
-        phone: ''
+    const [phoneNumber, setphoneNumber] = useState({
+        phoneNumber: ''
     })
 
-    const [password, setPassword] = useState({
+    const [password, setpassword] = useState({
         password: ''
     })
 
-    const [passwordConfirm, setPasswordConfirm] = useState({
+    const [passwordConfirm, setpasswordConfirm] = useState({
         passwordConfirm: ''
     })
 
@@ -44,10 +44,12 @@ function App() {
     const registerCompile = () => {
         const dataComp = {
             name,
-            phone,
+            phoneNumber,
             password,
             passwordConfirm
         }
+
+
 
         console.log(dataComp);
     }
@@ -69,12 +71,27 @@ function App() {
 
     const loginCompile = () => {
         const dataComp = {
-            phone,
-            password
+            phoneNumber, password
 
         }
-        console.log('login compile');
-        console.log(dataComp);
+        console.log( 'login compile' );
+        // console.log( dataComp );
+
+        // let url = "http://lidabusdiplom.by/controllers/user/authorizationController.php"
+        //
+        // try {
+        //     const response = fetch( url, {
+        //         mode: "no-cors",
+        //         method: 'POST', // или 'PUT'
+        //         body: JSON.stringify( dataComp ), // данные могут быть 'строкой' или {объектом}!
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         }
+        //     } );
+        // } catch (error) {
+        //     console.error( 'Ошибка:'     );
+        // }
+
     }
 
 
@@ -85,6 +102,88 @@ function App() {
         RegisterModal: false
     })
 
+
+
+     function loginTest() {
+        // let item = {
+        //     phoneNumber,
+        //     password
+        // };
+        // let url = "http://lidabusdiplom.by/controllers/user/authorizationController.php"
+        //  console.log(item);
+        //
+        //
+        // let test = JSON.stringify(item.phoneNumber + ", " + item.password );
+        //
+        // try {
+        //     const response =  fetch( url, {
+        //         mode: "no-cors",
+        //         method: 'POST', // или 'PUT'
+        //         body:
+        //              JSON.stringify(test), // данные могут быть 'строкой' или {объектом}
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         }
+        //     } );
+        //     console.log('успех test: ', test );
+        //     console.log('успех item: ', item );
+        // } catch (error) {
+        //     console.error( 'Ошибка:', error );
+        // }
+
+
+         let item = {
+             phoneNumber,
+             password
+         };
+         let url = "http://lidabusdiplom.by/controllers/user/authorizationController.php"
+         console.log(item);
+
+
+         let test = JSON.stringify(item.phoneNumber + ", " + item.password );
+
+         try {
+             const response =  fetch( url, {
+                 mode: "no-cors",
+                 method: 'POST', // или 'PUT'
+                 body:
+                     JSON.stringify(item.phoneNumber), // данные могут быть 'строкой' или {объектом}
+                 headers: {
+                     'Content-Type': 'application/json'
+                 }
+             } );
+             console.log('успех test: ', test );
+             console.log('успех item: ', item );
+         } catch (error) {
+             console.error( 'Ошибка:', error );
+         }
+
+
+    }
+
+    function registerTest(){
+        let item = {
+            name,
+            phoneNumber,
+            password,
+            passwordConfirm};
+        let url = "http://lidabusdiplom.by/controllers/user/registerController.php"
+
+        try {
+            const response =  fetch( url, {
+                mode: "no-cors",
+                method: 'POST', // или 'PUT'
+                body: JSON.stringify( item ), // данные могут быть 'строкой' или {объектом}!
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            } );
+            const json =  response.data;
+            console.log( 'Успех:', JSON.stringify( json ) );
+        } catch (error) {
+            console.error( 'Ошибка:', error );
+        }
+    }
 
 
     return (
@@ -104,6 +203,8 @@ function App() {
         <LoginModal
             title={'Логин'}
             isLoginOpened={modal.LoginModal}
+
+
             switchToRegister={() =>
                 setModal({
                 ...modal,
@@ -121,19 +222,20 @@ function App() {
             enterClick={(e) =>{
                 console.log('enter click')
                 e.preventDefault();
-                setPhone(e.target.value);
-                setPassword(e.target.value);
+                setphoneNumber(e.target.value);
+                setpassword(e.target.value);
                 loginCompile();
+                loginTest();
             }}
 
-            phoneHandler={
+            phoneNumberHandler={
                 (e) => {
-                    setPhone(e.target.value)
+                    setphoneNumber(e.target.value)
                 }}
 
             passwordHandler={
                 (e) => {
-                    setPassword(e.target.value)
+                    setpassword(e.target.value)
                 }}
         />
 
@@ -154,28 +256,27 @@ function App() {
                 setName(e.target.value)
             }}
 
-        phoneHandler={
+        phoneNumberHandler={
             (e) => {
-                setPhone(e.target.value)
-
-                console.log(e)
+                setphoneNumber(e.target.value)
             }}
 
         passwordHandler={
             (e) => {
-                setPassword(e.target.value)
+                setpassword(e.target.value)
             }}
 
         passwordConfirmHandler={
             (e) => {
-                setPasswordConfirm(e.target.value)
+                setpasswordConfirm(e.target.value)
             }}
 
         enterClick={(e) =>{
             console.log('enter click')
             e.preventDefault();
-            setPhone(e.target.value);
-            setPassword(e.target.value);
+            setphoneNumber(e.target.value);
+            setpassword(e.target.value);
+            registerTest();
             registerCompile();
         }}
 
@@ -185,12 +286,7 @@ function App() {
                 RegisterModal: false
             }
         )}
-
-
-
-
         />
-
 
         <div className="auth-wrapper">
             <div className="auth-inner">
@@ -207,10 +303,6 @@ function App() {
 
             <Footer/>
         </>
-
-
-
-
         )
 }
 

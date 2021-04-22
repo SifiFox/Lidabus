@@ -1,6 +1,7 @@
 import React from 'react';
 import '../scss/booking.scss'
 import BookingFindForm from "./BookingFindForm";
+import BookingOutput from "./BookingOutput";
 
 
 function Booking(){
@@ -15,6 +16,8 @@ function Booking(){
 
             <BookingFindForm/>
 
+            <BookingOutput
+             />
         </div>
     )
 

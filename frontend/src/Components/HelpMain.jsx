@@ -1,15 +1,9 @@
 import React from 'react'
-import {BrowserRouter as Router, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
-import Contacts from "./Contacts";
 import '../scss/HelpMain.scss'
-import Partners from "./Partners";
-import Main from "./Main";
-import Booking from "./Booking";
-import Help from "./Help";
-import Drivers from "./Drivers";
 
-const HelpMain = (props) =>{
+const HelpMain = () =>{
 
 
 
