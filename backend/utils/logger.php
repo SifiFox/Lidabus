@@ -110,4 +110,60 @@
         fwrite($fp, $str);
         fclose($fp);
     }
+
+    function LogsAutoTableFailed(){
+        $str = "[".date(DATE_RFC822)."] Autos table failed\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsAutoTableAccess(){
+        $str = "[".date(DATE_RFC822)."] Autos table accepted\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsPromocodeTableFailed(){
+        $str = "[".date(DATE_RFC822)."] Promocode table failed\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsPromocodeTableAccepted(){
+        $str = "[".date(DATE_RFC822)."] Promocode table accepted\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsPromocodeContainsInTableFailed($promocode){
+        $str = "[".date(DATE_RFC822)."] Promocode: ".$promocode." no such in DB\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsPromocodeContainsInTableAccepted($promocode){
+        $str = "[".date(DATE_RFC822)."] Promocode: ".$promocode." is in DB\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsAutoGetSeatsNumberByIDFailed($autoID){
+        $str = "[".date(DATE_RFC822)."] Get auto seats number by id: ".$autoID." failed\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+    function LogsAutoGetSeatsNumberByIDSuccess($autoID){
+        $str = "[".date(DATE_RFC822)."] Get auto seats number by id: ".$autoID." success\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
     ?>
