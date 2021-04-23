@@ -1,0 +1,47 @@
+@import "general";
+
+html{
+  font-family: BAHNSCHRIFT sans-serif;
+}
+
+.trust--wrap{
+  color: #fff;
+  height: 333px;
+  background-color: $main-color;
+  margin-top: 150px;
+}
+
+.section--description{
+  font-family: Bahnschrift;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 43px;
+  text-align: center;
+  padding-top: 46px;
+  text-transform: uppercase;
+}
+
+.trust--info--wrap{
+  margin: 0 auto;
+  padding-top: 65px;
+  ul{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .info{
+      max-width: 255px;
+      border-right: solid #fff 2px;
+      padding: 0px 35px;
+      &:last-child{
+        border-right: none;
+      }
+      .count{
+        font-size: 72px;
+      }
+      .sub--description{
+
+      }
+    }
+  }
+}

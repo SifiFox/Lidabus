@@ -1,3 +1,56 @@
 
 $main-color: #ee1c1c;
 $whiteShadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.1);
+
+
+
+/* хром, сафари */
+html::-webkit-scrollbar {
+  width: 5px;
+}
+
+html::-webkit-scrollbar-track-piece { /* 4 - видимая часть трека */
+  color: red;
+  width: 15px;
+  height: 15px;
+}
+
+
+html::-webkit-scrollbar-thumb { /* 5 - ползунок */
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  background-color: $main-color;
+}
+
+
+.title--line{
+  position: relative;
+  width: 135px;
+  height: 3px;
+  background: $main-color;
+  margin: 15px 40px;
+  vertical-align: center;
+}
+
+.info--title{
+  font-size: 36px;
+  text-transform: uppercase;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  //&::before{
+  //  content: '\00A0';
+  //  width: 135px;
+  //  max-height: 2px;
+  //  background: $main-color;
+  //}
+}
+
+
+
+/* ie 10+ */
+.element { -ms-overflow-style: none; }
+
+/* фф (свойство больше не работает, других способов тоже нет)*/
+.element { overflow: -moz-scrollbars-none; }

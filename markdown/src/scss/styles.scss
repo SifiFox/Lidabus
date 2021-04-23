@@ -149,7 +149,6 @@ header{
 .main{
     display: flex;
     justify-content: center;
-    margin-top: 100px;
     background: url("../img/arrow.svg") no-repeat center;
     background-size: auto;
     background-position: center;
@@ -179,14 +178,15 @@ header{
 }
 
   .main--offer{
-    max-width: 1300px;
+    max-width: 1900px;
     z-index: 10;
 
     &--sub{
       display: flex;
       justify-content: center;
-      margin-left: 31vw;
+      margin-left: 35vw;
       &--left{
+        align-self: center;
         &--description{
           max-width: 296px;
           font-size: 24px;

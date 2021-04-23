@@ -2,29 +2,21 @@ import React, {Component} from 'react';
 import "../scss/RegAuth.scss"
 import cross from '../img/cross.png'
 import {Link} from "react-router-dom";
-import axios from "axios";
+
 
 
 export default class Register extends Component{
 
-        handleSubmit = e =>{
-            e.preventDefault();
-            const data = {
-                Name: this.Name,
-                Email: this.Email,
-                password: this.password,
-                confirmPassword: this.confirmPassword
-            };
-            console.log(data);
-            axios.post('http://localhost:8000/register', data).then(
-                res => {
-                    console.log(res)
-                }
-            ).catch(
-                err =>
-                    console.log(err)
-            )
-        };
+        // handleSubmit = e =>{
+        //     e.preventDefault();
+        //     const data = {
+        //         Name: this.Name,
+        //         Email: this.Email,
+        //         password: this.password,
+        //         confirmPassword: this.confirmPassword
+        //     };
+        //     console.log(data);
+        // };
 
         render(){
             return(
@@ -74,7 +66,7 @@ export default class Register extends Component{
                                 Зарегистрироваться
                             </button>
 
-                            <Link to={'/login'}>
+                            <Link >
                                 У меня уже есть аккаунт
                             </Link>
                         </form>
@@ -82,7 +74,5 @@ export default class Register extends Component{
                 </div>
             )
         }
-
-
 }
 

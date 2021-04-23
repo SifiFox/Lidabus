@@ -1,0 +1,14 @@
+.booking--wrapper {
+  max-width: 1300px;
+  margin: auto;
+}
+
+.output--header {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin-left: 6.5vw;
+  font-family: BAHNSCHRIFT;
+}
+
+/*# sourceMappingURL=booking.css.map */

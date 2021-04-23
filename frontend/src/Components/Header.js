@@ -18,19 +18,19 @@ function Nav() {
 
                     <ul className="nav--links">
                         <li className="nav--link">
-                            <a href="/">Главная</a>
+                            <Link to={"/"}>Главная</Link>
                         </li>
 
                         <li className="nav--link">
-                            <a href="/">
+                            <Link to={"/booking"}>
                                 Бронирование
-                            </a>
+                            </Link>
                         </li>
 
                         <li className="nav--link">
-                            <a href="/">
+                            <Link to={'/help'}>
                                 Помощь
-                            </a>
+                            </Link>
                         </li>
                     </ul>
 
@@ -62,9 +62,9 @@ function Nav() {
                 </label>
 
                 <ul className="menu__box">
-                    <li><a className="menu__item" href="#">Главная</a></li>
-                    <li><a className="menu__item" href="#">Бронирование</a></li>
-                    <li><a className="menu__item" href="#">Помощь</a></li>
+                    <li><Link className="menu__item" to={'/'}>Главная</Link></li>
+                    <li><Link className="menu__item" to={'/'}>Бронирование</Link></li>
+                    <li><Link className="menu__item" to={'/'}>Помощь</Link></li>
                 </ul>
             </div>
         </header>

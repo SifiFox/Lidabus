@@ -1,6 +1,8 @@
 @import "_fonts.scss";
 
 
+
+
 header{
   .nav--wrap{
     .nav{
@@ -163,6 +165,7 @@ header{
 @media (max-width: 768px) {
 
   .hamburger-menu{
+    z-index: 100;
     visibility: visible;
   }
   #menu__toggle {

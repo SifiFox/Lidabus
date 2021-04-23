@@ -13,8 +13,27 @@
         fclose($fp);
     }
 
-    function LogsLoginFailed(){
-        $str = "[".date(DATE_RFC822)."] Login failed\n";
+    function LogsLoginFailedId(){
+        $str = "[".date(DATE_RFC822)."] Login failed id\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
+     function LogsLoginFailedNumber(){
+        $str = "[".date(DATE_RFC822)."] Login failed number\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+     function LogsLoginFailedPassword(){
+        $str = "[".date(DATE_RFC822)."] Login failed password\n";
+        $fp = fopen("../logs.txt", "a+");
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+     function LogsLoginFailedBlocked(){
+        $str = "[".date(DATE_RFC822)."] Login failed blocked\n";
         $fp = fopen("../logs.txt", "a+");
         fwrite($fp, $str);
         fclose($fp);
@@ -25,6 +44,7 @@
         $fp = fopen("../logs.txt", "a+");
         fwrite($fp, $str);
         fclose($fp);
+        return str;
     }
 
     function logsAllUsersTableWithBlockButtonForAdmin(){
