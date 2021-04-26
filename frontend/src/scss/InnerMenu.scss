@@ -87,3 +87,13 @@
 
   }
 }
+@media (max-width: 1300px) {
+  .round{
+    width: 200px;
+  }
+}
+@media (max-width: 768px) {
+  .round{
+    display: none;
+  }
+}

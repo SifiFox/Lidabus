@@ -1,0 +1,44 @@
+@import "general";
+
+.cards--wrap{
+  max-width: 1260px;
+  display: flex;
+  justify-content: space-between;
+  margin: 176px auto 0;
+
+  .card{
+    width: 383px;
+    height: 382px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    padding-top: 65px;
+    padding-bottom: 56px;
+  }
+
+  .payment{
+    p{
+      font-family: Bahnschrift;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 29px;
+      opacity: 0.5;
+      padding-top: 10px;
+    }
+
+  }
+
+}
+.card--desc{
+  padding-top: 50px;
+  font-size: 36px;
+  line-height: 43px;
+  text-align: center;
+}
+
+.progressbar{
+  width: 270px;
+  margin: 0 auto;
+}

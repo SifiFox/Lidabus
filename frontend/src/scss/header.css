@@ -127,10 +127,12 @@ header .nav--wrap .nav .telephone--right .operator--logo {
 @media (max-width: 1920px) {
   .hamburger-menu {
     visibility: hidden;
+    display: none;
   }
 }
 @media (max-width: 768px) {
   .hamburger-menu {
+    display: block;
     z-index: 100;
     visibility: visible;
   }
@@ -202,7 +204,7 @@ header .nav--wrap .nav .telephone--right .operator--logo {
     margin: 0;
     padding: 80px 0;
     list-style: none;
-    background-color: #ECEFF1;
+    background-color: #fff7f7;
     box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.2);
     transition-duration: 0.25s;
   }

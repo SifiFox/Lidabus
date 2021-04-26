@@ -29,7 +29,7 @@ const RegisterModal = props => {
                             <h2>{props.title}</h2>
                         </div>
 
-                        <form className="modal--input"
+                        <form className="modal--input" method="post"
                               onSubmit={props.enterClick}
                         >
 

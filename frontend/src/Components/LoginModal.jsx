@@ -32,8 +32,9 @@ const LoginModal = props => {
                     </div>
 
 
-                    <form className="modal--input"
+                    <form className="modal--input" method="post"
                         onSubmit={props.enterClick}
+                        action="c"
                     >
                         <div className="input--wrapper">
                             <input id='phoneNumber' type="text" className="form--input" placeholder="Номер телефона"
@@ -49,7 +50,6 @@ const LoginModal = props => {
 
                         <div className="regAuth--navigate">
                             <button className='main--button'
-                                // onClick={props.loginTest}
                             >
                                 Войти
                             </button>

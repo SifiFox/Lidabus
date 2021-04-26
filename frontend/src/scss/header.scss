@@ -158,6 +158,7 @@ header{
 @media (max-width: 1920px){
   .hamburger-menu{
     visibility: hidden;
+    display: none;
   }
 }
 
@@ -165,6 +166,7 @@ header{
 @media (max-width: 768px) {
 
   .hamburger-menu{
+    display: block;
     z-index: 100;
     visibility: visible;
   }
@@ -239,7 +241,7 @@ header{
 
     list-style: none;
 
-    background-color: #ECEFF1;
+    background-color: #fff7f7;
     box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
 
     transition-duration: .25s;
