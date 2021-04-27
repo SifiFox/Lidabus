@@ -70,7 +70,7 @@ function ProfileCards(){
             </div>
 
 
-            <div className="card trips">
+            <div className="card">
                 <DayPicker
 
                     dayPickerProps={dayPickerProps}
@@ -82,7 +82,7 @@ function ProfileCards(){
                     }}
                 />
 
-                <h3 className="card--desc">мои поездки</h3>
+                <h3 className="trips">мои поездки</h3>
 
                 <button className="primary--button">
                     показать все

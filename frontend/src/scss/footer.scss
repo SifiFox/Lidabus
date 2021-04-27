@@ -50,13 +50,23 @@
     }
 
   }
-
-
-
   .copyrite{
    text-align: center;
     padding-top: 25px;
   }
 }
 
-
+@media (max-width: 768px){
+    .footer--wrapper--inner{
+      flex-wrap: wrap;
+      .footer--nav{
+        flex-direction: column;
+        border: none;
+        padding-top: 0;
+        text-align: center;
+      }
+    }
+  .footer--wrapper--inner .footer--nav--link{
+    border: none;
+  }
+}
