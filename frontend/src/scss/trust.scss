@@ -45,3 +45,19 @@ html{
     }
   }
 }
+
+@media (max-width: 768px){
+  .trust--wrap{
+    height: auto;
+    .trust--info--wrap{
+      ul{
+        flex-wrap: wrap;
+        li{
+          border: none;
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
+      }
+    }
+  }
+}

@@ -75,6 +75,10 @@
   .round {
     display: none;
   }
+
+  .menu--right--down {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=InnerMenu.css.map */
