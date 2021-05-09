@@ -1,79 +1,57 @@
 <?php
-include "../../database/dbConnection.php";
-include "../../utils/logger.php";
+//header("Access-Control-Allow-Origin: http://localhost:3000");
 
-    $resultRow = null;
+$authUser = json_encode(['PhoneNumber' => '+375257182477', 'Password' => '7182470Dima']);
+
+authorizationUser($authUser);
+
+function authorizationUser($authUser){
+    include "../../database/dbConnection.php";
+    include "../../utils/logger.php";
+
+    $authUser = json_decode($authUser, true);
     $errorsArray = array();
-    $data = $_POST;
 
-    $phoneNumber = $data["phoneNumber"];
-    $password = $data["password"];
+    if(!empty($authUser)){
+        $phoneNumber = $authUser["PhoneNumber"];
+        $password = $authUser["Password"];
 
-    $query = "SELECT * FROM users WHERE PhoneNumber = '$phoneNumber'";
+        $query = "SELECT * FROM users WHERE PhoneNumber = '$phoneNumber'";
+        $result = mysqli_query($dbLink, $query) or die ("Database error");
 
-    $result = mysqli_query($dbLink, $query) or die ("Database error");
+        $resultRow = mysqli_fetch_assoc($result);
+        var_dump($resultRow);
 
-    $resultRow = mysqli_fetch_assoc($result);
-
-    //Authorization for users
-    if(!empty($resultRow["ID"])){
-        if($resultRow["PhoneNumber"] == $phoneNumber){
-            if($resultRow["Password"] == md5($password).$salt){
-                if($resultRow["Role"] == "User"){
+        if(!empty($resultRow["ID"])){
+            if($resultRow["PhoneNumber"] == $phoneNumber){
+                if($resultRow["Password"] == md5($password).$salt){
                     if($resultRow["Status"] == "Active"){
-                        if(session_status() != PHP_SESSION_ACTIVE){
-                            session_start();
-                        }
-                        LogsLoginAccepted();
+                        LogsLoginAccepted($resultRow);
 
-//                        header("Location: 'file where need location'");
+                        return json_encode($resultRow);
                     }else{
-                        array_push($errorsArray, 'You are blocked');
-                        LogsLoginFailed();
+                        array_push($errorsArray, 'Вы заблокированы');
+                        LogsLoginFailed("user blocked");
+                        return json_encode($errorsArray);
                     }
+                }else{
+                    array_push($errorsArray, 'Неправильный пароль');
+                    LogsLoginFailed("incorrect password");
+                    return json_encode($errorsArray);
                 }
             }else{
-                array_push($errorsArray, 'Incorrect password');
-                LogsLoginFailed();
+                array_push($errorsArray, "Неправильный номер телефона");
+                LogsLoginFailed("incorrect phone number");
+                return json_encode($errorsArray);
             }
         }else{
-            array_push($errorsArray, "Incorrect phone number");
-            LogsLoginFailed();
+            array_push($errorsArray, "Ошибка базы данных");
+            LogsLoginFailed("ID is empty");
+            return json_encode($errorsArray);
         }
     }else{
-        array_push($errorsArray, "ID is empty");
-        LogsLoginFailed();
+        array_push($errorsArray, "Такого пользователя не сущесвует");
+        LogsLoginFailed("This user is not registred");
+        return json_encode($errorsArray);
     }
-
-    //Authorization for ADMIN
-//    if(!empty($resultRow["ID"])){
-//        if($resultRow["PhoneNumber"] == $phoneNumber){
-//            if($resultRow["Role"] == "Admin"){
-//                if($resultRow["Password"] == md5($password).$salt){
-//                    if($resultRow["Status"] == "Active"){
-//                        if(session_status() != PHP_SESSION_ACTIVE){
-//                            session_start();
-//                        }
-//                        LogsLoginAccepted();
-//
-//    //                        header("Location: 'file where need location'");
-//                    }else{
-//                        array_push($errorsArray, 'You are blocked');
-//                        LogsLoginFailed();
-//                    }
-//                }
-//            }else{
-//                array_push($errorsArray, 'Incorrect password');
-//                LogsLoginFailed();
-//            }
-//        }else{
-//            array_push($errorsArray, "Incorrect phone number");
-//            LogsLoginFailed();
-//        }
-//    }else{
-//        array_push($errorsArray, "ID is empty");
-//        LogsLoginFailed();
-//    }
-
-    echo json_encode($errorsArray);
-    echo "accepted";
+}
