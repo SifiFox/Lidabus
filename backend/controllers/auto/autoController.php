@@ -13,13 +13,11 @@ function getAutoTable(){
             // как ассоциативный массив
             $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
         }
+//        echo json_encode($data); // и отдаём как json
         LogsWriteMessage("Getting autos table is success");
-
-        echo json_encode($data); // и отдаём как json
         return json_encode($data);
     }else{
         LogsWriteMessage("Getting autos table is failed");
-
         return json_encode("Ошибка при получении информации о автомобилях");
     }
 }
@@ -37,12 +35,11 @@ function getAutoSeatsNumberByID($autoID){
         while($row = $result -> fetch_object()){
             $countAutoSeatsNumber = $row -> count;
         }
-        LogsWriteMessage("Getting auto seatsNumber is success");
 
+        LogsWriteMessage("Getting auto seatsNumber is success");
         return $countAutoSeatsNumber;
     }else{
         LogsWriteMessage("Getting auto seatsNumber is failed");
-
         return json_encode("Getting auto seatsNumber is failed");
     }
 }

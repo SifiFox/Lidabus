@@ -1,9 +1,9 @@
 <?php
-getDriversTable();
+//getDriversTable();
 
 $driver = json_encode(['PhoneNumber' => '+315422483654', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima', 'Name' => 'Driver', 'Surname' => 'Driver', 'Patronymic' => 'Driver']);
 
-createDriver($driver);
+//createDriver($driver);
 
 function getDriversTable(){
     include "../../database/dbConnection.php";
@@ -22,7 +22,7 @@ function getDriversTable(){
 
         LogsWriteMessage("Getting drivers from user table is success");
 
-        echo json_encode($data); // и отдаём как json
+//        echo json_encode($data); // и отдаём как json
         return json_encode($data);
     }else{
         LogsWriteMessage("Getting driver from user table is failed");
@@ -65,31 +65,32 @@ function createDriver($driver){
                         return json_encode($driver);
                     } else {
                         array_push($errorsArray, "ошибка базы данных");
-                        LogsRegFailed("error in data base request");
+                        LogsWriteMessage("Registration driver: error in data base request");
 
                         return json_encode($errorsArray);
                     }
                 } else {
                     array_push($errorsArray, "данный номер телефона уже зарегистирован, попробуйте другой");
-                    LogsRegFailed("This phone number is registered");
+                    LogsWriteMessage("Registration driver: this phone number is registered");
 
                     return json_encode($errorsArray);
                 }
             }else{
-                array_push($errorsArray, "пароль должен состоять более чем из 6-ти символов английского алфавита(обязательно одна заглавная, цифры и строчные буквы) Пример: \"1234Te\"");
-                LogsRegFailed("the password must consist of more than 6 characters of the English alphabet (one uppercase, numbers and lowercase letters is required) Example: \"1234Te\"");
-
+                array_push($errorsArray, "пароль должен состоять более чем из 6-ти 
+                символов английского алфавита(обязательно одна заглавная, цифры и строчные буквы) Пример: \"1234Te\"");
+                LogsWriteMessage("Registration driver: the password must consist of more than 6 
+                characters of the English alphabet (one uppercase, numbers and lowercase letters is required) Example: \"1234Te\"");
                 return json_encode($errorsArray);
             }
         }else{
             array_push($errorsArray, "не одинаковые пароли");
-            LogsRegFailed("Not equal passwords");
+            LogsWriteMessage("Registration driver: not equal password");
 
             return json_encode($errorsArray);
         }
     }else{
         array_push($errorsArray, "ошибка передачи данных");
-        LogsRegFailed("JSON object is empty");
+        LogsWriteMessage("Registration driver: JSON object is empty");
 
         return json_encode($errorsArray);
     }

@@ -3,7 +3,7 @@
 
 $authUser = json_encode(['PhoneNumber' => '+375257182477', 'Password' => '7182470Dima']);
 
-authorizationUser($authUser);
+//authorizationUser($authUser);
 
 function authorizationUser($authUser){
     include "../../database/dbConnection.php";
@@ -26,32 +26,32 @@ function authorizationUser($authUser){
             if($resultRow["PhoneNumber"] == $phoneNumber){
                 if($resultRow["Password"] == md5($password).$salt){
                     if($resultRow["Status"] == "Active"){
-                        LogsLoginAccepted($resultRow);
+                        LogsWriteMessage("User ".$resultRow["Name"]." ".$resultRow["Surname"]." is login");
 
                         return json_encode($resultRow);
                     }else{
                         array_push($errorsArray, 'Вы заблокированы');
-                        LogsLoginFailed("user blocked");
+                        LogsWriteMessage("Authorization: you are blocked");
                         return json_encode($errorsArray);
                     }
                 }else{
                     array_push($errorsArray, 'Неправильный пароль');
-                    LogsLoginFailed("incorrect password");
+                    LogsWriteMessage("Authorization: incorrect password");
                     return json_encode($errorsArray);
                 }
             }else{
                 array_push($errorsArray, "Неправильный номер телефона");
-                LogsLoginFailed("incorrect phone number");
+                LogsWriteMessage("Authorization: incorrect phone number");
                 return json_encode($errorsArray);
             }
         }else{
-            array_push($errorsArray, "Ошибка базы данных");
-            LogsLoginFailed("ID is empty");
+            array_push($errorsArray, "Не найден пользователь(ошибка базы данных)");
+            LogsWriteMessage("Authorization: user not found (database error)");
             return json_encode($errorsArray);
         }
     }else{
         array_push($errorsArray, "Такого пользователя не сущесвует");
-        LogsLoginFailed("This user is not registred");
+        LogsWriteMessage("Authorization: this user is not registred");
         return json_encode($errorsArray);
     }
 }

@@ -9,7 +9,7 @@ $client = ['PhoneNumber' => '+375257182477', 'Password' => '7182470Dima', 'Passw
 
 $client = json_encode($client);
 
-    registerUser($client);
+//    registerUser($client);
 
 function registerUser($client){
     include "../../database/dbConnection.php";
@@ -41,36 +41,38 @@ function registerUser($client){
                         $query = "INSERT INTO users(PhoneNumber, Password, Surname, Name, Patronymic) VALUES ( '$phoneNumber', '$passwordHash', '$surname', '$name', '$patronymic')";
                         $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
 
-                        LogsRegAccepted($client);
+                        LogsWriteMessage("User ".$client["Name"]." ".$client["Surname"]." register");
 
                         return json_encode($client);
                     } else {
                         array_push($errorsArray, "Ошибка базы данных");
-                        LogsRegFailed("error in data base request");
+                        LogsWriteMessage("Registration user: error in data base request");
 
                         return json_encode($errorsArray);
                     }
                 } else {
                     array_push($errorsArray, "данный номер телефона уже зарегистирован, попробуйте другой");
-                    LogsRegFailed("This phone number is registred, try another");
+                    LogsWriteMessage("Registration user: this phone number is registred, try another");
 
                     return json_encode($errorsArray);
                 }
             }else{
-                array_push($errorsArray, "пароль должен состоять более чем из 6-ти символов английского алфавита(обязательно одна заглавная, цифры и строчные буквы) Пример: \"1234Te\"");
-                LogsRegFailed("the password must consist of more than 6 characters of the English alphabet (one uppercase, numbers and lowercase letters is required) Example: \"1234Te\"");
+                array_push($errorsArray, "пароль должен состоять более чем из 6-ти 
+                символов английского алфавита(обязательно одна заглавная, цифры и строчные буквы) Пример: \"1234Te\"");
+                LogsWriteMessage("Registration user: the password must consist of more than 6 
+                characters of the English alphabet (one uppercase, numbers and lowercase letters is required) Example: \"1234Te\"");
 
                 return json_encode($errorsArray);
             }
         } else {
             array_push($errorsArray, "Пароли не совпадают");
-            LogsRegFailed("Not equal passwords");
+            LogsWriteMessage("Registration user: not equal passwords");
 
             return json_encode($errorsArray);
         }
     }else {
         array_push($errorsArray, "Ошибка передачи данных");
-        LogsRegFailed("JSON object is empty");
+        LogsWriteMessage("Registration user: JSON object is empty");
 
         return json_encode($errorsArray);
     }
