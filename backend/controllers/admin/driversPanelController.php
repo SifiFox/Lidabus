@@ -1,38 +1,13 @@
 <?php
 //getDriversTable();
 
-$driver = json_encode(['PhoneNumber' => '+315422483654', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima', 'Name' => 'Driver', 'Surname' => 'Driver', 'Patronymic' => 'Driver']);
+$driver = json_encode(['PhoneNumber' => '+375212132450', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima', 'Name' => 'Driver', 'Surname' => 'Driver', 'Patronymic' => 'Driver']);
 
 //createDriver($driver);
 
-function getDriversTable(){
-    include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
-
-    $query = "SELECT * FROM users WHERE Role = 'Driver' ORDER BY ID";
-    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
-
-    if($result){
-        $data = array(); // в этот массив запишем то, что выберем из базы
-
-        while($row = mysqli_fetch_assoc($result)){ // оформим каждую строку результата
-            // как ассоциативный массив
-            $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
-        }
-
-        LogsWriteMessage("Getting drivers from user table is success");
-
-//        echo json_encode($data); // и отдаём как json
-        return json_encode($data);
-    }else{
-        LogsWriteMessage("Getting driver from user table is failed");
-
-        return json_encode("Ошибка при получении информации о водителях");
-    }
-}
-
 function createDriver($driver){
     include "../../database/dbConnection.php";
+    include "../rating/rating.php";
     include "../../utils/logger.php";
 
     $driver = json_decode($driver, true);
@@ -60,9 +35,22 @@ function createDriver($driver){
                         $query = "INSERT INTO users(PhoneNumber, Password, Surname, Name, Patronymic, Role) VALUES ( '$phoneNumber', '$passwordHash', '$surname', '$name', '$patronymic', '$role')";
                         $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
 
-                        LogsWriteMessage("driver ".$driver['Surname']." ".$driver['Name']." registred");
+                        if($result){
+                            $query = "SELECT @@IDENTITY";
+                            $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
+                            $row = $result->fetch_row();
+                            $driverID = $row[0] ?? false;
 
-                        return json_encode($driver);
+                            createRating($driverID);
+
+                            LogsWriteMessage("driver ".$driver['Surname']." ".$driver['Name']." registred");
+                            return json_encode($driver);
+                        }else{
+                            array_push($errorsArray, "Ошибка базы данных");
+                            LogsWriteMessage("Registration user: error in data base request");
+
+                            return json_encode($errorsArray);
+                        }
                     } else {
                         array_push($errorsArray, "ошибка базы данных");
                         LogsWriteMessage("Registration driver: error in data base request");
@@ -96,3 +84,28 @@ function createDriver($driver){
     }
 }
 
+function getDriversTable(){
+    include "../../database/dbConnection.php";
+    include "../../utils/logger.php";
+
+    $query = "SELECT * FROM users WHERE Role = 'Driver' ORDER BY ID";
+    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+
+    if($result){
+        $data = array(); // в этот массив запишем то, что выберем из базы
+
+        while($row = mysqli_fetch_assoc($result)){ // оформим каждую строку результата
+            // как ассоциативный массив
+            $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
+        }
+
+        LogsWriteMessage("Getting drivers from user table is success");
+
+//        echo json_encode($data); // и отдаём как json
+        return json_encode($data);
+    }else{
+        LogsWriteMessage("Getting driver from user table is failed");
+
+        return json_encode("Ошибка при получении информации о водителях");
+    }
+}

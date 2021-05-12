@@ -4,7 +4,7 @@
 //deletePromocodeAfterUsing("OBkoKe");
 function deletePromocodeAfterUsing($promocode){
     include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
+//    include "../../utils/logger.php";
 
     $promocodeID = getPromocodeID($promocode);
 
@@ -25,7 +25,7 @@ function deletePromocodeAfterUsing($promocode){
 //getPromocodeID("OBkoKe");
 function getPromocodeID($promocode){
     include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
+//    include "../../utils/logger.php";
 
     $query = "SELECT ID AS ID FROM promocodes WHERE Promocode = '$promocode'";
     $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
@@ -93,7 +93,7 @@ function getPromocodeID($promocode){
 
 function getPromocodeSale($promocode){
     include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
+//    include "../../utils/logger.php";
 
     $query = "SELECT Sale FROM promocodes WHERE Promocode = '$promocode'";
     $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));

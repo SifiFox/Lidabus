@@ -4,7 +4,7 @@
 //    header("Access-Control-Allow-Origin: *");
 
 //    $register = json_decode(file_get_contents('php://input'), true);
-$client = ['PhoneNumber' => '+375257182477', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima',
+$client = ['PhoneNumber' => '+345257182477', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima',
     'Name' => 'Dzmitry', 'Surname' => 'Ramantsevich', 'Patronymic' => 'Andreevich'];
 
 $client = json_encode($client);
@@ -13,6 +13,7 @@ $client = json_encode($client);
 
 function registerUser($client){
     include "../../database/dbConnection.php";
+    include "../rating/rating.php";
     include "../../utils/logger.php";
 
     $client = json_decode($client, true);
@@ -41,9 +42,22 @@ function registerUser($client){
                         $query = "INSERT INTO users(PhoneNumber, Password, Surname, Name, Patronymic) VALUES ( '$phoneNumber', '$passwordHash', '$surname', '$name', '$patronymic')";
                         $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
 
-                        LogsWriteMessage("User ".$client["Name"]." ".$client["Surname"]." register");
+                        if($result){
+                            $query = "SELECT @@IDENTITY";
+                            $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
+                            $row = $result->fetch_row();
+                            $userID = $row[0] ?? false;
 
-                        return json_encode($client);
+                            createRating($userID);
+
+                            LogsWriteMessage("User ".$client["Name"]." ".$client["Surname"]." register");
+                            return json_encode($client);
+                        }else{
+                            array_push($errorsArray, "Ошибка базы данных");
+                            LogsWriteMessage("Registration user: error in data base request");
+
+                            return json_encode($errorsArray);
+                        }
                     } else {
                         array_push($errorsArray, "Ошибка базы данных");
                         LogsWriteMessage("Registration user: error in data base request");
@@ -77,3 +91,4 @@ function registerUser($client){
         return json_encode($errorsArray);
     }
 }
+

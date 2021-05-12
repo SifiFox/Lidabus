@@ -24,7 +24,7 @@ function getAutoTable(){
 
 function getAutoSeatsNumberByID($autoID){
     include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
+//    include "../../utils/logger.php";
 
     $query = "SELECT SeatsNumber AS count FROM autos WHERE ID = $autoID";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));

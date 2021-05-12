@@ -1,65 +1,71 @@
 <?php
 
-$order = json_encode(['ID_User' => 20, 'ID_Auto' => 3, 'ID_Route' => 2, 'PassengerCount' => 3, 'ID_StartPoint' => 1, 'ID_EndPoint' => 7, 'Promocode' => 'ivcSOd', 'ID_PassengerSeat' => '2 12 11']);
+//$order = json_encode(['ID_User' => 20, 'ID_Auto' => 3, 'ID_Route' => 2, 'PassengerCount' => 3, 'ID_StartPoint' => 1, 'ID_EndPoint' => 7, 'Promocode' => 'ivcSOd', 'ID_PassengerSeat' => '2 12 11']);
 
+$order = json_encode(['ID_User' => 66, 'ID_Auto' => 3, 'ID_Route' => 1, 'PassengerCount' => 2, 'ID_StartPoint' => 1, 'ID_EndPoint' => 7, 'ID_PassengerSeat' => '2 3']);
 //setOrderByUserID($order);
 
 function setOrderByUserID($order){
     include "../../database/dbConnection.php";
     include "../auto/autoController.php";
     include "../../utils/logger.php";
+    include "../user/profile.php";
 
     $order = json_decode($order, true);
     $passengerCount = $order['PassengerCount'];
     $autoSeatsNumber = intval(getAutoSeatsNumberByID($order['ID_Auto']));
     $seatsNumberInRoute = intval(getSeatsNumberByRoute($order['ID_Route']));
+    $userID = $order['ID_User'];
 
-    if($autoSeatsNumber >= $seatsNumberInRoute + $passengerCount){
-        $userID = $order['ID_User'];
-        $autoID = $order['ID_Auto'];
-        $routeID = $order['ID_Route'];
-        $startPointID = $order['ID_StartPoint'];
-        $endPointID = $order['ID_EndPoint'];
-        $cost = getOrderCostByPassengerCount($userID, $passengerCount, $order['Promocode']);
-        $passengerSeatsNumber = $order['ID_PassengerSeat'];
+    if(isUserActive($userID)){
+        if($autoSeatsNumber >= $seatsNumberInRoute + $passengerCount){
+            $autoID = $order['ID_Auto'];
+            $routeID = $order['ID_Route'];
+            $startPointID = $order['ID_StartPoint'];
+            $endPointID = $order['ID_EndPoint'];
+            $cost = getOrderCostByPassengerCount($userID, $passengerCount, $order['Promocode']);
+            $passengerSeatsNumber = $order['ID_PassengerSeat'];
 
-        if(isEmptyPassengerSeat($routeID, $passengerSeatsNumber)){
-            $query = "INSERT INTO orders(ID_User, ID_Route, PassengerCount, ID_StartPoint, ID_EndPoint, Cost)
+            if(isEmptyPassengerSeat($routeID, $passengerSeatsNumber)){
+                $query = "INSERT INTO orders(ID_User, ID_Route, PassengerCount, ID_StartPoint, ID_EndPoint, Cost)
                         VALUES($userID, $routeID, $passengerCount, $startPointID, $endPointID, $cost)";
-            $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
+                $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
 
-            if($result){
-                $query = "SELECT @@IDENTITY";
-                $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
-                $row = $result->fetch_row();
-                $orderID= $row[0] ?? false;
+                if($result){
+                    $query = "SELECT @@IDENTITY";
+                    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+                    $row = $result->fetch_row();
+                    $orderID= $row[0] ?? false;
 
-                setPassengerSeat($orderID, $passengerSeatsNumber);
+                    setPassengerSeat($orderID, $passengerSeatsNumber);
 //                echo "Бронь оформлена, ожидайте поездки";
-                LogsWriteMessage("Reservation made, expect a trip");
-            }else{
+                    LogsWriteMessage("Reservation made, expect a trip");
+                }else{
 //                echo "Ошибка при внесении данных в таблицу заказов";
-                LogsWriteMessage("Error while entering data into the table of orders");
+                    LogsWriteMessage("Error while entering data into the table of orders");
+                }
+            }else{
+//            echo "22222";
+                LogsWriteMessage("Seats are reserved, let the user select free seats");
             }
         }else{
-//            echo "22222";
-            LogsWriteMessage("Let the user select free seats");
+            if($autoSeatsNumber - $seatsNumberInRoute > 0){
+//            echo "Забронируйте меньшее количество. Вы заказали: ".$passengerCount.". Количество свободны мест: ".($autoSeatsNumber - $seatsNumberInRoute);
+                LogsWriteMessage("Book less. You ordered: ". $passengerCount.". Number of free seats: ".($autoSeatsNumber - $seatsNumberInRoute));
+            }
+            else{
+//            echo "Нет свободных мест";
+                LogsWriteMessage("No free places");
+            }
         }
     }else{
-        if($autoSeatsNumber - $seatsNumberInRoute > 0){
-//            echo "Забронируйте меньшее количество. Вы заказали: ".$passengerCount.". Количество свободны мест: ".($autoSeatsNumber - $seatsNumberInRoute);
-            LogsWriteMessage("Book less. You ordered: ". $passengerCount.". Number of free seats: ".($autoSeatsNumber - $seatsNumberInRoute));
-        }
-        else{
-//            echo "Нет свободных мест";
-            LogsWriteMessage("No free places");
-        }
+        LogsWriteMessage("You are blocked, you can't order a trip");
     }
 }
 //isEmptyPassengerSeat(2, '2 12 13');
 function isEmptyPassengerSeat($routeID, $passengerSeatsNumber){
     include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
+//    include "../../utils/logger.php";
 
     $isSetPassengerSeat = true;
     $occupiedSeatNumber = array();
@@ -97,7 +103,7 @@ function isEmptyPassengerSeat($routeID, $passengerSeatsNumber){
 
 function setPassengerSeat($orderID, $passengerSeatsNumber){
     include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
+//    include "../../utils/logger.php";
 
     $passengerSeatsNumber = explode(" ", $passengerSeatsNumber);
     foreach($passengerSeatsNumber as $number){
@@ -139,7 +145,7 @@ function getCompletedOrdersByUserID($userID){
 //getSeatsNumberByRoute(1);
 function getSeatsNumberByRoute($routeID){
     include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
+//    include "../../utils/logger.php";
 
     $query = "SELECT SUM(o.PassengerCount) AS seatsNumber FROM orders o
                 WHERE o.ID_Route = $routeID";
@@ -163,7 +169,7 @@ function getSeatsNumberByRoute($routeID){
 //getOrderCostByPassengerCount(19,3, "ADMIN");
 function getOrderCostByPassengerCount($userID, $passengerCount, $promocode)  {
     include("../promocode/promocodeController.php");
-    include "../../utils/logger.php";
+//    include "../../utils/logger.php";
 
     $cost = 0;
 
