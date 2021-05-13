@@ -1,46 +1,112 @@
 <?php
-function acceptRouteByDriver(){
-    include "../../database/dbConnection.php";
-//    include "../../utils/logger.php";
+//echo date("Y/m/d/H/i");
+//var_dump(time_range(10800, 66600));
 
-//    $query = "SELECT routes.ID, routes.ID_Auto, routes.Status,
-//                    autos.ID, drivers.ID, auto_driver.ID_Auto, auto_driver.ID_Driver
-//              FROM routes, autos, drivers, auto_driver
-//              WHERE "
+//$datetime = date_create()->format('Y-m-d');
+//echo($datetime);
+//$date = date("h:i",strtotime("23:40"));
+//$date2 = date_create()->format('h:i');
+//if($date == $date2){
+//    echo "123";
+//    }
 
-    $driverID = $_POST['driverID'];
-    $acceptRouteID = $_POST['acceptRouteID'];
-    $autoID = $_POST['autoID'];
 
-    if(isset($driverID)){
-        setAcceptedStatusInRouteByDriver($acceptRouteID);
+//$next_date = date('Y-m-d', strtotime(date("Y/m/d/") .' +1 day'));
 
-        $query = "INSERT INTO auto_driver(ID_Auto, ID_Driver) VALUES($autoID, $driverID)";
-        $result = mysqli_query($dbLink, $query) or die ("DB error".mysqli_error($dbLink));
+function generateTreepTime($start, $end, $step = 3600) {
+    $startTreepTime = array();
 
-        $message = 'success auto_driver set';
-    }
-    else{
-        $message = 'failed auto_driver';
-    }
+    for( $time = $start; $time <= $end; $time += $step )
+        $startTreepTime[] = date( 'H:i', $time );
 
-    echo $message;
+    return $startTreepTime;
 }
 
-function setAcceptedStatusInRouteByDriver($acceptRouteID){
+//getRoutesWithDependenciesByDate(date('Y-m-d'));
+//createRoutesForBothDestination(date('Y-m-d'));
+
+function getRoutesWithDependenciesByDate($date){
     include "../../database/dbConnection.php";
-//    include "../../utils/logger.php";
+    include "../../utils/logger.php";
 
-    if(isset($acceptRouteID)){
-        $setStatusQuery = "UPDATE routes SET Status = 'Accepted' 
-                            WHERE ID = $acceptRouteID";
+    $query = "SELECT r.Destination, r.StartTreepTime, r.EndTreepTime,
+                    a.Mark, a.Model, a.GovernmentNumber, a.Color,
+                    u.PhoneNumber, u.Name FROM routes r
+                JOIN autos a ON a.ID = r.ID_Auto
+                JOIN drivers_autos da ON da.ID_Auto = a.ID
+                JOIN users u ON u.ID = da.ID_Driver
+                WHERE r.Date = '$date'
+                ORDER BY r.StartTreepTime, r.Destination";
+    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
-        $result = mysqli_query($dbLink, $setStatusQuery) or die ("DB error".mysqli_error($dbLink));
-        $message = 'success set accept status in route by driver';
+    if($result) {
+        $data = array(); // в этот массив запишем то, что выберем из базы
+
+        while ($row = mysqli_fetch_assoc($result)) { // оформим каждую строку результата
+            // как ассоциативный массив
+            $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
+        }
+//        var_dump(json_encode($data));  // и отдаём как json
+        LogsWriteMessage("Getting routes table is succesfully received");
+        return json_encode($data);
+    }else{
+        LogsWriteMessage("Error retrieving route information");
+        return json_encode("Ошибка при получении информации о маршрутах");
     }
-    else{
-        $message = "error set accept status in route by driver";
-    }
+}
 
-    echo $message;
+function createRoutesForBothDestination($date){//проверка на то существуют ли маршруты на $date, если их нет, то создаем
+    include "../../utils/logger.php";
+
+    $routesByDate = json_decode(getRoutesByDate($date));
+
+    if(count($routesByDate) == 32){
+//        echo ("Маршруты на ".$date." уже назначены");
+        LogsWriteMessage("Routes to ".$date." already appointed");
+        return json_encode("Маршруты на ".$date." уже назначены");
+    }else{
+        $id_autos_to_lida = [1, 3, 5, 7, 2, 4, 6, 8, 1, 3, 5, 7, 2, 4, 6, 8];
+        $id_auto_to_minsk = [2, 4, 6, 8, 1, 3, 5, 7, 2, 4, 6, 8, 1, 3, 5, 7];
+        $startTreepTime = generateTreepTime(10800, 66600);
+        $endTreepTime = generateTreepTime(19800, 73800);
+
+        createRoutesForOneDestination($id_autos_to_lida, $date,'Лида', $startTreepTime, $endTreepTime);
+        createRoutesForOneDestination($id_auto_to_minsk,$date, 'Минск', $startTreepTime, $endTreepTime);
+
+//        echo "Маршруты на ".$date." созданы";
+        LogsWriteMessage("Routes to ".$date." already created");
+        return json_encode("Маршруты на ".$date." созданы");
+    }
+}
+
+function createRoutesForOneDestination($id_auto, $date, $destination, $startTreepTime, $endTreepTime){// minsk or lida
+    include "../../database/dbConnection.php";
+
+    for($i = 0; $i < count($startTreepTime); $i++){
+        $query = "INSERT INTO routes(ID_Auto, Date, Destination, StartTreepTime, EndTreepTime) 
+                    VALUES ($id_auto[$i], '$date', '$destination', '$startTreepTime[$i]', '$endTreepTime[$i]')";
+        $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
+    }
+}
+
+function getRoutesByDate($date){
+    include "../../database/dbConnection.php";
+    include "../../utils/logger.php";
+
+    $query = "SELECT * FROM routes WHERE Date = '$date'";
+    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+
+    if($result) {
+        $data = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+
+        LogsWriteMessage("Getting routes table by date ".$date." is succesfully received");
+        return json_encode($data);
+    }else{
+        LogsWriteMessage("Error retrieving route information");
+        return json_encode("Ошибка при получении информации о маршрутах");
+    }
 }
