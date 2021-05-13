@@ -4,7 +4,6 @@ import '../src/reset.css'
 import '../src/scss/_fonts.scss'
 import '../src/scss/modal.scss'
 import '../src/scss/general.scss'
-import axios from "axios";
 
 import $ from "jquery"
 
@@ -12,7 +11,7 @@ import $ from "jquery"
 import InnerMenu from "./Components/InnerMenu";
 import Nav from "../src/Components/Header"
 import Main from "./Components/Main";
-import {Route,  Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import Booking from "./Components/Booking";
 import Help from "./Components/Help";
 import Footer from "./Components/Footer";
@@ -21,7 +20,6 @@ import Footer from "./Components/Footer";
 
 import LoginModal from "./Components/LoginModal";
 import RegisterModal from "./Components/RegisterModal";
-import context from "react-router/modules/RouterContext";
 import Profile from "./Components/Profile";
 
 
@@ -30,100 +28,120 @@ import Profile from "./Components/Profile";
 function App() {
 
 
-    const [phoneNumber, setPhoneNumber] = useState({
-        phoneNumber: ''
+    const [PhoneNumber, setPhoneNumber] = useState({
+        PhoneNumber: ''
     })
 
-    const [password, setPassword] = useState({
+    const [Password, setPassword] = useState({
         password: ''
     })
 
-    const [passwordConfirm, setPasswordConfirm] = useState({
+    const [PasswordConfirm, setPasswordConfirm] = useState({
         passwordConfirm: ''
     })
 
-    const [name, setName] = useState({
-        name: ''
+    const [Name, setName] = useState({
+        Name: ''
     })
 
+    const [Surname, setSurname] = useState({
+        Surname: ''
+    })
 
-    const registerCompile = () => {
-        const dataComp = {
-            name,
-            phoneNumber,
-            password,
-            passwordConfirm
-        }
-
-
-
-        console.log(dataComp);
-    }
-
-
-    useEffect(() => {
-        loadData()
-    }, [])
-
-    const loadData = () => {
-        fetch("http://lidabusdiplom.by/")
-            .then(response => {
-               console.log(response)
-            })
-    }
-
+    const [Patronymic, setPatronymic] = useState({
+        Patronymic: ''
+    })
 
     const [modal, setModal] = useState({
         LoginModal: false,
         RegisterModal: false
     })
 
+    const [auth, setAuth] = useState({
+        isAuth: false
+    })
+
 
 
       async function loginTest() {
           let item = {
-              phoneNumber,
-              password
+              PhoneNumber,
+              Password,
+              Name,
           };
           let url = "http://lidabusdiplom.by/controllers/user/authorizationController.php"
 
           $.ajax({
-              type: 'POST',
+              type: 'GET',
               url: url,
               data: {auth: JSON.stringify(item)},
-              dataType: 'json'
-          });
+              dataType: 'json',
+              complete: function (response){
+                  let obj = JSON.parse(response.responseText);
+
+                  console.log(obj);
+
+
+                  setPhoneNumber(obj.PhoneNumber);
+                  setName(obj.Name);
+                  setSurname(obj.Surname);
+                  setPatronymic(obj.Patronymic);
+
+
+
+                  localStorage.setItem('PhoneNumber', obj.PhoneNumber);
+                  localStorage.setItem('Name', obj.Name);
+                  localStorage.setItem('Surname', obj.Surname) ;
+                  localStorage.setItem('Patronymic', obj.Patronymic);
+
+                  console.log('obj number ' + obj.PhoneNumber);
+                  console.log('obj Name ' + obj.Name);
+
+
+                  console.log(localStorage.getItem("Name"))
+                  console.log(localStorage.getItem("PhoneNumber"))
+                  console.log(localStorage.getItem("Surname"))
+                  console.log(localStorage.getItem("Patronymic"))
+
+                  setAuth(true);
+                  setModal(LoginModal, false)
+              }
+          }).done(function (){
+              alert('Вы успешно авторизированы');
+          })
+
+          console.log(auth);
+
+
     }
 
     function registerTest(){
         let item = {
-            name,
-            phoneNumber,
-            password,
-            passwordConfirm
+            PhoneNumber,
+            Password,
+            PasswordConfirm,
+            Name,
+            Surname,
+            Patronymic
         };
-
         let url = "http://lidabusdiplom.by/controllers/user/registerController.php"
 
         $.ajax({
+            xhrFields: {cors: false},
+            mode: "no-cors",
             type: 'POST',
             url: url,
             data: {register: JSON.stringify(item)},
-            dataType: 'json'
-        });
+            dataType: 'json',
+        })
+
     }
 
 
     return (
         <>
 
-        <InnerMenu
-            loginToggle={() => setModal({
-                ...modal,
-                LoginModal: true,
-            })
-            }
-        />
+
 
         <Nav/>
 
@@ -152,9 +170,17 @@ function App() {
                 e.preventDefault();
                 setPhoneNumber(e.target.value);
                 setPassword(e.target.value);
-                // loginCompile();
                 loginTest();
+
+                console.log(localStorage.getItem('Surname'))
+
+                var inputs = document.querySelectorAll('input[type=text], input[type=password]');
+                for (var i = 0;  i < inputs.length; i++) {
+                    inputs[i].value = '';
+                };
             }}
+
+
 
             phoneNumberHandler={
                 (e) => {
@@ -179,10 +205,7 @@ function App() {
             }
         )}
 
-        nameHandler={
-            (e) => {
-                setName(e.target.value)
-            }}
+
 
         phoneNumberHandler={
             (e) => {
@@ -199,13 +222,31 @@ function App() {
                 setPasswordConfirm(e.target.value)
             }}
 
+        nameHandler={
+            (e) => {
+                setName(e.target.value)
+            }}
+
+        surnameHandler={
+            (e) => {
+                setSurname(e.target.value)
+            }}
+
+        patronymicHandler={
+            (e) => {
+                setPatronymic(e.target.value)
+            }}
+
+
         enterClick={(e) =>{
             console.log('enter click')
             e.preventDefault();
-            setName(e.target.value);
             setPhoneNumber(e.target.value);
             setPassword(e.target.value);
             setPasswordConfirm(e.target.value);
+            setName(e.target.value);
+            setSurname(e.target.value);
+            setPatronymic(e.target.value);
             registerTest();
             // registerCompile();
         }}
@@ -217,6 +258,16 @@ function App() {
             }
         )}
         />
+
+
+            <InnerMenu
+                loginToggle={() => setModal({
+                    ...modal,
+                    LoginModal: true,
+                })
+                }
+
+            />
 
         <div className="auth-wrapper">
             <div className="auth-inner">

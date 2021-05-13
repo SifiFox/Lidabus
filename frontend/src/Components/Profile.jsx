@@ -4,8 +4,22 @@ import "../scss/profile.scss"
 
 import profile from "../img/profile.png"
 import ProfileCards from "./ProfileCards";
+import {Route} from "react-router";
+import {useHistory} from "react-router-dom";
+
+
 
 function Profile(){
+
+    const history = useHistory();
+
+    function testHistory(){
+            history.push("/");
+            localStorage.clear();
+    }
+
+
+
     return(
         <div className="profile--wrapper">
             <div className="info--title">
@@ -21,8 +35,8 @@ function Profile(){
                         </div>
 
                         <div className="profile--nav--left--desc">
-                            <p>Антонович Дмитрий Анатольевич</p>
-                            <p>+375(33)444-55-66</p>
+                            <p>{localStorage.getItem('Surname')} {localStorage.getItem('Name')} {localStorage.getItem('Patronymic')}</p>
+                            <p>{localStorage.getItem('PhoneNumber')}</p>
                         </div>
 
                     </div>
@@ -31,7 +45,9 @@ function Profile(){
                         <button className="edit">
                             редактировать
                         </button>
-                        <button className="primary--button">
+                        <button className="primary--button"
+                            onClick={testHistory}>
+
                             Выйти
                         </button>
                     </div>

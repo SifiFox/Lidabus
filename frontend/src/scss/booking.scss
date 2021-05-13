@@ -5,8 +5,20 @@
 
 .output--header{
   display: flex;
-  justify-content: space-between;
-  width: 50%;
-  margin-left: 6.5vw;
   font-family: BAHNSCHRIFT;
+  margin-top: 90px;
+}
+.subTitle{
+  padding-top: 0!important;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.output--date--day{
+    font-size: 48px;
+  text-align: center;
+}
+.output--date--month{
+  text-align: center;
+  font-size: 24px;
 }

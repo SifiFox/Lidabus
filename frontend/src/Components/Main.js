@@ -24,6 +24,7 @@ function Main(){
                         пассажирские перевозки
                         Лида-Минск/Минск-Лида
                     </p>
+
                 </div>
 
                 <div className="main--offer--sub--right">
