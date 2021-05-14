@@ -7,6 +7,7 @@ $authUser = json_encode(['PhoneNumber' => '+375257182477', 'Password' => '718247
 
 function authorizationUser($authUser){
     include "../../database/dbConnection.php";
+    include "../user/profile.php";
     include "../../utils/logger.php";
 
     $authUser = json_decode($authUser, true);
@@ -16,18 +17,14 @@ function authorizationUser($authUser){
         $phoneNumber = $authUser["PhoneNumber"];
         $password = $authUser["Password"];
 
-        $query = "SELECT * FROM users WHERE PhoneNumber = '$phoneNumber'";
-        $result = mysqli_query($dbLink, $query) or die ("Database error");
-
-        $resultRow = mysqli_fetch_assoc($result);
-        var_dump($resultRow);
+        $resultRow = getUserByPhoneNumber($phoneNumber);
+//        var_dump($resultRow);
 
         if(!empty($resultRow["ID"])){
             if($resultRow["PhoneNumber"] == $phoneNumber){
                 if($resultRow["Password"] == md5($password).$salt){
                     if($resultRow["Status"] == "Active"){
                         LogsWriteMessage("User ".$resultRow["Name"]." ".$resultRow["Surname"]." is login");
-
                         return json_encode($resultRow);
                     }else{
                         array_push($errorsArray, 'Вы заблокированы');
@@ -50,8 +47,8 @@ function authorizationUser($authUser){
             return json_encode($errorsArray);
         }
     }else{
-        array_push($errorsArray, "Такого пользователя не сущесвует");
-        LogsWriteMessage("Authorization: this user is not registred");
+        array_push($errorsArray, "введите данные");
+        LogsWriteMessage("Authorization: enter the data");
         return json_encode($errorsArray);
     }
 }

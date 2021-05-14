@@ -14,6 +14,7 @@ $client = json_encode($client);
 function registerUser($client){
     include "../../database/dbConnection.php";
     include "../rating/rating.php";
+    include "profile.php";
     include "../../utils/logger.php";
 
     $client = json_decode($client, true);
@@ -23,14 +24,11 @@ function registerUser($client){
         $errorsArray = array();
         $password = $client["Password"];
         $passwordConfirm = $client["PasswordConfirm"];
+        $phoneNumber = $client["PhoneNumber"];
 
         if ($password == $passwordConfirm && $password != null) {
             if (preg_match($regPassword, $password)) {
-                $phoneNumber = $client["PhoneNumber"];
-                $query = "SELECT PhoneNumber FROM users WHERE PhoneNumber = '$phoneNumber'";
-                $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
-
-                $resultPhoneNumberRow = mysqli_fetch_row($result);
+                $resultPhoneNumberRow = getPhoneNumber($phoneNumber);
 
                 if (empty($resultPhoneNumberRow[0])) {
                     if (empty($errorsArray)) {

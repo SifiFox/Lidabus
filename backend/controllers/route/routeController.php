@@ -46,7 +46,7 @@ function getRoutesWithDependenciesByDate($date){
             // как ассоциативный массив
             $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
         }
-//        var_dump(json_encode($data));  // и отдаём как json
+        var_dump(json_encode($data));  // и отдаём как json
         LogsWriteMessage("Getting routes table is succesfully received");
         return json_encode($data);
     }else{
@@ -56,7 +56,7 @@ function getRoutesWithDependenciesByDate($date){
 }
 
 function createRoutesForBothDestination($date){//проверка на то существуют ли маршруты на $date, если их нет, то создаем
-    include "../../utils/logger.php";
+//    include "../../utils/logger.php";
 
     $routesByDate = json_decode(getRoutesByDate($date));
 
@@ -91,7 +91,6 @@ function createRoutesForOneDestination($id_auto, $date, $destination, $startTree
 
 function getRoutesByDate($date){
     include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
 
     $query = "SELECT * FROM routes WHERE Date = '$date'";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));

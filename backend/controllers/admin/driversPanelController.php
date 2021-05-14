@@ -8,20 +8,18 @@ $driver = json_encode(['PhoneNumber' => '+375212132450', 'Password' => '7182470D
 function createDriver($driver){
     include "../../database/dbConnection.php";
     include "../rating/rating.php";
+    include "../user/profile.php";
     include "../../utils/logger.php";
 
     $driver = json_decode($driver, true);
     $regPassword = "/^[%?^#$]?(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/";//* любое число раз подряд или отсутствовать
     $errorsArray = array();
+    $phoneNumber = $driver["PhoneNumber"];
 
     if (!empty($driver)) {
         if ($driver["Password"] == $driver["PasswordConfirm"] && $driver["Password"] != null) {
             if (preg_match($regPassword, $driver["Password"])) {
-                $phoneNumber = $driver["PhoneNumber"];
-                $query = "SELECT PhoneNumber FROM users WHERE PhoneNumber = '$phoneNumber'";
-                $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
-
-                $resultPhoneNumberRow = mysqli_fetch_row($result);
+                $resultPhoneNumberRow = getPhoneNumber($phoneNumber);
 
                 if (empty($resultPhoneNumberRow[0])) {
                     if (empty($errorsArray)) {
@@ -42,6 +40,7 @@ function createDriver($driver){
                             $driverID = $row[0] ?? false;
 
                             createRating($driverID);
+                            setDriverToDriversAutos($driverID, 9);
 
                             LogsWriteMessage("driver ".$driver['Surname']." ".$driver['Name']." registred");
                             return json_encode($driver);
@@ -84,6 +83,28 @@ function createDriver($driver){
     }
 }
 
+//$object = json_encode(['ID_Driver' => n, 'ID_Auto' => n]);
+function assignDriverToAuto($object){
+    include "../../database/dbConnection.php";
+    include "../../utils/logger.php";
+
+    $object = json_decode($object, true);
+    $driverID = $object["ID_Driver"];
+    $autoID = $object["ID_Auto"];
+
+    $query = "UPDATE drivers_autos SET ID_Auto = $autoID
+                WHERE ID_Driver = $driverID";
+    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+
+    if($result){
+        LogsWriteMessage("Driver assigned to car");
+        return json_encode("Машина назначена водителю");
+    }else{
+        LogsWriteMessage("DB error in assign driver to Auto");
+        return json_encode("Ошибка базы данных при назначении машины водителю");
+    }
+}
+
 function getDriversTable(){
     include "../../database/dbConnection.php";
     include "../../utils/logger.php";
@@ -107,5 +128,18 @@ function getDriversTable(){
         LogsWriteMessage("Getting driver from user table is failed");
 
         return json_encode("Ошибка при получении информации о водителях");
+    }
+}
+
+function setDriverToDriversAutos($driverID, $autoID){
+    include "../../database/dbConnection.php";
+
+    $query = "INSERT INTO drivers_autos(ID_Driver, ID_Auto) VALUES ($driverID, $autoID)";
+    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+
+    if($result){
+        LogsWriteMessage("Driver setting into drivers_autos is success");
+    }else{
+        LogsWriteMessage("DB error to insert driver into drivers_autos table");
     }
 }
