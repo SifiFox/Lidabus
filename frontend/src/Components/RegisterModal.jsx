@@ -7,6 +7,9 @@ import cross from "../img/cross.png";
 const Fade = styled.div`animation: 0.3s ${keyframes`${fadeIn}`} 1`;
 
 
+//    $register = json_decode(file_get_contents('php://input'), true);
+//$client = ['PhoneNumber' => '+375257182477', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima',
+//    'Name' => 'Dzmitry', 'Surname' => 'Antatovich', 'Patronymic' => 'Andreevich'];
 
 
 const RegisterModal = props => {
@@ -24,44 +27,45 @@ const RegisterModal = props => {
 
                         <Fade>
 
-
                         <div className="modal--desc">
                             <h2>{props.title}</h2>
                         </div>
 
                         <form className="modal--input" method="post"
-                              onSubmit={props.enterClick}
-                        >
-
-                            <div className="input--wrapper">
-                                <input id='name' type="text" className="form--input" placeholder="Ваше имя"
-                                       onChange={e => props.nameHandler(e)}
-                                />
-                            </div>
+                              onSubmit={props.enterClick}>
 
                             <div className="input--wrapper">
                                 <input id='phoneNumber' type="text" className="form--input" placeholder="Номер телефона"
-                                       onChange={e => props.phoneNumberHandler(e)}
-                                />
+                                       onChange={e => props.phoneNumberHandler(e)}/>
                             </div>
 
                             <div className="input--wrapper">
                                 <input type="password" className="form--input" placeholder="Пароль"
-                                       onChange={e => props.passwordHandler(e)}
-                                />
+                                       onChange={e => props.passwordHandler(e)}/>
                             </div>
 
                             <div className="input--wrapper">
                                 <input type="password" className="form--input" placeholder="Подтвердить пароль"
-                                       onChange={e => props.passwordConfirmHandler(e)}
-                                />
+                                       onChange={e => props.passwordConfirmHandler(e)}/>
                             </div>
 
+                            <div className="input--wrapper">
+                                <input id='name' type="text" className="form--input" placeholder="Ваше имя"
+                                       onChange={e => props.nameHandler(e)}/>
+                            </div>
+
+                            <div className="input--wrapper">
+                                <input id='surname' type="text" className="form--input" placeholder="Ваша фамилия"
+                                       onChange={e => props.surnameHandler(e)}/>
+                            </div>
+
+                            <div className="input--wrapper">
+                                <input id='patronymic' type="text" className="form--input" placeholder="Ваше отчество"
+                                       onChange={e => props.patronymicHandler(e)}/>
+                            </div>
 
                             <div className="reg--navigate">
-                                <button className='reg--button'
-
-                                >
+                                <button className='reg--button'>
                                     Зарегистрироваться
                                 </button>
 

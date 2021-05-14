@@ -32,17 +32,22 @@ function BookingOutput(){
 
     return(
         <div className="output--header">
-            <div className="output--date"
-                 dayPickerProps={dayPickerProps}
-                 formatDate={formatDate}
-                 format="LL"
+            <div className="date">
+                <div className="output--date--day"
+                     dayPickerProps={dayPickerProps}
+                     formatDate={formatDate}
+                     format="LL"
 
-                 placeholder={`${formatDate(today, 'LL', 'ru')}`}>
-                {dayPickerProps.localeUtils.formatDate(today, 'DD', 'ru')}
+                     placeholder={`${formatDate(today, 'LL', 'ru')}`}>
+                    {dayPickerProps.localeUtils.formatDate(today, 'DD', 'ru')}
+                </div>
+                <div className="output--date--month">
+                    {moment().format("MMMM", 'ru')}
+                </div>
             </div>
 
-            {moment().format("MMMM", 'ru')}
-            <h2 className="info--title">Ближайшие</h2>
+
+            <h2 className="info--title subTitle">Ближайшие</h2>
 
 
             <div className="test">

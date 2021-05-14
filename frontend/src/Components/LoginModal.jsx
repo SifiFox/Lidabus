@@ -1,6 +1,6 @@
 import "../scss/modal.scss"
 
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 import cross from '../img/cross.png'
 
@@ -11,7 +11,16 @@ const Fade = styled.div`animation: 0.3s ${keyframes`${fadeIn}`} 1`;
 
 
 
+
 const LoginModal = props => {
+
+    const history = useHistory();
+
+    function testHistory(){
+       if(localStorage.getItem("Name")){
+           history.push("/profile");
+       }
+    }
 
 
     return(
@@ -50,7 +59,7 @@ const LoginModal = props => {
 
                         <div className="regAuth--navigate">
                             <button className='main--button'
-                            >
+                                    onClick={testHistory}>
                                 Войти
                             </button>
 

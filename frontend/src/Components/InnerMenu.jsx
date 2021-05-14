@@ -1,8 +1,12 @@
 import React from 'react'
 import '../scss/InnerMenu.scss'
+
+
 import ask from '../img/ask.png'
 import call from '../img/call.png'
-import {Link} from "react-router-dom";
+import profile from '../img/profile.png'
+
+import {Link, useHistory} from "react-router-dom";
 import  { useState } from 'react'
 
 
@@ -14,6 +18,33 @@ function InnerMenu(props){
     })
 
 
+    const history = useHistory();
+
+    function testHistory(props){
+        if(localStorage.getItem("Name")){
+            history.push("/profile");
+        }
+
+    }
+
+    {/*<div className="menu--right--top">*/}
+    {/*    <div className="round">*/}
+    {/*        <button  className="menu--profile--link"*/}
+
+    {/*                 onClick={props.loginToggle} >*/}
+    {/*            /!*вход*!/*/}
+
+    {/*            <Link to={'/profile'}>*/}
+    {/*                <img src={profile} alt=""*/}
+    {/*                     width={35} height={40}*/}
+    {/*                />*/}
+    {/*            </Link>*/}
+
+    {/*        </button>*/}
+
+    {/*    </div>*/}
+    {/*</div>*/}
+
 
      return(
         <div className="menu--right">
@@ -21,13 +52,24 @@ function InnerMenu(props){
 
                 <div className="menu--right--top">
                     <div className="round">
-                        <button  className="menu--profile--link"
-                                 onClick={props.loginToggle} >
-                            вход
-                        </button>
-
+                        {
+                         localStorage.getItem("Name")
+                             ?
+                             <button  className="menu--profile--link"
+                                      onClick={testHistory}>
+                                 <img src={profile} alt=""
+                                      width={35} height={40}/>
+                             </button>
+                             :
+                             <button  className="menu--profile--link"
+                                      onClick={props.loginToggle}>
+                                 <img src={profile} alt=""
+                                      width={35} height={40}/>
+                             </button>
+                        }
                     </div>
                 </div>
+
 
 
                 <div className={`menu--right--down ${visible ? 'closed' : 'opened'}`}

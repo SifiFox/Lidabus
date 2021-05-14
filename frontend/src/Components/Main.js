@@ -3,7 +3,6 @@ import buspic from '../img/buspic.png'
 import '../scss/main.scss'
 import {Link} from "react-router-dom";
 import Trust from "./Trust";
-import Advantages from "./Advantages";
 
 function Main(){
     return(
@@ -24,6 +23,7 @@ function Main(){
                         пассажирские перевозки
                         Лида-Минск/Минск-Лида
                     </p>
+
                 </div>
 
                 <div className="main--offer--sub--right">
@@ -37,7 +37,6 @@ function Main(){
         </div>
 
         <Trust/>
-        <Advantages/>
 
     </>
     )
