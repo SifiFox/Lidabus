@@ -8,9 +8,9 @@ authorizationUser($authUser);
 
 function authorizationUser($authUser){
     include "../../database/dbConnection.php";
-    include "../user/profile.php";
     include "../rating/rating.php";
     include "../../utils/logger.php";
+    include "../user/get.php";
 
     $errorsArray = array();
 

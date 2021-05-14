@@ -9,7 +9,6 @@ function setOrderByUserID($order){
     include "../../database/dbConnection.php";
     include "../auto/autoController.php";
     include "../../utils/logger.php";
-    include "../user/profile.php";
 
     $order = json_decode($order, true);
     $passengerCount = $order['PassengerCount'];
@@ -62,6 +61,38 @@ function setOrderByUserID($order){
         LogsWriteMessage("You are blocked, you can't order a trip");
     }
 }
+
+function isUserActive($userID){
+    include "../../database/dbConnection.php";
+
+    $isUserActive = false;
+
+    $query = "SELECT Status AS status FROM users WHERE ID = $userID";
+    $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
+
+    if($result){
+        $status = '';
+
+        while($row = $result -> fetch_object()){
+            $status = $row -> status;
+        }
+
+        if($status == 'Active'){
+            $isUserActive = true;
+            LogsWriteMessage("User is active");
+            return $isUserActive;
+        }else{
+            $isUserActive = false;
+            LogsWriteMessage("User is blocked");
+            return $isUserActive;
+        }
+    }else{
+        $isUserActive = false;
+        LogsWriteMessage("Database error");
+        return $isUserActive;
+    }
+}
+
 //isEmptyPassengerSeat(2, '2 12 13');
 function isEmptyPassengerSeat($routeID, $passengerSeatsNumber){
     include "../../database/dbConnection.php";

@@ -1,8 +1,11 @@
 <?php
-//updatePassword($object);
+header("Access-Control-Allow-Origin: *");
+
+$object = json_decode($_POST['updatePassword'], true);
+updatePassword($object);
 function updatePassword($object){
     include "../../database/dbConnection.php";
-    include "profile.php";
+    include "../user/get.php";
     include "../../utils/logger.php";
 
     $object = json_decode($object, true);

@@ -7,8 +7,9 @@ update($object);
 function update($object){
     include "../../database/dbConnection.php";
     include "../../utils/logger.php";
+    include "../user/get.php";
 
-    $userDataFromDB = getUserByPhoneNumber($object["PhoneNumber"]);
+    $userDataFromDB = getUserByID($object["ID"]);
 
     if($object["NewPhoneNumber"] != $userDataFromDB["PhoneNumber"]){
         updatePhoneNumber($object["NewPhoneNumber"]);
@@ -24,39 +25,9 @@ function update($object){
     }
 }
 
-//$object = json_encode(['ID_Order' => 73]);
-//cancelOrderByUser($object);
-// хз в какой файл определить
-function cancelOrderByUser($object){
-    include "../../database/dbConnection.php";
-
-    $orderID = $object['ID_Order'];
-
-    $query = "UPDATE orders SET Status = 'Отменена пользователем' 
-                WHERE ID = $orderID AND Status = 'Ожидание посадки'";
-    $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
-
-    if($result){
-        $query = "DELETE FROM orders_passengerseats WHERE ID_Order = $orderID";
-        $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
-        if($result){
-            LogsWriteMessage("Trip is cancelled");
-        }else{
-            LogsWriteMessage("db error");
-        }
-    }else{
-        LogsWriteMessage("Error database");
-    }
-}
-
-//редактирование
-//$object = json_encode(['ID_User' => 49, 'PhoneNumber' => '+375447432624', 'OldPassword' => '7182470Dima',
-//    'NewPassword' => '1234123Diana', 'PasswordConfirm' => '1234123Diana', 'NewSurname' => 'Skoromnikova',
-//    'NewName' => 'Diana', 'NewPatronymic' => 'Igorevna']);
-//updatePhoneNumber($object);
 function updatePhoneNumber($object){
     include "../../database/dbConnection.php";
-    include "profile.php";
+    include "get.php";
 
     $userID = $object['ID_User'];
     $newPhoneNumber = $object['PhoneNumber'];
@@ -79,7 +50,6 @@ function updatePhoneNumber($object){
     }
 }
 
-//updateSurname($object);
 function updateSurname($object){
     include "../../database/dbConnection.php";
 
@@ -104,7 +74,6 @@ function updateSurname($object){
     }
 }
 
-//updateName($object);
 function updateName($object){
     include "../../database/dbConnection.php";
 
@@ -129,7 +98,6 @@ function updateName($object){
     }
 }
 
-//updatePatronymic($object);
 function updatePatronymic($object){
     include "../../database/dbConnection.php";
 
