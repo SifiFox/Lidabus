@@ -27,6 +27,8 @@ function authorizationUser($authUser){
                         $rating = getRatingByID($resultRow["ID"]);
                         $resultRow += ["Rating" => $rating];
 
+                        print_r(json_encode($resultRow));
+
                         LogsWriteMessage("User ".$resultRow["Name"]." ".$resultRow["Surname"]." is login");
                         return json_encode($resultRow);
                     }else{

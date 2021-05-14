@@ -47,50 +47,6 @@ function getPromocodeID($promocode){
     }
 }
 
-//getPromocodeSale("ADMIN");
-//createPromocodeForFreeRide(19);
-//function createPromocodeForFreeRide($userID){
-//    include "../../database/dbConnection.php";
-//    include "../order/orderController.php";
-//    include "../admin/usersPanelController.php";
-//    include "../../utils/logger.php";
-//
-//    if(count(json_decode(getCompletedOrdersByUserID($userID))) % 10 == 0){//если совершил, то промокод на поездку с скидкой 50%, сделать, так чтобы он мог только для 1 пассажира юзать
-//        $query = "SELECT SALE FROM promocodes AS p
-//                    INNER JOIN users_promocodes AS u
-//                    ON p.ID = u.ID_Promocode
-//                    WHERE u.ID_User = $userID
-//                    AND p.Sale = 1";
-//        $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
-//
-//        if($result){
-//            $row = mysqli_fetch_row($result);
-//            if(empty($row[0])){
-//                $promocodeID = getIDCreatedPromocode();
-//
-//                $assignPromocode = json_encode(['ID_User' => $userID, 'ID_Promocode' => $promocodeID]);
-//                assignPromocodeToUser($assignPromocode);
-//
-//                LogsWriteMessage("Данный юзер совершли 10 поездок и промокод на 1 бесплатную поездку присвоен");
-//
-//                return json_encode("Данный юзер совершли 10 поездок и промокод на 1 бесплатную поездку присвоен");
-//            }else{
-//                LogsWriteMessage("У данного юзера есть неиспользованный промокд на бесплатную поездку");
-//
-//                return json_encode("У данного юзера есть неиспользованный промокд на бесплатную поездку");
-//            }
-//        }else{
-//            LogsWriteMessage("Ошибка базы данных");
-//
-//            return json_encode("Ошибка базы данных");
-//        }
-//    }else{
-//        LogsWriteMessage("Данный юзер не совершил 10 поездок");
-//
-//        return json_encode("Данный юзер не совершил 10 поездок");
-//    }
-//}
-
 function getPromocodeSale($promocode){
     include "../../database/dbConnection.php";
 //    include "../../utils/logger.php";

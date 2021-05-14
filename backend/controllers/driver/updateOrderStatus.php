@@ -1,13 +1,15 @@
 <?php
-$object = json_encode(['ID_User' => 54, 'ID_Route' => 2, 'OrderStatus' => 'Прибыл']);
+//$object = json_encode(['ID_User' => 54, 'ID_Route' => 2, 'OrderStatus' => 'Прибыл']);
+header("Access-Control-Allow-Origin: http://localhost:3000");
 
-//setStatusToOrder($object);
+$object = json_decode($_POST['updateStatusOrder'], true);
+
+setStatusToOrder($object);
+
 function setStatusToOrder($object){
     include "../../database/dbConnection.php";
-    include "../order/orderController.php";
     include "../../utils/logger.php";
 
-    $object = json_decode($object, true);
     $userID = $object['ID_User'];
     $routeID = $object['ID_Route'];
     $orderStatus = $object['OrderStatus'];

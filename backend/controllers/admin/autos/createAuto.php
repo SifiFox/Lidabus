@@ -1,15 +1,15 @@
 <?php
+//$auto = json_encode(['Mark' => 'Mercedes', 'Model' => 'Sprinter', 'GovernmentNumber' => '1234AA-6', 'SeatsNumber' => 15, 'Color' => 'Orange']);
+//createAuto($auto);
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
-//getAutoTable();
+$object = json_decode($_POST['createAuto'], true);
 
-$auto = json_encode(['Mark' => 'Mercedes', 'Model' => 'Sprinter', 'GovernmentNumber' => '1234AA-6', 'SeatsNumber' => 15, 'Color' => 'Orange']);
-//createAuto($auto);
+createAuto($object);
 
 function createAuto($auto){
-    include "../../database/dbConnection.php";
-    include"../auto/autoController.php";
-    include "../../utils/logger.php";
+    include "../../../database/dbConnection.php";
+    include "../../../utils/logger.php";
 
     $auto = json_decode($auto, true);
     $errorsArray = array();
@@ -47,4 +47,3 @@ function createAuto($auto){
         return json_encode($errorsArray);
     }
 }
-

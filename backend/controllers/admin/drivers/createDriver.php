@@ -1,17 +1,18 @@
 <?php
-//getDriversTable();
+//$driver = json_encode(['PhoneNumber' => '+375212132450', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima', 'Name' => 'Driver', 'Surname' => 'Driver', 'Patronymic' => 'Driver']);
 
-$driver = json_encode(['PhoneNumber' => '+375212132450', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima', 'Name' => 'Driver', 'Surname' => 'Driver', 'Patronymic' => 'Driver']);
+header("Access-Control-Allow-Origin: http://localhost:3000");
 
-//createDriver($driver);
+$object = json_decode($_POST['createDriver'], true);
+
+createDriver($object);
 
 function createDriver($driver){
-    include "../../database/dbConnection.php";
-    include "../rating/rating.php";
-    include "../user/get.php";
-    include "../../utils/logger.php";
+    include "../../../database/dbConnection.php";
+    include "../../rating/rating.php";
+    include "../../user/get.php";
+    include "../../../utils/logger.php";
 
-    $driver = json_decode($driver, true);
     $regPassword = "/^[%?^#$]?(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/";//* любое число раз подряд или отсутствовать
     $errorsArray = array();
     $phoneNumber = $driver["PhoneNumber"];
@@ -83,56 +84,8 @@ function createDriver($driver){
     }
 }
 
-//$object = json_encode(['ID_Driver' => n, 'ID_Auto' => n]);
-function assignDriverToAuto($object){
-    include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
-
-    $object = json_decode($object, true);
-    $driverID = $object["ID_Driver"];
-    $autoID = $object["ID_Auto"];
-
-    $query = "UPDATE drivers_autos SET ID_Auto = $autoID
-                WHERE ID_Driver = $driverID";
-    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
-
-    if($result){
-        LogsWriteMessage("Driver assigned to car");
-        return json_encode("Машина назначена водителю");
-    }else{
-        LogsWriteMessage("DB error in assign driver to Auto");
-        return json_encode("Ошибка базы данных при назначении машины водителю");
-    }
-}
-
-function getDriversTable(){
-    include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
-
-    $query = "SELECT * FROM users WHERE Role = 'Driver' ORDER BY ID";
-    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
-
-    if($result){
-        $data = array(); // в этот массив запишем то, что выберем из базы
-
-        while($row = mysqli_fetch_assoc($result)){ // оформим каждую строку результата
-            // как ассоциативный массив
-            $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
-        }
-
-        LogsWriteMessage("Getting drivers from user table is success");
-
-//        echo json_encode($data); // и отдаём как json
-        return json_encode($data);
-    }else{
-        LogsWriteMessage("Getting driver from user table is failed");
-
-        return json_encode("Ошибка при получении информации о водителях");
-    }
-}
-
 function setDriverToDriversAutos($driverID, $autoID){
-    include "../../database/dbConnection.php";
+    include "../../../database/dbConnection.php";
 
     $query = "INSERT INTO drivers_autos(ID_Driver, ID_Auto) VALUES ($driverID, $autoID)";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));

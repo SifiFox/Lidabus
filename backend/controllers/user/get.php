@@ -3,17 +3,22 @@
 function getUserByID($userID){
     include "../../database/dbConnection.php";
 
-    $query = "SELECT * FROM users WHERE ID = $userID";
+    $query = "SELECT u.id, u.PhoneNumber, u.Surname, u.Name, 
+                    u.Patronymic, u.Patronymic, u.Role, u.Status, r.Rating 
+                    FROM users u
+                INNER JOIN rating r ON r.ID = u.ID_Rating
+                WHERE Role = 'User'
+                AND u.ID = $userID";
     $result = mysqli_query($dbLink, $query) or die ("Database error");
 
     if($result){
         $resultRow = mysqli_fetch_assoc($result);
 
-        LogsWriteMessage("Getting information about user by phone number $phoneNumber");
+        LogsWriteMessage("Getting information about user by id $userID");
         return $resultRow;
     }else{
-        LogsWriteMessage("DB error from getting user by $phoneNumber");
-        return json_encode("ошибка БД $phoneNumber");
+        LogsWriteMessage("DB error from getting by id $userID");
+        return json_encode("ошибка БД");
     }
 }
 

@@ -7,7 +7,7 @@ $order = json_encode(['ID_User' => 66, 'ID_Auto' => 3, 'ID_Route' => 1, 'Passeng
 
 function setOrderByUserID($order){
     include "../../database/dbConnection.php";
-    include "../auto/autoController.php";
+    include "../auto/get.php";
     include "../../utils/logger.php";
 
     $order = json_decode($order, true);
