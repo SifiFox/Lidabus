@@ -9,6 +9,7 @@ function createDriver($driver){
     include "../../database/dbConnection.php";
     include "../rating/rating.php";
     include "../user/profile.php";
+    include "../user/get.php";
     include "../../utils/logger.php";
 
     $driver = json_decode($driver, true);

@@ -1,23 +1,16 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+//$client = ['PhoneNumber' => '+345257182477', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima',
+//    'Name' => 'Dzmitry', 'Surname' => 'Ramantsevich', 'Patronymic' => 'Andreevich'];
 
-
-//    header("Access-Control-Allow-Origin: *");
-
-//    $register = json_decode(file_get_contents('php://input'), true);
-$client = ['PhoneNumber' => '+345257182477', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima',
-    'Name' => 'Dzmitry', 'Surname' => 'Ramantsevich', 'Patronymic' => 'Andreevich'];
-
-$client = json_encode($client);
-
-//    registerUser($client);
+$client = json_decode($_POST['register'], true);
+registerUser($client);
 
 function registerUser($client){
     include "../../database/dbConnection.php";
     include "../rating/rating.php";
     include "profile.php";
     include "../../utils/logger.php";
-
-    $client = json_decode($client, true);
 
     if (!empty($client)) {
         $regPassword = "/^[%?^#$]?(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/";//* любое число раз подряд или отсутствовать
