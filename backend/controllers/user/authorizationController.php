@@ -8,7 +8,7 @@ authorizationUser($authUser);
 
 function authorizationUser($authUser){
     include "../../database/dbConnection.php";
-    include "../rating/rating.php";
+    include "../rating/setRating.php";
     include "../../utils/logger.php";
     include "../user/get.php";
 

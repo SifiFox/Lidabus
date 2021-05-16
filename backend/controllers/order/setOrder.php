@@ -1,16 +1,20 @@
 <?php
+header("Access-Control-Allow-Origin: http://localhost:3000");
 
+$object = json_decode($_POST['setOrder'], true);
+
+setOrderByUserID($object);
 //$order = json_encode(['ID_User' => 20, 'ID_Auto' => 3, 'ID_Route' => 2, 'PassengerCount' => 3, 'ID_StartPoint' => 1, 'ID_EndPoint' => 7, 'Promocode' => 'ivcSOd', 'ID_PassengerSeat' => '2 12 11']);
 
-$order = json_encode(['ID_User' => 66, 'ID_Auto' => 3, 'ID_Route' => 1, 'PassengerCount' => 2, 'ID_StartPoint' => 1, 'ID_EndPoint' => 7, 'ID_PassengerSeat' => '2 3']);
+//$order = json_encode(['ID_User' => 66, 'ID_Auto' => 3, 'ID_Route' => 1, 'PassengerCount' => 2, 'ID_StartPoint' => 1, 'ID_EndPoint' => 7, 'ID_PassengerSeat' => '2 3']);
 //setOrderByUserID($order);
 
 function setOrderByUserID($order){
     include "../../database/dbConnection.php";
     include "../auto/get.php";
+    include "get.php";
     include "../../utils/logger.php";
 
-    $order = json_decode($order, true);
     $passengerCount = $order['PassengerCount'];
     $autoSeatsNumber = intval(getAutoSeatsNumberByID($order['ID_Auto']));
     $seatsNumberInRoute = intval(getSeatsNumberByRoute($order['ID_Route']));
@@ -147,74 +151,5 @@ function setPassengerSeat($orderID, $passengerSeatsNumber){
 //            echo "db error";
             LogsWriteMessage("Database error");
         }
-    }
-}
-
-//getOrdersByUserID(19);
-function getCompletedOrdersByUserID($userID){
-    include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
-
-    $query = "SELECT * FROM orders WHERE ID_User = $userID AND Status = 'Прибыл'";
-    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
-
-    if($result) {
-        $data = array(); // в этот массив запишем то, что выберем из базы
-
-        while ($row = mysqli_fetch_assoc($result)) { // оформим каждую строку результата
-            // как ассоциативный массив
-            $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
-        }
-//        var_dump(json_encode($data));  // и отдаём как json
-        LogsWriteMessage("Data on the user's completed trips received");
-        return json_encode($data);
-    }else{
-        LogsWriteMessage("Error retrieving route information");
-        return json_encode("Ошибка при получении информации о маршрутах");
-    }
-}
-//getSeatsNumberByRoute(1);
-function getSeatsNumberByRoute($routeID){
-    include "../../database/dbConnection.php";
-//    include "../../utils/logger.php";
-
-    $query = "SELECT SUM(o.PassengerCount) AS seatsNumber FROM orders o
-                WHERE o.ID_Route = $routeID";
-    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
-
-    if($result){
-        $countSeatsNumber = 0;
-
-        while($row = $result -> fetch_object()){
-            $countSeatsNumber = $row -> seatsNumber;
-        }
-
-        LogsWriteMessage("$countSeatsNumber -> ordered number of seats by the user");
-        return $countSeatsNumber;
-    }else{
-//        echo "Ошибка при получении информации о количестве свободных мест в машине";
-        LogsWriteMessage("Error when getting information about the number of free seats in the car");
-        return 0;
-    }
-}
-//getOrderCostByPassengerCount(19,3, "ADMIN");
-function getOrderCostByPassengerCount($userID, $passengerCount, $promocode)  {
-    include("../promocode/promocodeController.php");
-//    include "../../utils/logger.php";
-
-    $cost = 0;
-
-    if(isUserHavePromocode($userID, $promocode)){
-        $promocodeSale = getPromocodeSale($promocode) -> Sale;
-        $cost = $passengerCount * (9 - (9 * $promocodeSale));
-        deletePromocodeAfterUsing($promocode);
-//            echo $cost;
-        LogsWriteMessage("Cost of roder = $cost Br");
-        return $cost;
-    }else{
-        $cost = $passengerCount * 9;
-//        echo $cost;
-        LogsWriteMessage("Cost of roder = $cost Br");
-        return $cost;
     }
 }

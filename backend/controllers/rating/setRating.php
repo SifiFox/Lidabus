@@ -1,12 +1,15 @@
 <?php
-$object = json_encode(['ID_User' => 49, 'ID_Driver' => 48, 'Rating' => 4]);
+header("Access-Control-Allow-Origin: http://localhost:3000");
+
+$object = json_decode($_GET['setRating'], true);
+setRatingToDriver($authUser);
+//$object = json_encode(['ID_User' => 49, 'ID_Driver' => 48, 'Rating' => 4]);
 //setRatingToDriver($object);
 function setRatingToDriver($object){
     include "../../database/dbConnection.php";
     include "../../utils/logger.php";
 
-    $object = json_decode($object, true);
-    $userID = $object['ID_Driver'];
+    $userID = $object['ID_User'];
     $userVote = $object['Rating'];
     $currentRating = getRatingByID($userID);
     $countVotes = getCountVotesByID($userID);

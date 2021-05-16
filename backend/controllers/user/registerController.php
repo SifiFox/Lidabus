@@ -8,7 +8,7 @@ registerUser($client);
 
 function registerUser($client){
     include "../../database/dbConnection.php";
-    include "../rating/rating.php";
+    include "../rating/setRating.php";
     include "get.php";
     include "../../utils/logger.php";
 
