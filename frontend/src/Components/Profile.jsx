@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "../scss/general.scss"
 import "../scss/profile.scss"
 
@@ -6,10 +6,12 @@ import profile from "../img/profile.png"
 import ProfileCards from "./ProfileCards";
 import {Route} from "react-router";
 import {useHistory} from "react-router-dom";
+import AdminPanel from "./AdminPanel";
+import UserEditForm from "./UserEditForm";
 
 
 
-function Profile(){
+function Profile(props){
 
     const history = useHistory();
 
@@ -19,6 +21,19 @@ function Profile(){
     }
 
 
+    const [visible, setVisible] = useState({
+        isShowed: false
+    });
+
+    function handleShowClick(){
+        setVisible({isShowed: true})
+        console.log(visible.isShowed + " showed")
+    }
+
+    function handleHideClick(){
+        setVisible({isShowed: false})
+        console.log(visible.isShowed + " hided")
+    }
 
     return(
         <div className="profile--wrapper">
@@ -41,20 +56,59 @@ function Profile(){
 
                     </div>
 
+
+
                     <div className="profile--nav--right">
-                        <button className="edit">
-                            редактировать
-                        </button>
+                        {
+                            visible.isShowed ?
+                              <>
+                                <button className= "edit"
+                                onClick={handleHideClick}>
+                                    редактировать
+                                </button>
+                              </>
+                                :
+                                <button className= "edit"
+                                onClick={handleShowClick}
+                                >
+                                    редактировать
+                                </button>
+                        }
+
+                        {/*/!*<button className={`edit ${visible == true ? 'edit--closed' : 'edit--opened'}`}*!/*/}
+
+                        {/*<button className= "edit"*/}
+                        {/*        onClick={console.log(visible.isShowed)}>*/}
+                        {/*    редактировать*/}
+                        {/*</button>*/}
+                        {/*{*/}
+                        {/*  console.log(visible.isShowed)*/}
+                        {/*    // !visible.isShowed ? handleShowClick() : handleHideClick()*/}
+                        {/*}*/}
+
+
+
                         <button className="primary--button"
                             onClick={testHistory}>
 
                             Выйти
                         </button>
+
                     </div>
                 </div>
 
-                <ProfileCards/>
+            {
+                visible.isShowed ?
+                    <UserEditForm/>
+                    : null
+            }
 
+
+
+            <ProfileCards/>
+               {localStorage.getItem('Role') == 'ADMIN' ?
+                   <AdminPanel/> : <br/>
+               }
         </div>
     )
 }

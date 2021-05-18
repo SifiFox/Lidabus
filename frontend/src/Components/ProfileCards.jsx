@@ -55,8 +55,8 @@ function ProfileCards(){
                     <CircularProgressbar
                         minValue={0}
                         maxValue={5}
-                        value={percentage}
-                        text={`${percentage}`}
+                        value={localStorage.getItem('Rating')}
+                        text={`${localStorage.getItem('Rating')}`}
                         styles={buildStyles({
                             strokeLinecap: "butt",
                             pathColor: "#EE1C1C",

@@ -1,4 +1,4 @@
-import "../scss/modal.scss"
+
 
 import {Link, useHistory} from "react-router-dom";
 

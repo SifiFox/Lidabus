@@ -8,9 +8,9 @@ authorizationUser($authUser);
 
 function authorizationUser($authUser){
     include "../../database/dbConnection.php";
-    include "../rating/setRating.php";
+    include "../user/profile.php";
+    include "../rating/rating.php";
     include "../../utils/logger.php";
-    include "../user/get.php";
 
     $errorsArray = array();
 
@@ -26,8 +26,6 @@ function authorizationUser($authUser){
                     if($resultRow["Status"] == "Active"){
                         $rating = getRatingByID($resultRow["ID"]);
                         $resultRow += ["Rating" => $rating];
-
-                        print_r(json_encode($resultRow));
 
                         LogsWriteMessage("User ".$resultRow["Name"]." ".$resultRow["Surname"]." is login");
                         return json_encode($resultRow);
