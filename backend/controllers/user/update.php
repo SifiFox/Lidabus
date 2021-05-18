@@ -15,6 +15,7 @@ function update($object){
 
     if($object["NewPhoneNumber"] != $userDataFromDB["PhoneNumber"]){
         updatePhoneNumber($object["NewPhoneNumber"]);
+
     }
     if($object["NewSurname"] != $userDataFromDB["Surname"]){
         updateSurname($object["NewSurname"]);
@@ -25,11 +26,6 @@ function update($object){
     if($object["NewPatronymic"] != $userDataFromDB["Patronymic"]){
         updatePatronymic($object["NewPatronymic"]);
     }
-
-    $clinet = getUserByID($object['ID']);
-
-    print_r(json_encode($clinet));
-    return json_encode($clinet);
 }
 
 function updatePhoneNumber($object){
@@ -47,7 +43,11 @@ function updatePhoneNumber($object){
 
         if($result){
             LogsWriteMessage("Your phone number has been changed to $newPhoneNumber");
-            return json_encode("Ваш номер телефона изменен на $newPhoneNumber");
+
+            $clinet = getUserByID($object['ID']);
+
+            print_r(json_encode($clinet));
+            return json_encode($clinet);
         }else{
             LogsWriteMessage("DB error with updating phone number");
             return json_encode("Ошибка БД при обновлении номера телефона");
@@ -73,7 +73,11 @@ function updateSurname($object){
 
         if($result){
             LogsWriteMessage("Your surname has been changed");
-            return json_encode("Ваша фамилия изменена");
+
+            $clinet = getUserByID($object['ID']);
+
+            print_r(json_encode($clinet));
+            return json_encode($clinet);
         }else{
             LogsWriteMessage("DB error with updating surname");
             return json_encode("Ошибка БД при обновлении фамилии");
@@ -99,7 +103,11 @@ function updateName($object){
 
         if($result){
             LogsWriteMessage("Your name has been changed");
-            return json_encode("Ваше имя изменено");
+
+            $clinet = getUserByID($object['ID']);
+
+            print_r(json_encode($clinet));
+            return json_encode($clinet);
         }else{
             LogsWriteMessage("DB error with updating name");
             return json_encode("Ошибка БД при обновлении имени");
@@ -125,7 +133,11 @@ function updatePatronymic($object){
 
         if($result){
             LogsWriteMessage("Your patronymic has been changed");
-            return json_encode("Ваше отчество изменено");
+
+            $clinet = getUserByID($object['ID']);
+
+            print_r(json_encode($clinet));
+            return json_encode($clinet);
         }else{
             LogsWriteMessage("DB error with updating patronymic");
             return json_encode("Ошибка БД при обновлении отчества");
