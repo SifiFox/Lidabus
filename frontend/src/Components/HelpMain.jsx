@@ -20,7 +20,7 @@ const HelpMain = () =>{
                         <p>партнеры</p>
                     </Link>
 
-                    <Link to={'/partners'} className="help--main--link">
+                    <Link to={'/conditions'} className="help--main--link">
                         <p>условия</p>
                     </Link>
 

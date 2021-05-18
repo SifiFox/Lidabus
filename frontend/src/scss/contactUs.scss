@@ -1,0 +1,70 @@
+.contactUs--wrap{
+  width: 820px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+
+  .main--offer--sub--right--button{
+    max-width: 300px;
+    margin: 0 auto;
+    margin-top: 135px;
+  }
+
+
+
+  .modal__wrapper{
+    position: relative;
+    backdrop-filter: none;
+    z-index: 2;
+  }
+  .modal--content--wrapper{
+    height: 400px;
+  }
+
+  .input--wrapper{
+    &:last-child{
+      margin-top: 400px;
+      }
+    }
+}
+
+.contactUs{
+  .modal__body{
+    h2{
+      font-size: 18px;
+    }
+  }
+}
+
+h1{
+  font-size: 24px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.contactUs--app{
+  width: 409px;
+  display: flex;
+  flex-direction: column;
+  .stores--links{
+    display: flex;
+    flex-direction: column;
+  }
+
+  button{
+    margin-top: 200px;
+  }
+}
+.stores--links{
+  margin: 0 auto;
+  padding-top: 25px;
+  .stores--link{
+    margin-top: 30px;
+    width: 261px;
+    height: 68px;
+    background: #FFFFFF;
+    border: 3px solid #ECECEC;
+    border-radius: 10px;
+    text-align: center;
+  }
+}

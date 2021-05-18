@@ -5,6 +5,7 @@ import HelpMain from "./HelpMain";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Contacts from "./Contacts";
 import Partners from "./Partners";
+import Conditions from "./Conditions";
 
 
     const Help = (props) => {
@@ -32,6 +33,7 @@ import Partners from "./Partners";
                         <Switch>
                             <Route component={Contacts} path={'/contacts'}/>
                             <Route component={Partners} path={'/partners'}/>
+                            <Route component={Conditions} path={'/conditions'}/>
                         </Switch>
                     </div>
             </Router>

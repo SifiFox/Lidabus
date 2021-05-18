@@ -1,0 +1,43 @@
+.partners--wrap{
+  margin: 0 auto;
+
+  background: #FFFFFF;
+  box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 30px;
+  padding: 60px 16px 60px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "name adress unp time"
+    ". . . ."
+    ". . . .";
+
+
+  border-bottom: 3px solid #F5F5F5;
+
+}
+.name {
+  grid-area: name;
+  text-align: left;
+}
+
+.adress {
+  grid-area: adress;
+  text-align: right;
+}
+
+.unp {
+  grid-area: unp;
+  text-align: right;
+}
+
+.time {
+  grid-area: time;
+  text-align: right;
+}

@@ -28,6 +28,7 @@ import Profile from "./Components/Profile";
 function App() {
 
 
+
     const [PhoneNumber, setPhoneNumber] = useState({
         PhoneNumber: ''
     })
@@ -51,20 +52,26 @@ function App() {
     const [Patronymic, setPatronymic] = useState({
         Patronymic: ''
     })
+    const [Role, setRole] = useState({
+        Role: ''
+    })
+    const [Rating, setRating] = useState({
+        Rating: ''
+    })
 
     const [modal, setModal] = useState({
         LoginModal: false,
         RegisterModal: false
     })
-
-    const [auth, setAuth] = useState({
-        isAuth: false
+    const [ID, setID] = useState({
+        ID: ''
     })
 
 
 
       async function loginTest() {
           let item = {
+              ID,
               PhoneNumber,
               Password,
               Name,
@@ -77,40 +84,50 @@ function App() {
               data: {auth: JSON.stringify(item)},
               dataType: 'json',
               complete: function (response){
+
+                  // let obj = JSON.parse(response.responseText);
+
+                  console.log(response);
+
                   let obj = JSON.parse(response.responseText);
+
 
                   console.log(obj);
 
-
+                  setID(obj.ID)
                   setPhoneNumber(obj.PhoneNumber);
                   setName(obj.Name);
                   setSurname(obj.Surname);
                   setPatronymic(obj.Patronymic);
+                  setPatronymic(obj.Role);
+                  setRating(obj.Rating);
 
-
-
+                  localStorage.setItem('ID', obj.ID);
                   localStorage.setItem('PhoneNumber', obj.PhoneNumber);
                   localStorage.setItem('Name', obj.Name);
                   localStorage.setItem('Surname', obj.Surname) ;
                   localStorage.setItem('Patronymic', obj.Patronymic);
+                  localStorage.setItem('Role', obj.Role);
+                  localStorage.setItem('Rating', obj.Rating);
 
-                  console.log('obj number ' + obj.PhoneNumber);
-                  console.log('obj Name ' + obj.Name);
 
+                  // console.log('obj number ' + obj.PhoneNumber);
+                  // console.log('obj Name ' + obj.Name);
 
+                  console.log(localStorage.getItem("ID"))
                   console.log(localStorage.getItem("Name"))
                   console.log(localStorage.getItem("PhoneNumber"))
                   console.log(localStorage.getItem("Surname"))
                   console.log(localStorage.getItem("Patronymic"))
+                  console.log(localStorage.getItem("Role"))
+                  console.log(localStorage.getItem("Rating"))
 
-                  setAuth(true);
                   setModal(LoginModal, false)
               }
           }).done(function (){
               alert('Вы успешно авторизированы');
           })
 
-          console.log(auth);
 
 
     }
@@ -133,6 +150,13 @@ function App() {
             url: url,
             data: {register: JSON.stringify(item)},
             dataType: 'json',
+            complete: function (response){
+                let obj = JSON.parse(response.responseText);
+                console.log(obj);
+                alert(obj.answer);
+                setModal(LoginModal, false)
+            }
+
         })
 
     }
@@ -141,10 +165,7 @@ function App() {
     return (
         <>
 
-
-
         <Nav/>
-
 
         <LoginModal
             title={'Логин'}
@@ -172,7 +193,7 @@ function App() {
                 setPassword(e.target.value);
                 loginTest();
 
-                console.log(localStorage.getItem('Surname'))
+                console.log(localStorage.getItem('Surname') + ' surname')
 
                 var inputs = document.querySelectorAll('input[type=text], input[type=password]');
                 for (var i = 0;  i < inputs.length; i++) {
@@ -269,6 +290,8 @@ function App() {
 
             />
 
+
+
         <div className="auth-wrapper">
             <div className="auth-inner">
                 <Switch>
@@ -281,6 +304,11 @@ function App() {
                 </Switch>
             </div>
         </div>
+
+
+
+
+
 
 
             <Footer/>

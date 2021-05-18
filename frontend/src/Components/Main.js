@@ -3,6 +3,8 @@ import buspic from '../img/buspic.png'
 import '../scss/main.scss'
 import {Link} from "react-router-dom";
 import Trust from "./Trust";
+import Advantages from "./Advantages";
+import ContactUs from "./ContactUs";
 
 function Main(){
     return(
@@ -37,6 +39,10 @@ function Main(){
         </div>
 
         <Trust/>
+
+        <Advantages/>
+
+        <ContactUs/>
 
     </>
     )

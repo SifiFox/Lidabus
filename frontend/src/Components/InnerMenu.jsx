@@ -63,8 +63,7 @@ function InnerMenu(props){
                              :
                              <button  className="menu--profile--link"
                                       onClick={props.loginToggle}>
-                                 <img src={profile} alt=""
-                                      width={35} height={40}/>
+                                 вход
                              </button>
                         }
                     </div>
