@@ -1,0 +1,106 @@
+@charset "UTF-8";
+/* хром, сафари */
+html::-webkit-scrollbar {
+  width: 5px;
+}
+
+html::-webkit-scrollbar-track-piece {
+  /* 4 - видимая часть трека */
+  color: red;
+  width: 15px;
+  height: 15px;
+}
+
+html::-webkit-scrollbar-thumb {
+  /* 5 - ползунок */
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  background-color: #ee1c1c;
+}
+
+.title--line {
+  position: relative;
+  width: 135px;
+  height: 3px;
+  background: #ee1c1c;
+  margin: 15px 40px;
+  vertical-align: center;
+}
+
+.info--title {
+  font-size: 36px;
+  text-transform: uppercase;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding-top: 150px;
+}
+
+/* ie 10+ */
+.element {
+  -ms-overflow-style: none;
+}
+
+/* фф (свойство больше не работает, других способов тоже нет)*/
+.element {
+  overflow: -moz-scrollbars-none;
+}
+
+html {
+  font-family: BAHNSCHRIFT sans-serif;
+}
+
+.trust--wrap {
+  color: #fff;
+  height: 333px;
+  background-color: #ee1c1c;
+  margin-top: 150px;
+}
+
+.section--description {
+  font-family: Bahnschrift;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 43px;
+  text-align: center;
+  padding-top: 46px;
+  text-transform: uppercase;
+}
+
+.trust--info--wrap {
+  margin: 0 auto;
+  padding-top: 65px;
+}
+.trust--info--wrap ul {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.trust--info--wrap ul .info {
+  max-width: 255px;
+  border-right: solid #fff 2px;
+  padding: 0px 35px;
+}
+.trust--info--wrap ul .info:last-child {
+  border-right: none;
+}
+.trust--info--wrap ul .info .count {
+  font-size: 72px;
+}
+@media (max-width: 768px) {
+  .trust--wrap {
+    height: auto;
+  }
+  .trust--wrap .trust--info--wrap ul {
+    flex-wrap: wrap;
+  }
+  .trust--wrap .trust--info--wrap ul li {
+    border: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+/*# sourceMappingURL=trust.css.map */

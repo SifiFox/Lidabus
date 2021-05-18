@@ -1,0 +1,128 @@
+@charset "UTF-8";
+/* хром, сафари */
+html::-webkit-scrollbar {
+  width: 5px;
+}
+
+html::-webkit-scrollbar-track-piece {
+  /* 4 - видимая часть трека */
+  color: red;
+  width: 15px;
+  height: 15px;
+}
+
+html::-webkit-scrollbar-thumb {
+  /* 5 - ползунок */
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  background-color: #ee1c1c;
+}
+
+.title--line {
+  position: relative;
+  width: 135px;
+  height: 3px;
+  background: #ee1c1c;
+  margin: 15px 40px;
+  vertical-align: center;
+}
+
+.info--title {
+  font-size: 36px;
+  text-transform: uppercase;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding-top: 150px;
+}
+
+/* ie 10+ */
+.element {
+  -ms-overflow-style: none;
+}
+
+/* фф (свойство больше не работает, других способов тоже нет)*/
+.element {
+  overflow: -moz-scrollbars-none;
+}
+
+.booking--find--wrapper {
+  margin-top: 80px;
+}
+.booking--find--wrapper .booking--form--container form {
+  display: flex;
+}
+
+.form--mod {
+  width: 265px;
+  height: 71px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
+}
+.form--mod svg {
+  cursor: pointer;
+}
+.form--mod:first-child {
+  border-radius: 5px 1px 1px 5px;
+}
+.form--mod p {
+  padding: 10px 15px 5px;
+  opacity: 0.7;
+  font-size: 14px;
+}
+.form--mod svg {
+  float: right;
+  padding-right: 20px;
+}
+.form--mod select {
+  width: 225px;
+  text-decoration: none;
+  text-transform: none;
+  border: none;
+  padding-left: 15px;
+  font-weight: normal;
+  font-size: 18px;
+  font-family: BAHNSCHRIFT;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.form--submit {
+  background: #EE1C1C;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 0px 7px 7px 0px;
+  width: 215.8px;
+  height: 71px;
+  font-family: BAHNSCHRIFT;
+  outline: none;
+  border: none;
+}
+.form--submit p {
+  padding-top: 5px;
+  color: #fff;
+  text-align: center;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.days--choice {
+  max-width: 186px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding-top: 22px;
+  font-family: Bahnschrift;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+}
+.days--choice p {
+  border-bottom: 2px solid black;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=findForm.css.map */
