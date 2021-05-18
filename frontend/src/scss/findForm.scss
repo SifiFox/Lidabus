@@ -81,3 +81,18 @@
     cursor: pointer;
   }
 }
+
+@media (max-width: 900px) {
+  .booking--find--wrapper{
+    .booking--form--container{
+      form{
+        width: 600px;
+        display: flex;
+        flex-direction: column;
+        .form--mod{
+
+        }
+      }
+    }
+  }
+}
