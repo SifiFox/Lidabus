@@ -3,10 +3,11 @@ import React, {useState} from 'react'
 import '../scss/userEditForm.scss'
 import $ from "jquery";
 import LoginModal from "./LoginModal";
+import {useHistory} from "react-router-dom";
 
 
 
-function UserEditForm(){
+function UserEditForm(handleHideClick){
 
 
     const [PhoneNumber, setPhoneNumber] = useState(localStorage.getItem("PhoneNumber"))
@@ -50,20 +51,17 @@ function UserEditForm(){
     }
 
 
+    const history = useHistory();
+
+    function testHistory(){
+        if(localStorage.getItem("Name")){
+            history.push("/profile");
+        }
+    }
+
 
 
     function userSave(){
-        //
-        // console.log(item.phone + " item phone.PhoneNumber  userSave");
-        // // item.phone = PhoneNumber;
-        // localStorage.setItem("PhoneNumber", PhoneNumber);
-        // console.log(item.phone + " item.phone.PhoneNumber  UserSave");
-        // console.log(localStorage.getItem("PhoneNumber") + " localstore.PhoneNumber  UserSave");
-        // console.log(localStorage.getItem("Surname") + " localstore.PhoneNumber  UserSave");
-        // console.log(PhoneNumber + " PhoneNumber.PhoneNumber  UserSave");
-        // console.log(Surname + " PhoneNumber.PhoneNumber  UserSave");
-        // console.log(Name + " PhoneNumber.PhoneNumber  UserSave");
-        // console.log(Patronymic + " PhoneNumber.PhoneNumber  UserSave");
 
         let url = "http://lidabusdiplom.by/controllers/user/update.php"
 
@@ -77,13 +75,20 @@ function UserEditForm(){
                 let obj = JSON.parse(response.responseText);
                 console.log(obj);
 
-                // setPhoneNumber(obj.PhoneNumber);
-                //
-                // localStorage.setItem('PhoneNumber', obj.PhoneNumber);
 
-                // console.log('obj number ' + obj.PhoneNumber);
-                // console.log(localStorage.getItem("Name"))
+                setPhoneNumber(obj.PhoneNumber);
+                setName(obj.Name);
+                setSurname(obj.Surname);
+                setPatronymic(obj.Patronymic);
 
+
+                localStorage.setItem('PhoneNumber', obj.PhoneNumber);
+                localStorage.setItem('Name', obj.Name);
+                localStorage.setItem('Surname', obj.Surname) ;
+                localStorage.setItem('Patronymic', obj.Patronymic);
+
+
+                testHistory();
             }
         }).done(function (){
             alert('Вы успешно авторизированы');
@@ -98,7 +103,8 @@ function UserEditForm(){
     }
 
     function formCancel(){
-        console.log('form cancel')
+        console.log('form cancel');
+        return null;
     }
 
     return(
@@ -145,7 +151,10 @@ function UserEditForm(){
                 onChange={handlePatronymicChange}
             />
 
-
+            <button className="user--edit--form--button"
+                    onClick={formCancel}>
+                Отмена
+            </button>
         </form>
 
             <div className="useform">
@@ -155,10 +164,7 @@ function UserEditForm(){
                     Сохранить
                 </button>
 
-                <button className="user--edit--form--button"
-                        onClick={formCancel}>
-                    Отмена
-                </button>
+
             </div>
 
         </>

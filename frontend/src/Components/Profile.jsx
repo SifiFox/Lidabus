@@ -99,7 +99,7 @@ function Profile(props){
 
             {
                 visible.isShowed ?
-                    <UserEditForm/>
+                    <UserEditForm />
                     : null
             }
 
