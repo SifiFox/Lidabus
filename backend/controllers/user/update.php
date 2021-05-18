@@ -23,6 +23,8 @@ function update($object){
     if($object["Patronymic"] != $userDataFromDB["Patronymic"]){
         updatePatronymic($object);
     }
+
+    print_r(json_encode($object));
 }
 
 function updatePhoneNumber($object){
