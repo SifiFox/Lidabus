@@ -7,23 +7,21 @@ update($object);
 
 function update($object){
     include "../../database/dbConnection.php";
-    include "get.php";
     include "../../utils/logger.php";
 
-    $userDataFromDB = getUserByID($object["ID"]);
+    $userDataFromDB = getUserByIDInUpdate($object["ID"]);
 
-    if($object["NewPhoneNumber"] != $userDataFromDB["PhoneNumber"]){
-        updatePhoneNumber($object["NewPhoneNumber"]);
-
+    if($object["PhoneNumber"] != $userDataFromDB["PhoneNumber"]){
+        updatePhoneNumber($object);
     }
-    if($object["NewSurname"] != $userDataFromDB["Surname"]){
-        updateSurname($object["NewSurname"]);
+    if($object["Surname"] != $userDataFromDB["Surname"]){
+        updateSurname($object);
     }
-    if($object["NewName"] != $userDataFromDB["Name"]){
-        updateName($object["NewName"]);
+    if($object["Name"] != $userDataFromDB["Name"]){
+        updateName($object);
     }
-    if($object["NewPatronymic"] != $userDataFromDB["Patronymic"]){
-        updatePatronymic($object["NewPatronymic"]);
+    if($object["Patronymic"] != $userDataFromDB["Patronymic"]){
+        updatePatronymic($object);
     }
 }
 
@@ -31,7 +29,7 @@ function updatePhoneNumber($object){
     include "../../database/dbConnection.php";
     include "get.php";
 
-    $userID = $object['ID_User'];
+    $userID = $object['ID'];
     $newPhoneNumber = $object['PhoneNumber'];
 
     if(empty(getPhoneNumber($newPhoneNumber)[0])){
@@ -44,7 +42,7 @@ function updatePhoneNumber($object){
 
             $clinet = getUserByID($object['ID']);
 
-            print_r(json_encode($clinet));
+//            print_r(json_encode($clinet));
             return json_encode($clinet);
         }else{
             LogsWriteMessage("DB error with updating phone number");
@@ -59,7 +57,7 @@ function updatePhoneNumber($object){
 function updateSurname($object){
     include "../../database/dbConnection.php";
 
-    $newSurname = $object['NewSurname'];
+    $newSurname = $object['Surname'];
     $phoneNumber = $object['PhoneNumber'];
 
     if(!empty($object)){
@@ -72,7 +70,7 @@ function updateSurname($object){
 
             $clinet = getUserByID($object['ID']);
 
-            print_r(json_encode($clinet));
+//            print_r(json_encode($clinet));
             return json_encode($clinet);
         }else{
             LogsWriteMessage("DB error with updating surname");
@@ -87,7 +85,7 @@ function updateSurname($object){
 function updateName($object){
     include "../../database/dbConnection.php";
 
-    $newName = $object['NewName'];
+    $newName = $object['Name'];
     $phoneNumber = $object['PhoneNumber'];
 
     if(!empty($object)){
@@ -100,7 +98,7 @@ function updateName($object){
 
             $clinet = getUserByID($object['ID']);
 
-            print_r(json_encode($clinet));
+//            print_r(json_encode($clinet));
             return json_encode($clinet);
         }else{
             LogsWriteMessage("DB error with updating name");
@@ -115,7 +113,7 @@ function updateName($object){
 function updatePatronymic($object){
     include "../../database/dbConnection.php";
 
-    $newPatronymic = $object['NewPatronymic'];
+    $newPatronymic = $object['Patronymic'];
     $phoneNumber = $object['PhoneNumber'];
 
     if(!empty($object)){
@@ -128,7 +126,7 @@ function updatePatronymic($object){
 
             $clinet = getUserByID($object['ID']);
 
-            print_r(json_encode($clinet));
+//            print_r(json_encode($clinet));
             return json_encode($clinet);
         }else{
             LogsWriteMessage("DB error with updating patronymic");
@@ -137,5 +135,27 @@ function updatePatronymic($object){
     }else{
         LogsWriteMessage("Enter the data to update password");
         return json_encode("введите данные");
+    }
+}
+
+function getUserByIDInUpdate($userID){
+    include "../../database/dbConnection.php";
+
+    $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, 
+                    u.Patronymic, u.Patronymic, u.Role, u.Status, r.Rating 
+                    FROM users u
+                INNER JOIN rating r ON r.ID = u.ID_Rating
+                WHERE Role = 'User'
+                AND u.ID = $userID";
+    $result = mysqli_query($dbLink, $query) or die ("Database error");
+
+    if($result){
+        $resultRow = mysqli_fetch_assoc($result);
+//        print_r(json_encode($resultRow));
+        LogsWriteMessage("Getting information about user by id $userID");
+        return $resultRow;
+    }else{
+        LogsWriteMessage("DB error from getting by id $userID");
+        return json_encode("ошибка БД");
     }
 }

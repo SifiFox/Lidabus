@@ -10,7 +10,6 @@ authorizationUser($authUser);
 
 function authorizationUser($authUser){
     include "../../database/dbConnection.php";
-//    include "../rating/setRating.php";
     include "../../utils/logger.php";
     include "get.php";
     include "../rating/get.php";
@@ -22,12 +21,10 @@ function authorizationUser($authUser){
         $password = $authUser["Password"];
 
         $resultRow = getUserByPhoneNumber($phoneNumber);
-
         if(!empty($resultRow["ID"])){
             if($resultRow["PhoneNumber"] == $phoneNumber){
                 if($resultRow["Password"] == md5($password).$salt){
                     if($resultRow["Status"] == "Active"){
-//                        $rating = getRatingByID($resultRow["ID"]);
                         $resultRow['Rating'] = getRatingByID($resultRow["ID"]);
 
                         print_r(json_encode($resultRow));
