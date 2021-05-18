@@ -2,16 +2,18 @@
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
-//$authUser = json_encode(['PhoneNumber' => '+375257182477', 'Password' => '7182470Dima']);
+//$authUser = json_encode(['PhoneNumber' => 'ADMIN', 'Password' => 'ADMIN']);
+//$authUser = json_decode($authUser, true);
 
 $authUser = json_decode($_GET['auth'], true);
 authorizationUser($authUser);
 
 function authorizationUser($authUser){
     include "../../database/dbConnection.php";
-    include "../rating/setRating.php";
+//    include "../rating/setRating.php";
     include "../../utils/logger.php";
-    include "../user/get.php";
+    include "get.php";
+    include "../rating/get.php";
 
     $errorsArray = array();
 
@@ -25,8 +27,8 @@ function authorizationUser($authUser){
             if($resultRow["PhoneNumber"] == $phoneNumber){
                 if($resultRow["Password"] == md5($password).$salt){
                     if($resultRow["Status"] == "Active"){
-                        $rating = getRatingByID($resultRow["ID"]);
-                        $resultRow += ["Rating" => $rating];
+//                        $rating = getRatingByID($resultRow["ID"]);
+                        $resultRow['Rating'] = getRatingByID($resultRow["ID"]);
 
                         print_r(json_encode($resultRow));
 

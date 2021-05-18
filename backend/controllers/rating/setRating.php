@@ -2,12 +2,13 @@
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 $object = json_decode($_GET['setRating'], true);
-setRatingToDriver($authUser);
+//setRatingToDriver($authUser);
 //$object = json_encode(['ID_User' => 49, 'ID_Driver' => 48, 'Rating' => 4]);
-//setRatingToDriver($object);
+setRatingToDriver($object);
 function setRatingToDriver($object){
     include "../../database/dbConnection.php";
     include "../../utils/logger.php";
+    include "get.php";
 
     $userID = $object['ID_User'];
     $userVote = $object['Rating'];
@@ -24,62 +25,6 @@ function setRatingToDriver($object){
         LogsWriteMessage("User rating with ID: ".$newRating);
     }else{
         LogsWriteMessage("DB error");
-    }
-}
-
-function getRatingByID($userID){
-    include "../../database/dbConnection.php";
-
-    $rating = 0;
-
-    $query = "SELECT r.Rating AS rating FROM rating r 
-                INNER JOIN users u ON u.ID_Rating = r.ID 
-                WHERE u.ID = $userID";
-    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
-
-    if($result){
-        $driverRating = 0;
-
-        while($row = $result -> fetch_object()){
-            $driverRating = $row -> rating;
-        }
-
-        $rating = $driverRating;
-
-        print_r(json_encode($rating));
-        LogsWriteMessage("Getting reting by user ID: ".$rating);
-        return $rating;
-    }else{
-        LogsWriteMessage("DB error");
-        return json_encode("DB error");
-    }
-}
-
-function getCountVotesByID($userID){
-    include "../../database/dbConnection.php";
-
-    $countVotes = 0;
-
-    $query = "SELECT r.CountVotes AS rating FROM rating r 
-                INNER JOIN users u ON u.ID_Rating = r.ID 
-                WHERE u.ID = $userID";
-    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
-
-    if($result){
-        $driverRating = 0;
-
-        while($row = $result -> fetch_object()){
-            $driverRating = $row -> rating;
-        }
-
-        $countVotes = $driverRating;
-
-        print_r($countVotes);
-        LogsWriteMessage("Getting count votes by user ID: ".$countVotes);
-        return $countVotes;
-    }else{
-        LogsWriteMessage("DB error");
-        return json_encode("DB error");
     }
 }
 

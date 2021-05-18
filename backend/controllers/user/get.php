@@ -13,7 +13,7 @@ function getUserByID($userID){
 
     if($result){
         $resultRow = mysqli_fetch_assoc($result);
-        print_r(json_encode($resultRow));
+//        print_r(json_encode($resultRow));
         LogsWriteMessage("Getting information about user by id $userID");
         return $resultRow;
     }else{
@@ -30,7 +30,7 @@ function getPhoneNumber($phoneNumber){
 
     if($result){
         $resultPhoneNumberRow = mysqli_fetch_row($result);
-        print_r(json_encode($resultPhoneNumberRow));
+//        print_r(json_encode($resultPhoneNumberRow));
         LogsWriteMessage("Getting matches phone number from database with $phoneNumber");
         return $resultPhoneNumberRow;
     }else{
@@ -47,7 +47,7 @@ function getUserByPhoneNumber($phoneNumber){
 
     if($result){
         $resultRow = mysqli_fetch_assoc($result);
-        print_r(json_encode($resultRow));
+//        print_r(json_encode($resultRow));
         LogsWriteMessage("Getting information about user by phone number $phoneNumber");
         return $resultRow;
     }else{
