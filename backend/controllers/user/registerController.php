@@ -9,13 +9,14 @@ registerUser($client);
 
 function registerUser($client){
     include "../../database/dbConnection.php";
-    include "../rating/setRating.php";
+    include "../rating/createRating.php";
     include "get.php";
     include "../../utils/logger.php";
 
+    $errorsArray = array();
+
     if (!empty($client)) {
         $regPassword = "/^[%?^#$]?(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/";//* любое число раз подряд или отсутствовать
-        $errorsArray = array();
         $password = $client["Password"];
         $passwordConfirm = $client["PasswordConfirm"];
         $phoneNumber = $client["PhoneNumber"];

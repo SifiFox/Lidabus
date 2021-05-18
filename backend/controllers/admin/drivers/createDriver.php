@@ -10,6 +10,7 @@ createDriver($object);
 function createDriver($driver){
     include "../../../database/dbConnection.php";
     include "../../rating/setRating.php";
+    include "../../rating/createRating.php";
     include "../../user/get.php";
     include "../../../utils/logger.php";
 
