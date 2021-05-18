@@ -7,7 +7,6 @@ update($object);
 
 function update($object){
     include "../../database/dbConnection.php";
-    include "../user/get.php";
     include "get.php";
     include "../../utils/logger.php";
 
@@ -30,7 +29,6 @@ function update($object){
 
 function updatePhoneNumber($object){
     include "../../database/dbConnection.php";
-    include "../user/get.php";
     include "get.php";
 
     $userID = $object['ID_User'];
@@ -60,8 +58,6 @@ function updatePhoneNumber($object){
 
 function updateSurname($object){
     include "../../database/dbConnection.php";
-    include "../user/get.php";
-    include "get.php";
 
     $newSurname = $object['NewSurname'];
     $phoneNumber = $object['PhoneNumber'];
@@ -90,8 +86,6 @@ function updateSurname($object){
 
 function updateName($object){
     include "../../database/dbConnection.php";
-    include "../user/get.php";
-    include "get.php";
 
     $newName = $object['NewName'];
     $phoneNumber = $object['PhoneNumber'];
@@ -120,8 +114,6 @@ function updateName($object){
 
 function updatePatronymic($object){
     include "../../database/dbConnection.php";
-    include "../user/get.php";
-    include "get.php";
 
     $newPatronymic = $object['NewPatronymic'];
     $phoneNumber = $object['PhoneNumber'];
