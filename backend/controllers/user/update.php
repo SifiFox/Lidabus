@@ -10,22 +10,21 @@ function update($object){
     include "../../utils/logger.php";
 
     $userDataFromDB = getUserByIDInUpdate($object["ID"]);
-    $newUserData = null;
 
     if($object["PhoneNumber"] != $userDataFromDB["PhoneNumber"]){
-        $newUserData = updatePhoneNumber($object);
+        updatePhoneNumber($object);
     }
     if($object["Surname"] != $userDataFromDB["Surname"]){
-        $newUserData = json_encode($newUserData);
+        updateSurname($object);
     }
     if($object["Name"] != $userDataFromDB["Name"]){
-        $newUserData = updateName($object);
+        updateName($object);
     }
     if($object["Patronymic"] != $userDataFromDB["Patronymic"]){
-        $newUserData = updatePatronymic($object);
+        updatePatronymic($object);
     }
 
-    print_r(json_encode($newUserData));
+    print_r(json_encode($object));
 }
 
 function updatePhoneNumber($object){
