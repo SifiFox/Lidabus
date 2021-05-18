@@ -1,6 +1,6 @@
 <?php
-include "get.php";
-include "../../database/dbConnection.php";
+require_once "get.php";
+require_once "../../database/dbConnection.php";
 //echo date("Y/m/d/H/i");
 //var_dump(time_range(10800, 66600));
 

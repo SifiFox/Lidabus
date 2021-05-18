@@ -1,8 +1,8 @@
 <?php
-include "../../database/dbConnection.php";
-include "../auto/get.php";
-include "get.php";
-include "../../utils/logger.php";
+require_once "../../database/dbConnection.php";
+require_once "../auto/get.php";
+require_once "get.php";
+require_once "../../utils/logger.php";
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
 

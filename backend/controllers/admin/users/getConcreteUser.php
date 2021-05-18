@@ -1,5 +1,5 @@
 <?php
-include "../../user/get.php";
+require_once "../../user/get.php";
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
 

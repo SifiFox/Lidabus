@@ -1,6 +1,6 @@
 <?php
-include "../../../database/dbConnection.php";
-include "../../../utils/logger.php";
+require_once "../../../database/dbConnection.php";
+require_once "../../../utils/logger.php";
 
 //$promocode = json_encode(['Sale' => 10, 'Count' => 5]);
 //создать промокод на 10%(мб акции какие будут)

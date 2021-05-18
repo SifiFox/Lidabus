@@ -1,5 +1,5 @@
 <?php
-include "../../database/dbConnection.php";
+require_once "../../database/dbConnection.php";
 
 function getPromocodeID($promocode){
     $query = "SELECT ID AS ID FROM promocodes WHERE Promocode = '$promocode'";

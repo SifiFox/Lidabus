@@ -1,6 +1,6 @@
 <?php
-include "../../database/dbConnection.php";
-include "../../utils/logger.php";
+require_once "../../database/dbConnection.php";
+require_once "../../utils/logger.php";
 
 //$object = json_encode(['ID_User' => 54, 'ID_Route' => 2, 'OrderStatus' => 'Прибыл']);
 header("Access-Control-Allow-Origin: http://localhost:3000");

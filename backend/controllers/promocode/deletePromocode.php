@@ -1,6 +1,6 @@
 <?php
-include "../../database/dbConnection.php";
-include "get.php";
+require_once "../../database/dbConnection.php";
+require_once "get.php";
 
 //функция удаления введенного промокода
 //deletePromocodeAfterUsing("OBkoKe");

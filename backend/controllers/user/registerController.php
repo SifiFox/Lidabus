@@ -1,8 +1,8 @@
 <?php
-include "../../database/dbConnection.php";
-include "../rating/setRating.php";
-include "get.php";
-include "../../utils/logger.php";
+require_once "../../database/dbConnection.php";
+require_once "../rating/setRating.php";
+require_once "get.php";
+require_once "../../utils/logger.php";
 
 header("Access-Control-Allow-Origin: *");
 //$client = ['PhoneNumber' => '+345257182477', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima',

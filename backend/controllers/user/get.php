@@ -1,6 +1,6 @@
 <?php
 
-include "../../database/dbConnection.php";
+require_once "../../database/dbConnection.php";
 
 function getUserByID($userID){
     $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, 

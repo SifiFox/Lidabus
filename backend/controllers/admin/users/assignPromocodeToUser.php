@@ -1,6 +1,6 @@
 <?php
-include "../../../database/dbConnection.php";
-include "../../../utils/logger.php";
+require_once "../../../database/dbConnection.php";
+require_once "../../../utils/logger.php";
 
 //назначить промокод
 //$assignPromocode = json_encode(['ID_User' => 20, 'ID_Promocode' => 18]);

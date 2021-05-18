@@ -1,6 +1,6 @@
 <?php
-include "../../../database/dbConnection.php";
-include "../../../utils/logger.php";
+require_once "../../../database/dbConnection.php";
+require_once "../../../utils/logger.php";
 //$auto = json_encode(['Mark' => 'Mercedes', 'Model' => 'Sprinter', 'GovernmentNumber' => '1234AA-6', 'SeatsNumber' => 15, 'Color' => 'Orange']);
 //createAuto($auto);
 header("Access-Control-Allow-Origin: http://localhost:3000");

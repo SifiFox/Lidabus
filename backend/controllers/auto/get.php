@@ -1,6 +1,6 @@
 <?php
-include "../../database/dbConnection.php";
-include "../../utils/logger.php";
+require_once "../../database/dbConnection.php";
+require_once "../../utils/logger.php";
 
 function getAutos(){
     $query = "SELECT * FROM autos ORDER BY ID";

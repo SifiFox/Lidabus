@@ -1,8 +1,8 @@
 <?php
-include "../../../database/dbConnection.php";
-include "../../rating/setRating.php";
-include "../../user/get.php";
-include "../../../utils/logger.php";
+require_once "../../../database/dbConnection.php";
+require_once "../../rating/setRating.php";
+require_once "../../user/get.php";
+require_once "../../../utils/logger.php";
 //$driver = json_encode(['PhoneNumber' => '+375212132450', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima', 'Name' => 'Driver', 'Surname' => 'Driver', 'Patronymic' => 'Driver']);
 
 header("Access-Control-Allow-Origin: http://localhost:3000");

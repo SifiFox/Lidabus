@@ -1,7 +1,7 @@
 <?php
-include "../../database/dbConnection.php";
-include "../user/get.php";
-include "../../utils/logger.php";
+require_once "../../database/dbConnection.php";
+require_once "../user/get.php";
+require_once "../../utils/logger.php";
 
 
 header("Access-Control-Allow-Origin: *");

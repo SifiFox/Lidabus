@@ -1,8 +1,8 @@
 <?php
-include "../../database/dbConnection.php";
-include "../rating/setRating.php";
-include "../../utils/logger.php";
-include "../user/get.php";
+require_once "../../database/dbConnection.php";
+require_once "../rating/setRating.php";
+require_once "../../utils/logger.php";
+require_once "../user/get.php";
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
 

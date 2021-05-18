@@ -1,7 +1,7 @@
 <?php
 
-include "../../utils/logger.php";
-include "createRoutes.php";
+require_once "../../utils/logger.php";
+require_once "createRoutes.php";
 
 createFutureRoutesForDaysNumber(date('Y-m-d'), 3);
 

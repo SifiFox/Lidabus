@@ -1,5 +1,5 @@
 <?php
-include "../../database/dbConnection.php";
+require_once "../../database/dbConnection.php";
 
 function getRoutesByDate($date){
     $query = "SELECT * FROM routes WHERE Date = '$date'";

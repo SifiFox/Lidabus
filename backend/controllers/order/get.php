@@ -1,7 +1,7 @@
 <?php
-include "../../database/dbConnection.php";
-include "../promocode/deletePromocode.php";
-include "../promocode/get.php";
+require_once "../../database/dbConnection.php";
+require_once "../promocode/deletePromocode.php";
+require_once "../promocode/get.php";
 
 function getSeatsNumberByRoute($routeID){
     $query = "SELECT SUM(o.PassengerCount) AS seatsNumber FROM orders o

@@ -1,6 +1,6 @@
 <?php
-include "../../../database/dbConnection.php";
-include "../../../utils/logger.php";
+require_once "../../../database/dbConnection.php";
+require_once "../../../utils/logger.php";
 
 // при нажатии на кнопку с фронты передается объект json ['Status' => 'Active/Block']
 header("Access-Control-Allow-Origin: http://localhost:3000");
