@@ -10,21 +10,22 @@ function update($object){
     include "../../utils/logger.php";
 
     $userDataFromDB = getUserByIDInUpdate($object["ID"]);
+    $newUserData = null;
 
     if($object["PhoneNumber"] != $userDataFromDB["PhoneNumber"]){
-        updatePhoneNumber($object);
+        $newUserData = updatePhoneNumber($object);
     }
     if($object["Surname"] != $userDataFromDB["Surname"]){
-        updateSurname($object);
+        $newUserData = json_encode($newUserData);
     }
     if($object["Name"] != $userDataFromDB["Name"]){
-        updateName($object);
+        $newUserData = updateName($object);
     }
     if($object["Patronymic"] != $userDataFromDB["Patronymic"]){
-        updatePatronymic($object);
+        $newUserData = updatePatronymic($object);
     }
 
-    print_r(json_encode($object));
+    print_r(json_encode($newUserData));
 }
 
 function updatePhoneNumber($object){
@@ -45,7 +46,7 @@ function updatePhoneNumber($object){
             $clinet = getUserByID($object['ID']);
 
 //            print_r(json_encode($clinet));
-            return json_encode($clinet);
+            return $clinet;
         }else{
             LogsWriteMessage("DB error with updating phone number");
             return json_encode("Ошибка БД при обновлении номера телефона");
@@ -73,7 +74,7 @@ function updateSurname($object){
             $clinet = getUserByID($object['ID']);
 
 //            print_r(json_encode($clinet));
-            return json_encode($clinet);
+            return $clinet;
         }else{
             LogsWriteMessage("DB error with updating surname");
             return json_encode("Ошибка БД при обновлении фамилии");
@@ -101,7 +102,7 @@ function updateName($object){
             $clinet = getUserByID($object['ID']);
 
 //            print_r(json_encode($clinet));
-            return json_encode($clinet);
+            return $clinet;
         }else{
             LogsWriteMessage("DB error with updating name");
             return json_encode("Ошибка БД при обновлении имени");
@@ -129,7 +130,7 @@ function updatePatronymic($object){
             $clinet = getUserByID($object['ID']);
 
 //            print_r(json_encode($clinet));
-            return json_encode($clinet);
+            return $clinet;
         }else{
             LogsWriteMessage("DB error with updating patronymic");
             return json_encode("Ошибка БД при обновлении отчества");
