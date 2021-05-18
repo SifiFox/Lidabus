@@ -1,7 +1,4 @@
 <?php
-require_once "../../database/dbConnection.php";
-require_once "../../utils/logger.php";
-
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 $object = json_decode($_GET['setRating'], true);
@@ -9,6 +6,9 @@ setRatingToDriver($authUser);
 //$object = json_encode(['ID_User' => 49, 'ID_Driver' => 48, 'Rating' => 4]);
 //setRatingToDriver($object);
 function setRatingToDriver($object){
+    include "../../database/dbConnection.php";
+    include "../../utils/logger.php";
+
     $userID = $object['ID_User'];
     $userVote = $object['Rating'];
     $currentRating = getRatingByID($userID);
@@ -28,6 +28,8 @@ function setRatingToDriver($object){
 }
 
 function getRatingByID($userID){
+    include "../../database/dbConnection.php";
+
     $rating = 0;
 
     $query = "SELECT r.Rating AS rating FROM rating r 
@@ -54,6 +56,8 @@ function getRatingByID($userID){
 }
 
 function getCountVotesByID($userID){
+    include "../../database/dbConnection.php";
+
     $countVotes = 0;
 
     $query = "SELECT r.CountVotes AS rating FROM rating r 
@@ -86,6 +90,8 @@ function calculateRating($currentRating, $countVotes, $userVote){
 }
 
 function createRating($userID){
+    include "../../database/dbConnection.php";
+
     $query = "INSERT INTO rating(ID) VALUES($userID)";
     $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
 

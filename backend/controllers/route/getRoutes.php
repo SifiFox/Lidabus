@@ -1,13 +1,13 @@
 <?php
-require_once "../../database/dbConnection.php";
-require_once "../../utils/logger.php";
-
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 $object = json_decode($_GET['getRoutes'], true);
 getRoutesWithDependenciesByDate($object);
 
 function getRoutesWithDependenciesByDate($object){
+    include "../../database/dbConnection.php";
+    include "../../utils/logger.php";
+
     $date = $object['Date'];
     $query = "SELECT r.Destination, r.StartTreepTime, r.EndTreepTime,
                     a.Mark, a.Model, a.GovernmentNumber, a.Color,

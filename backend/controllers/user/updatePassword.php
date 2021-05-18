@@ -1,14 +1,15 @@
 <?php
-require_once "../../database/dbConnection.php";
-require_once "../user/get.php";
-require_once "../../utils/logger.php";
-
 
 header("Access-Control-Allow-Origin: *");
 
 $object = json_decode($_POST['updatePassword'], true);
 updatePassword($object);
+
 function updatePassword($object){
+    include "../../database/dbConnection.php";
+    include "../user/get.php";
+    include "../../utils/logger.php";
+
     $object = json_decode($object, true);
     $regPassword = "/^[%?^#$]?(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/";//* любое число раз подряд или отсутствовать
     $oldPassword = $object['OldPassword'];

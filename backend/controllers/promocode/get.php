@@ -1,7 +1,8 @@
 <?php
-require_once "../../database/dbConnection.php";
 
 function getPromocodeID($promocode){
+    include "../../database/dbConnection.php";
+
     $query = "SELECT ID AS ID FROM promocodes WHERE Promocode = '$promocode'";
     $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
 
@@ -22,6 +23,8 @@ function getPromocodeID($promocode){
 }
 
 function getPromocodeSale($promocode){
+    include "../../database/dbConnection.php";
+
     $query = "SELECT Sale FROM promocodes WHERE Promocode = '$promocode'";
     $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
 

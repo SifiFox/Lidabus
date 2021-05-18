@@ -1,8 +1,4 @@
 <?php
-require_once "../../database/dbConnection.php";
-require_once "../../utils/logger.php";
-require_once "../user/get.php";
-require_once "get.php";
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
@@ -10,6 +6,11 @@ $object = json_decode($_POST['updateUser'], true);
 update($object);
 
 function update($object){
+    include "../../database/dbConnection.php";
+    include "../user/get.php";
+    include "get.php";
+    include "../../utils/logger.php";
+
     $userDataFromDB = getUserByID($object["ID"]);
 
     if($object["NewPhoneNumber"] != $userDataFromDB["PhoneNumber"]){
@@ -32,6 +33,10 @@ function update($object){
 }
 
 function updatePhoneNumber($object){
+    include "../../database/dbConnection.php";
+    include "../user/get.php";
+    include "get.php";
+
     $userID = $object['ID_User'];
     $newPhoneNumber = $object['PhoneNumber'];
 
@@ -54,6 +59,10 @@ function updatePhoneNumber($object){
 }
 
 function updateSurname($object){
+    include "../../database/dbConnection.php";
+    include "../user/get.php";
+    include "get.php";
+
     $newSurname = $object['NewSurname'];
     $phoneNumber = $object['PhoneNumber'];
 
@@ -76,6 +85,10 @@ function updateSurname($object){
 }
 
 function updateName($object){
+    include "../../database/dbConnection.php";
+    include "../user/get.php";
+    include "get.php";
+
     $newName = $object['NewName'];
     $phoneNumber = $object['PhoneNumber'];
 
@@ -98,6 +111,10 @@ function updateName($object){
 }
 
 function updatePatronymic($object){
+    include "../../database/dbConnection.php";
+    include "../user/get.php";
+    include "get.php";
+
     $newPatronymic = $object['NewPatronymic'];
     $phoneNumber = $object['PhoneNumber'];
 

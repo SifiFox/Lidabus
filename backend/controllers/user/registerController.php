@@ -1,8 +1,4 @@
 <?php
-require_once "../../database/dbConnection.php";
-require_once "../rating/setRating.php";
-require_once "get.php";
-require_once "../../utils/logger.php";
 
 header("Access-Control-Allow-Origin: *");
 //$client = ['PhoneNumber' => '+345257182477', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima',
@@ -12,6 +8,11 @@ $client = json_decode($_POST['register'], true);
 registerUser($client);
 
 function registerUser($client){
+    include "../../database/dbConnection.php";
+    include "../rating/setRating.php";
+    include "get.php";
+    include "../../utils/logger.php";
+
     if (!empty($client)) {
         $regPassword = "/^[%?^#$]?(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/";//* любое число раз подряд или отсутствовать
         $errorsArray = array();

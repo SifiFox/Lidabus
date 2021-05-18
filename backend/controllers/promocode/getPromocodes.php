@@ -1,13 +1,13 @@
 <?php
-require_once "../../database/dbConnection.php";
-require_once "../../utils/logger.php";
-
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 $object = json_decode($_POST['getPromocodes'], true);
 
 getPromocodeTableByUser($object);
 function getPromocodeTableByUser($userID){
+    include "../../database/dbConnection.php";
+    include "../../utils/logger.php";
+
     $query = "SELECT p.Promocode FROM promocodes AS p 
                 INNER JOIN users_promocodes AS u 
                 ON p.ID = u.ID_Promocode

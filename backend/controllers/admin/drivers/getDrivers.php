@@ -1,7 +1,4 @@
 <?php
-require_once "../../../database/dbConnection.php";
-require_once "../../../utils/logger.php";
-
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 $object = json_decode($_POST['getDrivers'], true);
@@ -11,6 +8,9 @@ if($object){
 }
 
 function getDrivers(){
+    include "../../../database/dbConnection.php";
+    include "../../../utils/logger.php";
+
     $query = "SELECT u.id, u.PhoneNumber, u.Surname, u.Name, 
                     u.Patronymic, u.Patronymic, u.Role, u.Status, r.Rating 
                     FROM users u

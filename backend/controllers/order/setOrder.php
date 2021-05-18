@@ -1,8 +1,4 @@
 <?php
-require_once "../../database/dbConnection.php";
-require_once "../auto/get.php";
-require_once "get.php";
-require_once "../../utils/logger.php";
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
@@ -15,6 +11,11 @@ setOrderByUserID($object);
 //setOrderByUserID($order);
 
 function setOrderByUserID($order){
+    include "../../database/dbConnection.php";
+    include "../auto/get.php";
+    include "get.php";
+    include "../../utils/logger.php";
+
     $passengerCount = $order['PassengerCount'];
     $autoSeatsNumber = intval(getAutoSeatsNumberByID($order['ID_Auto']));
     $seatsNumberInRoute = intval(getSeatsNumberByRoute($order['ID_Route']));
@@ -62,6 +63,8 @@ function setOrderByUserID($order){
 }
 
 function isUserActive($userID){
+    include "../../database/dbConnection.php";
+
     $isUserActive = false;
 
     $query = "SELECT Status AS status FROM users WHERE ID = $userID";
@@ -91,6 +94,8 @@ function isUserActive($userID){
 }
 
 function isEmptyPassengerSeat($routeID, $passengerSeatsNumber){
+    include "../../database/dbConnection.php";
+
     $isSetPassengerSeat = true;
     $occupiedSeatNumber = array();
     $passengerSeatsNumber = explode(" ", $passengerSeatsNumber);
@@ -121,6 +126,8 @@ function isEmptyPassengerSeat($routeID, $passengerSeatsNumber){
 }
 
 function setPassengerSeat($orderID, $passengerSeatsNumber){
+    include "../../database/dbConnection.php";
+
     $passengerSeatsNumber = explode(" ", $passengerSeatsNumber);
     foreach($passengerSeatsNumber as $number){
         $query = "INSERT INTO orders_passengerseats(ID_Order, ID_PassengerSeat) VALUES($orderID, $number)";

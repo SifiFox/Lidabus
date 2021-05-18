@@ -1,13 +1,13 @@
 <?php
-require_once "../../database/dbConnection.php";
-require_once "../../utils/logger.php";
-
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 $object = json_decode($_POST['updateCancelOrder'], true);
 cancelOrderByUser($object);
 //$object = json_encode(['ID_Order' => 73]);
 function cancelOrderByUser($object){
+    include "../../database/dbConnection.php";
+    include "../../utils/logger.php";
+
     $orderID = $object['ID_Order'];
 
     $query = "UPDATE orders SET Status = 'Отменена пользователем' 

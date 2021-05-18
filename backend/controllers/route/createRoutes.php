@@ -1,6 +1,4 @@
 <?php
-require_once "get.php";
-require_once "../../database/dbConnection.php";
 //echo date("Y/m/d/H/i");
 //var_dump(time_range(10800, 66600));
 
@@ -25,6 +23,8 @@ function generateTreepTime($start, $end, $step = 3600) {
 }
 
 function createRoutesForBothDestination($date){//проверка на то существуют ли маршруты на $date, если их нет, то создаем
+    include "get.php";
+    include "../../database/dbConnection.php";
 
     $routesByDate = json_decode(getRoutesByDate($date));
 

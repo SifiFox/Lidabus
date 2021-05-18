@@ -1,8 +1,8 @@
 <?php
 
-require_once "../../database/dbConnection.php";
-
 function getUserByID($userID){
+    include "../../database/dbConnection.php";
+
     $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, 
                     u.Patronymic, u.Patronymic, u.Role, u.Status, r.Rating 
                     FROM users u
@@ -23,6 +23,8 @@ function getUserByID($userID){
 }
 
 function getPhoneNumber($phoneNumber){
+    include "../../database/dbConnection.php";
+
     $query = "SELECT PhoneNumber FROM users WHERE PhoneNumber = '$phoneNumber'";
     $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
 
@@ -38,6 +40,8 @@ function getPhoneNumber($phoneNumber){
 }
 
 function getUserByPhoneNumber($phoneNumber){
+    include "../../database/dbConnection.php";
+
     $query = "SELECT * FROM users WHERE PhoneNumber = '$phoneNumber'";
     $result = mysqli_query($dbLink, $query) or die ("Database error");
 

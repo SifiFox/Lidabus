@@ -1,7 +1,4 @@
 <?php
-require_once "../../../database/dbConnection.php";
-require_once "../../../utils/logger.php";
-
 //назначить промокод
 //$assignPromocode = json_encode(['ID_User' => 20, 'ID_Promocode' => 18]);
 header("Access-Control-Allow-Origin: http://localhost:3000");
@@ -11,6 +8,9 @@ $object = json_decode($_POST['assignPromocodeToUser'], true);
 assignPromocodeToUser($object);
 
 function assignPromocodeToUser($assignPromocode){
+    include "../../../database/dbConnection.php";
+    include "../../../utils/logger.php";
+
     $userID = $assignPromocode["ID_User"];
     $promocodeID = $assignPromocode["ID_Promocode"];
     //проверка на то назначен ли этот промокд юзеру

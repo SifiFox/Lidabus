@@ -1,7 +1,7 @@
 <?php
-require_once "../../database/dbConnection.php";
-
 function getRoutesByDate($date){
+    include "../../database/dbConnection.php";
+
     $query = "SELECT * FROM routes WHERE Date = '$date'";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 

@@ -1,9 +1,8 @@
 <?php
-require_once "../../database/dbConnection.php";
-require_once "../promocode/deletePromocode.php";
-require_once "../promocode/get.php";
 
 function getSeatsNumberByRoute($routeID){
+    include "../../database/dbConnection.php";
+
     $query = "SELECT SUM(o.PassengerCount) AS seatsNumber FROM orders o
                 WHERE o.ID_Route = $routeID";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
@@ -25,6 +24,10 @@ function getSeatsNumberByRoute($routeID){
 }
 
 function getOrderCostByPassengerCount($userID, $passengerCount, $promocode)  {
+    include "../../database/dbConnection.php";
+    include "../promocode/deletePromocode.php";
+    include "../promocode/get.php";
+
     $cost = 0;
 
     if(isUserHavePromocode($userID, $promocode)){

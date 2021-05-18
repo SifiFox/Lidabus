@@ -1,6 +1,4 @@
 <?php
-require_once "../../database/dbConnection.php";
-require_once "../../utils/logger.php";
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
@@ -9,6 +7,9 @@ $object = json_decode($_POST['getCompletedOrders'], true);
 getCompletedOrdersByUserID($object);
 
 function getCompletedOrdersByUserID($userID){
+    include "../../database/dbConnection.php";
+    include "../../utils/logger.php";
+
     $query = "SELECT * FROM orders WHERE ID_User = $userID AND Status = 'Прибыл'";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 

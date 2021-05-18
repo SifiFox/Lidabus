@@ -1,8 +1,4 @@
 <?php
-require_once "../../database/dbConnection.php";
-require_once "../rating/setRating.php";
-require_once "../../utils/logger.php";
-require_once "../user/get.php";
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
@@ -12,6 +8,11 @@ $authUser = json_decode($_GET['auth'], true);
 authorizationUser($authUser);
 
 function authorizationUser($authUser){
+    include "../../database/dbConnection.php";
+    include "../rating/setRating.php";
+    include "../../utils/logger.php";
+    include "../user/get.php";
+
     $errorsArray = array();
 
     if(!empty($authUser)){

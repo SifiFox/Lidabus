@@ -1,6 +1,4 @@
 <?php
-require_once "../../../database/dbConnection.php";
-require_once "../../../utils/logger.php";
 //$object = json_encode(['ID_Driver' => n, 'ID_Auto' => n]);
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
@@ -9,6 +7,9 @@ $object = json_decode($_POST['assignDriverToAuto'], true);
 assignDriverToAuto($object);
 
 function assignDriverToAuto($object){
+    include "../../../database/dbConnection.php";
+    include "../../../utils/logger.php";
+
     $driverID = $object["ID_Driver"];
     $autoID = $object["ID_Auto"];
 
