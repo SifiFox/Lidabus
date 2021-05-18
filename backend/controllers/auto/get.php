@@ -1,8 +1,8 @@
 <?php
-function getAutos(){
-    include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
+include "../../database/dbConnection.php";
+include "../../utils/logger.php";
 
+function getAutos(){
     $query = "SELECT * FROM autos ORDER BY ID";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
@@ -14,6 +14,7 @@ function getAutos(){
             $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
         }
 
+        print_r(json_encode($data));
         LogsWriteMessage("Getting autos table is success");
         return json_encode($data);
     }else{
@@ -23,9 +24,6 @@ function getAutos(){
 }
 
 function getAuto($autoID){
-    include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
-
     $query = "SELECT * FROM autos WHERE ID = $autoID";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
@@ -37,6 +35,7 @@ function getAuto($autoID){
             $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
         }
 
+        print_r(json_encode($data));
         LogsWriteMessage("Getting autos is success");
         return json_encode($data);
     }else{
@@ -46,8 +45,6 @@ function getAuto($autoID){
 }
 
 function getAutoSeatsNumberByID($autoID){
-    include "../../database/dbConnection.php";
-
     $query = "SELECT SeatsNumber AS count FROM autos WHERE ID = $autoID";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
@@ -58,6 +55,7 @@ function getAutoSeatsNumberByID($autoID){
             $countAutoSeatsNumber = $row -> count;
         }
 
+        print_r(json_encode($countAutoSeatsNumber));
         LogsWriteMessage("Getting auto seatsNumber is success");
         return $countAutoSeatsNumber;
     }else{

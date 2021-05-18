@@ -1,4 +1,7 @@
 <?php
+include "../../../database/dbConnection.php";
+include "../../../utils/logger.php";
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 $object = json_decode($_POST['getDrivers'], true);
@@ -8,9 +11,6 @@ if($object){
 }
 
 function getDrivers(){
-    include "../../../database/dbConnection.php";
-    include "../../../utils/logger.php";
-
     $query = "SELECT u.id, u.PhoneNumber, u.Surname, u.Name, 
                     u.Patronymic, u.Patronymic, u.Role, u.Status, r.Rating 
                     FROM users u
@@ -27,6 +27,7 @@ function getDrivers(){
             $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
         }
 
+        print_r(json_encode($data));
         LogsWriteMessage("Getting drivers from user table is success");
         return json_encode($data);
     }else{

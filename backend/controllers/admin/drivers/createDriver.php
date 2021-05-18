@@ -1,4 +1,8 @@
 <?php
+include "../../../database/dbConnection.php";
+include "../../rating/setRating.php";
+include "../../user/get.php";
+include "../../../utils/logger.php";
 //$driver = json_encode(['PhoneNumber' => '+375212132450', 'Password' => '7182470Dima', 'PasswordConfirm' => '7182470Dima', 'Name' => 'Driver', 'Surname' => 'Driver', 'Patronymic' => 'Driver']);
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
@@ -8,11 +12,6 @@ $object = json_decode($_POST['createDriver'], true);
 createDriver($object);
 
 function createDriver($driver){
-    include "../../../database/dbConnection.php";
-    include "../../rating/setRating.php";
-    include "../../user/get.php";
-    include "../../../utils/logger.php";
-
     $regPassword = "/^[%?^#$]?(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/";//* любое число раз подряд или отсутствовать
     $errorsArray = array();
     $phoneNumber = $driver["PhoneNumber"];
@@ -42,6 +41,7 @@ function createDriver($driver){
 
                             createRating($driverID);
                             setDriverToDriversAutos($driverID, 9);
+                            print_r(json_encode($driver));
 
                             LogsWriteMessage("driver ".$driver['Surname']." ".$driver['Name']." registred");
                             return json_encode($driver);
@@ -85,8 +85,6 @@ function createDriver($driver){
 }
 
 function setDriverToDriversAutos($driverID, $autoID){
-    include "../../../database/dbConnection.php";
-
     $query = "INSERT INTO drivers_autos(ID_Driver, ID_Auto) VALUES ($driverID, $autoID)";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 

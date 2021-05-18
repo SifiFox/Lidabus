@@ -1,8 +1,9 @@
 <?php
+include "../../database/dbConnection.php";
+include "../promocode/deletePromocode.php";
+include "../promocode/get.php";
 
 function getSeatsNumberByRoute($routeID){
-    include "../../database/dbConnection.php";
-
     $query = "SELECT SUM(o.PassengerCount) AS seatsNumber FROM orders o
                 WHERE o.ID_Route = $routeID";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
@@ -14,6 +15,7 @@ function getSeatsNumberByRoute($routeID){
             $countSeatsNumber = $row -> seatsNumber;
         }
 
+        print_r(json_encode($countSeatsNumber));
         LogsWriteMessage("$countSeatsNumber -> ordered number of seats by the user");
         return $countSeatsNumber;
     }else{
@@ -23,9 +25,6 @@ function getSeatsNumberByRoute($routeID){
 }
 
 function getOrderCostByPassengerCount($userID, $passengerCount, $promocode)  {
-    include "../promocode/deletePromocode.php";
-    include "../promocode/get.php";
-
     $cost = 0;
 
     if(isUserHavePromocode($userID, $promocode)){
@@ -38,6 +37,7 @@ function getOrderCostByPassengerCount($userID, $passengerCount, $promocode)  {
     }else{
         $cost = $passengerCount * 9;
 
+        print_r(json_encode($cost));
         LogsWriteMessage("Cost of roder = $cost Br");
         return $cost;
     }

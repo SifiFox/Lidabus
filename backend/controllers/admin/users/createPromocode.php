@@ -1,4 +1,7 @@
 <?php
+include "../../../database/dbConnection.php";
+include "../../../utils/logger.php";
+
 //$promocode = json_encode(['Sale' => 10, 'Count' => 5]);
 //создать промокод на 10%(мб акции какие будут)
 header("Access-Control-Allow-Origin: http://localhost:3000");
@@ -8,9 +11,6 @@ $object = json_decode($_POST['createPromocode'], true);
 createPromocode($object);
 
 function createPromocode($promocode){
-    include "../../../database/dbConnection.php";
-    include "../../../utils/logger.php";
-
     $sale = intval($promocode['Sale'])/100;
     $count = intval($promocode['Count']);
 

@@ -1,4 +1,7 @@
 <?php
+include "../../database/dbConnection.php";
+include "../../utils/logger.php";
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 $object = json_decode($_POST['getCompletedOrders'], true);
@@ -6,9 +9,6 @@ $object = json_decode($_POST['getCompletedOrders'], true);
 getCompletedOrdersByUserID($object);
 
 function getCompletedOrdersByUserID($userID){
-    include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
-
     $query = "SELECT * FROM orders WHERE ID_User = $userID AND Status = 'Прибыл'";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
@@ -20,6 +20,7 @@ function getCompletedOrdersByUserID($userID){
             $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
         }
 
+        print_r(json_encode($data));
         LogsWriteMessage("Data on the user's completed trips received");
         return json_encode($data);
     }else{

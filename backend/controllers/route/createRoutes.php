@@ -1,4 +1,6 @@
 <?php
+include "get.php";
+include "../../database/dbConnection.php";
 //echo date("Y/m/d/H/i");
 //var_dump(time_range(10800, 66600));
 
@@ -23,7 +25,6 @@ function generateTreepTime($start, $end, $step = 3600) {
 }
 
 function createRoutesForBothDestination($date){//проверка на то существуют ли маршруты на $date, если их нет, то создаем
-    include "get.php";
 
     $routesByDate = json_decode(getRoutesByDate($date));
 
@@ -39,15 +40,12 @@ function createRoutesForBothDestination($date){//проверка на то су
         createRoutesForOneDestination($id_autos_to_lida, $date,'Лида', $startTreepTime, $endTreepTime);
         createRoutesForOneDestination($id_auto_to_minsk,$date, 'Минск', $startTreepTime, $endTreepTime);
 
-//        echo "Маршруты на ".$date." созданы";
         LogsWriteMessage("Routes to ".$date." already created");
         return json_encode("Маршруты на ".$date." созданы");
     }
 }
 
 function createRoutesForOneDestination($id_auto, $date, $destination, $startTreepTime, $endTreepTime){// minsk or lida
-    include "../../database/dbConnection.php";
-
     for($i = 0; $i < count($startTreepTime); $i++){
         $query = "INSERT INTO routes(ID_Auto, Date, Destination, StartTreepTime, EndTreepTime) 
                     VALUES ($id_auto[$i], '$date', '$destination', '$startTreepTime[$i]', '$endTreepTime[$i]')";

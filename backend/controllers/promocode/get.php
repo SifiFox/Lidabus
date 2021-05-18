@@ -1,8 +1,7 @@
 <?php
+include "../../database/dbConnection.php";
 
 function getPromocodeID($promocode){
-    include "../../database/dbConnection.php";
-
     $query = "SELECT ID AS ID FROM promocodes WHERE Promocode = '$promocode'";
     $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
 
@@ -13,6 +12,7 @@ function getPromocodeID($promocode){
             $promocodeID = $row -> ID;
         }
 
+        print_r(json_encode($promocodeID));
         LogsWriteMessage("Promocode ID is succesfully received");
         return $promocodeID;
     }else{
@@ -22,8 +22,6 @@ function getPromocodeID($promocode){
 }
 
 function getPromocodeSale($promocode){
-    include "../../database/dbConnection.php";
-
     $query = "SELECT Sale FROM promocodes WHERE Promocode = '$promocode'";
     $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
 
@@ -34,6 +32,7 @@ function getPromocodeSale($promocode){
             $promocodeSale = $row;
         }
 
+        print_r(json_encode($promocodeSale));
         LogsWriteMessage("Promocode sale is succesfully received");
         return $promocodeSale;
     }else{

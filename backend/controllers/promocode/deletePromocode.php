@@ -1,11 +1,10 @@
 <?php
+include "../../database/dbConnection.php";
+include "get.php";
 
 //функция удаления введенного промокода
 //deletePromocodeAfterUsing("OBkoKe");
 function deletePromocodeAfterUsing($promocode){
-    include "../../database/dbConnection.php";
-    include "get.php";
-
     $promocodeID = getPromocodeID($promocode);
 
     $query = "DELETE FROM users_promocodes WHERE ID_Promocode = $promocodeID";
@@ -24,9 +23,6 @@ function deletePromocodeAfterUsing($promocode){
 }
 
 function isUserHavePromocode($userID, $promocode){
-    include "../../database/dbConnection.php";
-    include "get.php";
-
     $promocodeID = getPromocodeID($promocode);
 
     $query = "SELECT ID FROM `users_promocodes` WHERE ID_User = $userID AND ID_Promocode = $promocodeID";

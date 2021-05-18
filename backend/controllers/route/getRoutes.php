@@ -1,13 +1,13 @@
 <?php
+include "../../database/dbConnection.php";
+include "../../utils/logger.php";
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 $object = json_decode($_GET['getRoutes'], true);
 getRoutesWithDependenciesByDate($object);
 
 function getRoutesWithDependenciesByDate($object){
-    include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
-
     $date = $object['Date'];
     $query = "SELECT r.Destination, r.StartTreepTime, r.EndTreepTime,
                     a.Mark, a.Model, a.GovernmentNumber, a.Color,
@@ -27,6 +27,7 @@ function getRoutesWithDependenciesByDate($object){
             $data[] = $row; // допишем строку из выборки как новый элемент результирующего массива
         }
 
+        print_r(json_encode($data));
         LogsWriteMessage("Getting routes table is succesfully received");
         return json_encode($data);
     }else{

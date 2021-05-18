@@ -1,4 +1,7 @@
 <?php
+include "../../../database/dbConnection.php";
+include "../../../utils/logger.php";
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 if(json_decode($_GET['getUsers'], true)){
@@ -6,9 +9,6 @@ if(json_decode($_GET['getUsers'], true)){
 }
 
 function getUsers(){
-    include "../../../database/dbConnection.php";
-    include "../../../utils/logger.php";
-
     $query = "SELECT u.id, u.PhoneNumber, u.Surname, u.Name, 
                     u.Patronymic, u.Patronymic, u.Role, u.Status, r.Rating 
                     FROM users u
@@ -20,6 +20,7 @@ function getUsers(){
     if($result){
         $resultRow = mysqli_fetch_assoc($result);
 
+        print_r(json_encode($resultRow));
         LogsWriteMessage("Getting information about users");
         return $resultRow;
     }else{

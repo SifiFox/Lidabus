@@ -1,4 +1,9 @@
 <?php
+include "../../database/dbConnection.php";
+include "../auto/get.php";
+include "get.php";
+include "../../utils/logger.php";
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 $object = json_decode($_POST['setOrder'], true);
@@ -10,11 +15,6 @@ setOrderByUserID($object);
 //setOrderByUserID($order);
 
 function setOrderByUserID($order){
-    include "../../database/dbConnection.php";
-    include "../auto/get.php";
-    include "get.php";
-    include "../../utils/logger.php";
-
     $passengerCount = $order['PassengerCount'];
     $autoSeatsNumber = intval(getAutoSeatsNumberByID($order['ID_Auto']));
     $seatsNumberInRoute = intval(getSeatsNumberByRoute($order['ID_Route']));
@@ -41,23 +41,18 @@ function setOrderByUserID($order){
                     $orderID= $row[0] ?? false;
 
                     setPassengerSeat($orderID, $passengerSeatsNumber);
-//                echo "Бронь оформлена, ожидайте поездки";
                     LogsWriteMessage("Reservation made, expect a trip");
                 }else{
-//                echo "Ошибка при внесении данных в таблицу заказов";
                     LogsWriteMessage("Error while entering data into the table of orders");
                 }
             }else{
-//            echo "22222";
                 LogsWriteMessage("Seats are reserved, let the user select free seats");
             }
         }else{
             if($autoSeatsNumber - $seatsNumberInRoute > 0){
-//            echo "Забронируйте меньшее количество. Вы заказали: ".$passengerCount.". Количество свободны мест: ".($autoSeatsNumber - $seatsNumberInRoute);
                 LogsWriteMessage("Book less. You ordered: ". $passengerCount.". Number of free seats: ".($autoSeatsNumber - $seatsNumberInRoute));
             }
             else{
-//            echo "Нет свободных мест";
                 LogsWriteMessage("No free places");
             }
         }
@@ -67,8 +62,6 @@ function setOrderByUserID($order){
 }
 
 function isUserActive($userID){
-    include "../../database/dbConnection.php";
-
     $isUserActive = false;
 
     $query = "SELECT Status AS status FROM users WHERE ID = $userID";
@@ -97,11 +90,7 @@ function isUserActive($userID){
     }
 }
 
-//isEmptyPassengerSeat(2, '2 12 13');
 function isEmptyPassengerSeat($routeID, $passengerSeatsNumber){
-    include "../../database/dbConnection.php";
-//    include "../../utils/logger.php";
-
     $isSetPassengerSeat = true;
     $occupiedSeatNumber = array();
     $passengerSeatsNumber = explode(" ", $passengerSeatsNumber);
@@ -115,40 +104,30 @@ function isEmptyPassengerSeat($routeID, $passengerSeatsNumber){
         if($result){
             $row = mysqli_fetch_row($result);
             if(empty($row[0])){
-//                echo "$number свободно";
                 LogsWriteMessage($number." is empty");
             }else{
                 array_push($occupiedSeatNumber, $number);
             }
         }else{
-//            echo "db error";
             LogsWriteMessage("Database error");
         }
     }
-//    var_dump($occupiedSeatNumber);
     if(!empty($occupiedSeatNumber)){
         $isSetPassengerSeat = false;
-//        var_dump($isSetPassengerSeat);
         return $isSetPassengerSeat;
     }else{
-//        var_dump($isSetPassengerSeat);
         return $isSetPassengerSeat;
     }
 }
 
 function setPassengerSeat($orderID, $passengerSeatsNumber){
-    include "../../database/dbConnection.php";
-//    include "../../utils/logger.php";
-
     $passengerSeatsNumber = explode(" ", $passengerSeatsNumber);
     foreach($passengerSeatsNumber as $number){
         $query = "INSERT INTO orders_passengerseats(ID_Order, ID_PassengerSeat) VALUES($orderID, $number)";
         $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
         if($result){
-//            echo "result";
             LogsWriteMessage("Passengers already added to orders_passengerseats table");
         }else{
-//            echo "db error";
             LogsWriteMessage("Database error");
         }
     }

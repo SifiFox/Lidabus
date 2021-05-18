@@ -1,4 +1,7 @@
 <?php
+include "../../database/dbConnection.php";
+include "../../utils/logger.php";
+
 //$object = json_encode(['ID_User' => 54, 'ID_Route' => 2, 'OrderStatus' => 'Прибыл']);
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
@@ -7,9 +10,6 @@ $object = json_decode($_POST['updateStatusOrder'], true);
 setStatusToOrder($object);
 
 function setStatusToOrder($object){
-    include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
-
     $userID = $object['ID_User'];
     $routeID = $object['ID_Route'];
     $orderStatus = $object['OrderStatus'];
@@ -35,8 +35,6 @@ function setStatusToOrder($object){
 }
 //isUserDriver(50);
 function isUserDriver($userID){
-    include "../../database/dbConnection.php";
-
     $isDriver = false;
 
     $query = "SELECT * FROM `users` 
@@ -62,8 +60,6 @@ function isUserDriver($userID){
 }
 
 function isDriverHasOrderInRoute($driverID, $routeID){
-    include "../../database/dbConnection.php";
-
     $isHasOrderInRoute = false;
 
     $query = "SELECT o.Status, u.PhoneNumber FROM orders o 

@@ -1,4 +1,7 @@
 <?php
+include "../../database/dbConnection.php";
+include "../../utils/logger.php";
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 $object = json_decode($_GET['setRating'], true);
@@ -6,16 +9,12 @@ setRatingToDriver($authUser);
 //$object = json_encode(['ID_User' => 49, 'ID_Driver' => 48, 'Rating' => 4]);
 //setRatingToDriver($object);
 function setRatingToDriver($object){
-    include "../../database/dbConnection.php";
-    include "../../utils/logger.php";
-
     $userID = $object['ID_User'];
     $userVote = $object['Rating'];
     $currentRating = getRatingByID($userID);
     $countVotes = getCountVotesByID($userID);
 
     $newRating = round(calculateRating($currentRating, $countVotes, $userVote), 2);
-//    echo $newRating;
 
      $query = "UPDATE rating SET Rating = $newRating, CountVotes = ($countVotes + 1)
                     WHERE ID = $userID";
@@ -28,10 +27,7 @@ function setRatingToDriver($object){
     }
 }
 
-//getRatingByID(48);
 function getRatingByID($userID){
-    include "../../database/dbConnection.php";
-
     $rating = 0;
 
     $query = "SELECT r.Rating AS rating FROM rating r 
@@ -48,6 +44,7 @@ function getRatingByID($userID){
 
         $rating = $driverRating;
 
+        print_r(json_encode($rating));
         LogsWriteMessage("Getting reting by user ID: ".$rating);
         return $rating;
     }else{
@@ -55,10 +52,8 @@ function getRatingByID($userID){
         return json_encode("DB error");
     }
 }
-//getCountVotesByID(48);
-function getCountVotesByID($userID){
-    include "../../database/dbConnection.php";
 
+function getCountVotesByID($userID){
     $countVotes = 0;
 
     $query = "SELECT r.CountVotes AS rating FROM rating r 
@@ -75,6 +70,7 @@ function getCountVotesByID($userID){
 
         $countVotes = $driverRating;
 
+        print_r($countVotes);
         LogsWriteMessage("Getting count votes by user ID: ".$countVotes);
         return $countVotes;
     }else{
@@ -90,8 +86,6 @@ function calculateRating($currentRating, $countVotes, $userVote){
 }
 
 function createRating($userID){
-    include "../../database/dbConnection.php";
-
     $query = "INSERT INTO rating(ID) VALUES($userID)";
     $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
 

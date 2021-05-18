@@ -1,9 +1,9 @@
 <?php
 
-function getUserByID($userID){
-    include "../../database/dbConnection.php";
+include "../../database/dbConnection.php";
 
-    $query = "SELECT u.id, u.PhoneNumber, u.Surname, u.Name, 
+function getUserByID($userID){
+    $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, 
                     u.Patronymic, u.Patronymic, u.Role, u.Status, r.Rating 
                     FROM users u
                 INNER JOIN rating r ON r.ID = u.ID_Rating
@@ -13,7 +13,7 @@ function getUserByID($userID){
 
     if($result){
         $resultRow = mysqli_fetch_assoc($result);
-
+        print_r(json_encode($resultRow));
         LogsWriteMessage("Getting information about user by id $userID");
         return $resultRow;
     }else{
@@ -23,14 +23,12 @@ function getUserByID($userID){
 }
 
 function getPhoneNumber($phoneNumber){
-    include "../../database/dbConnection.php";
-
     $query = "SELECT PhoneNumber FROM users WHERE PhoneNumber = '$phoneNumber'";
     $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
 
     if($result){
         $resultPhoneNumberRow = mysqli_fetch_row($result);
-
+        print_r(json_encode($resultPhoneNumberRow));
         LogsWriteMessage("Getting matches phone number from database with $phoneNumber");
         return $resultPhoneNumberRow;
     }else{
@@ -40,14 +38,12 @@ function getPhoneNumber($phoneNumber){
 }
 
 function getUserByPhoneNumber($phoneNumber){
-    include "../../database/dbConnection.php";
-
     $query = "SELECT * FROM users WHERE PhoneNumber = '$phoneNumber'";
     $result = mysqli_query($dbLink, $query) or die ("Database error");
 
     if($result){
         $resultRow = mysqli_fetch_assoc($result);
-
+        print_r(json_encode($resultRow));
         LogsWriteMessage("Getting information about user by phone number $phoneNumber");
         return $resultRow;
     }else{

@@ -1,7 +1,7 @@
 <?php
-function getRoutesByDate($date){
-    include "../../database/dbConnection.php";
+include "../../database/dbConnection.php";
 
+function getRoutesByDate($date){
     $query = "SELECT * FROM routes WHERE Date = '$date'";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
@@ -12,6 +12,7 @@ function getRoutesByDate($date){
             $data[] = $row;
         }
 
+        print_r(json_encode($data));
         LogsWriteMessage("Getting routes table by date ".$date." is succesfully received");
         return json_encode($data);
     }else{
