@@ -201,8 +201,6 @@ function App() {
                 };
             }}
 
-
-
             phoneNumberHandler={
                 (e) => {
                     setPhoneNumber(e.target.value)

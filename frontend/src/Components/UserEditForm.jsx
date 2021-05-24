@@ -70,34 +70,29 @@ function UserEditForm(handleHideClick){
             url: url,
             data: {updateUser: JSON.stringify(item)},
             dataType: 'json',
-            complete: function (response){
+        }).done(function (response){
 
-                let obj = JSON.parse(response.responseText);
-                console.log(obj);
-
-
-
-                setPhoneNumber(obj.PhoneNumber);
-                setName(obj.Name);
-                setSurname(obj.Surname);
-                setPatronymic(obj.Patronymic);
+            // let obj = JSON.parse(response.responseText);
+            // console.log(obj);
 
 
-                localStorage.setItem('PhoneNumber', obj.PhoneNumber);
-                localStorage.setItem('Name', obj.Name);
-                localStorage.setItem('Surname', obj.Surname) ;
-                localStorage.setItem('Patronymic', obj.Patronymic);
+
+            setPhoneNumber(response.PhoneNumber);
+            setName(response.Name);
+            setSurname(response.Surname);
+            setPatronymic(response.Patronymic);
 
 
-                testHistory();
-            }
-        }).done(function (){
-            alert('Вы успешно авторизированы');
+            localStorage.setItem('PhoneNumber', response.PhoneNumber);
+            localStorage.setItem('Name', response.Name);
+            localStorage.setItem('Surname', response.Surname) ;
+            localStorage.setItem('Patronymic', response.Patronymic);
+
+
+            testHistory();
+
+            alert('Ваш профиль обновлен');
         })
-
-
-
-
 
         console.log(item);
         alert("user saved");
@@ -129,7 +124,7 @@ function UserEditForm(handleHideClick){
                 name="surname"
                 placeholder={localStorage.getItem("Surname")}
                 onChange={handleSurnameChange}
-                pattern="^[A-Za-z]{4,}"
+                // pattern="^[A-Za-z]{4,}"
                 title="Введите корректные данные"
             />
 
@@ -153,23 +148,18 @@ function UserEditForm(handleHideClick){
             />
 
             <button className="user--edit--form--button"
+                    onClick={userSave}>
+                Сохранить
+            </button>
+
+            <button className="user--edit--form--button"
                     onClick={formCancel}>
                 Отмена
             </button>
         </form>
-
             <div className="useform">
-
-                <button className="user--edit--form--button"
-                        onClick={userSave}>
-                    Сохранить
-                </button>
-
-
             </div>
-
         </>
-
     )
 }
 
