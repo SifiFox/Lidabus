@@ -24,7 +24,7 @@ function update($object){
         updatePatronymic($object);
     }
 
-    print_r(json_encode($object));
+    echo(json_encode($object));
 }
 
 function updatePhoneNumber($object){
