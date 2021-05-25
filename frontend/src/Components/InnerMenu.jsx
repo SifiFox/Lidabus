@@ -27,25 +27,6 @@ function InnerMenu(props){
 
     }
 
-    {/*<div className="menu--right--top">*/}
-    {/*    <div className="round">*/}
-    {/*        <button  className="menu--profile--link"*/}
-
-    {/*                 onClick={props.loginToggle} >*/}
-    {/*            /!*вход*!/*/}
-
-    {/*            <Link to={'/profile'}>*/}
-    {/*                <img src={profile} alt=""*/}
-    {/*                     width={35} height={40}*/}
-    {/*                />*/}
-    {/*            </Link>*/}
-
-    {/*        </button>*/}
-
-    {/*    </div>*/}
-    {/*</div>*/}
-
-
      return(
         <div className="menu--right">
             <div className="menu--right--wrap">

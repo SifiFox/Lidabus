@@ -16,8 +16,9 @@ function Profile(props){
     const history = useHistory();
 
     function testHistory(){
-            history.push("/");
             localStorage.clear();
+            history.push("/");
+            window.location.reload();
     }
 
 
@@ -75,19 +76,6 @@ function Profile(props){
                                 </button>
                         }
 
-                        {/*/!*<button className={`edit ${visible == true ? 'edit--closed' : 'edit--opened'}`}*!/*/}
-
-                        {/*<button className= "edit"*/}
-                        {/*        onClick={console.log(visible.isShowed)}>*/}
-                        {/*    редактировать*/}
-                        {/*</button>*/}
-                        {/*{*/}
-                        {/*  console.log(visible.isShowed)*/}
-                        {/*    // !visible.isShowed ? handleShowClick() : handleHideClick()*/}
-                        {/*}*/}
-
-
-
                         <button className="primary--button"
                             onClick={testHistory}>
 
@@ -103,12 +91,18 @@ function Profile(props){
                     : null
             }
 
+            {
+                localStorage.getItem('Role') == 'ADMIN' ?
+                    <AdminPanel/> : null
+
+            }
+
+            {
+                localStorage.getItem('Role') == 'User' ?
+                    <ProfileCards/> : null
+            }
 
 
-            <ProfileCards/>
-               {localStorage.getItem('Role') == 'ADMIN' ?
-                   <AdminPanel/> : <br/>
-               }
         </div>
     )
 }
