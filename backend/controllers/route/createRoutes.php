@@ -23,7 +23,6 @@ function generateTreepTime($start, $end, $step = 3600) {
 }
 
 function createRoutesForBothDestination($date){//проверка на то существуют ли маршруты на $date, если их нет, то создаем
-    include "get.php";
     include "../../database/dbConnection.php";
 
     $routesByDate = json_decode(getRoutesByDate($date));
@@ -46,9 +45,32 @@ function createRoutesForBothDestination($date){//проверка на то су
 }
 
 function createRoutesForOneDestination($id_auto, $date, $destination, $startTreepTime, $endTreepTime){// minsk or lida
+    include "../../database/dbConnection.php";
     for($i = 0; $i < count($startTreepTime); $i++){
         $query = "INSERT INTO routes(ID_Auto, Date, Destination, StartTreepTime, EndTreepTime) 
                     VALUES ($id_auto[$i], '$date', '$destination', '$startTreepTime[$i]', '$endTreepTime[$i]')";
         $result = mysqli_query($dbLink, $query) or die ("Select error" . mysqli_error($dbLink));
+    }
+}
+
+function getRoutesByDate($date){
+    include "../../database/dbConnection.php";
+
+    $query = "SELECT * FROM routes WHERE Date = '$date'";
+    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+
+    if($result) {
+        $data = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+
+        print_r(json_encode($data));
+        LogsWriteMessage("Getting routes table by date ".$date." is succesfully received");
+        return json_encode($data);
+    }else{
+        LogsWriteMessage("Error retrieving route information");
+        return json_encode("Ошибка при получении информации о маршрутах");
     }
 }
