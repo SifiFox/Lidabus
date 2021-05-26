@@ -5,6 +5,15 @@ import BookingOutput from "./BookingOutput";
 
 
 function Booking(){
+
+
+    let item = {
+        User_ID: 123,
+        Route_ID: 123,
+        ID_PassengerSeat: [1,2,3]
+    }
+
+
     return(
         <div className="booking--wrapper">
 

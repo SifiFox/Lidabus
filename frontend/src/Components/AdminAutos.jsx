@@ -42,33 +42,32 @@ function AdminAutos(){
         return <div>Загрузка...</div>;
     } else {
         return (
-            <p>test autos</p>
-            // <ul>
-            //     {
-            //         items.map(item => (
-            //             <>
-            //                 <li key={item.ID}>
-            //                     {item.PhoneNumber} {item.Surname} {item.Name} {item.Patronymic}
-            //                 </li>
-            //                 <Router>
-            //                     <button>
-            //                         <Link to={`/users/{item.ID}`} className="help--main--link"
-            //                               onClick={handleClickEdit}
-            //                         >
-            //                             <p>edit</p>
-            //                         </Link>
-            //                     </button>
-            //                     {
-            //                         <div className="help-inner">
-            //                             <Switch>
-            //                                 <Route   render={()=><User user={item} isShowed={editShow.isShowed}/>} path={`/users/{item.ID}`}/>
-            //                             </Switch>
-            //                         </div>
-            //                     }
-            //                 </Router>
-            //             </>
-            //         ))}
-            // </ul>
+            <ul>
+                {
+                    items.map(item => (
+                        <>
+                            <li key={item.ID}>
+                                {item.Mark} {item.Model} {item.GovernmentNumber} {item.Color}   {item.SeatsNumber}
+                            </li>
+                            <Router>
+                                <button>
+                                    <Link to={`/users/{item.ID}`} className="help--main--link"
+                                          onClick={handleClickEdit}
+                                    >
+                                        <p>edit</p>
+                                    </Link>
+                                </button>
+                                {
+                                    <div className="help-inner">
+                                        <Switch>
+                                            <Route   render={()=><User user={item} isShowed={editShow.isShowed}/>} path={`/users/{item.ID}`}/>
+                                        </Switch>
+                                    </div>
+                                }
+                            </Router>
+                        </>
+                    ))}
+            </ul>
         );
     }
 }
