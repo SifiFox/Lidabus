@@ -17,9 +17,11 @@ function setStatusToOrder($object){
 
     if(isUserDriver($userID)){
         if(isDriverHasOrderInRoute($userID, $routeID)){
+//            $query = "UPDATE orders SET Status = '$orderStatus'
+//                        WHERE ID_Route = $routeID
+//                        AND Status = 'Ожидание поездки'";
             $query = "UPDATE orders SET Status = '$orderStatus'
-                        WHERE ID_Route = $routeID
-                        AND Status = 'Ожидание поездки'";
+                        WHERE ID_Route = $routeID";
             $result = mysqli_query($dbLink, $query) or die ("Select error ".mysqli_error($dbLink));
 
             if($result){

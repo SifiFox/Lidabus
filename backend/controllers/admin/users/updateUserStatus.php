@@ -19,6 +19,8 @@ function setStatusToUser($object){
 
     if($result){
         LogsWriteMessage("user with ID $userID updated status to: $status");
+
+        echo $status;
     }else{
         LogsWriteMessage("Database error");
     }
