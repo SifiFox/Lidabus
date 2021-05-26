@@ -15,14 +15,15 @@ import $ from "jquery";
         const [Name, setName] = useState(props.user.Name)
         const [Patronymic, setPatronymic] = useState(props.user.Patronymic)
         const [ID, setID] = useState(props.user.id)
-        const [Role, setRole] = useState(props.user.Status)
+        const [Status, setStatus] = useState(props.user.Status)
 
         let user = {
             ID: ID,
             PhoneNumber: PhoneNumber,
             Surname: Surname,
             Name: Name,
-            Patronymic: Patronymic
+            Patronymic: Patronymic,
+            Status: Status
         }
         function pushHistory(){
                 history.push("/profile");
@@ -53,25 +54,27 @@ import $ from "jquery";
             console.log(" after change inputChange");
         }
 
-        function handleRole(e){
-
-            e.preventDefault();
-            setRole(e.target.value);
-            console.log(Role);
-
-            let userRole = {
+        function handleStatus(){
+                let userStatus = {
                 ID_User:  ID,
-                Status: Role
+                Status: Status
             }
+
+            props.user.Status == 'Active' ? userStatus.Status = 'Blocked' : userStatus.Status = 'Active'
+            console.log(userStatus)
+
+
+
 
             let url = "http://lidabusdiplom.by/controllers/admin/users/updateUserStatus.php"
 
             $.ajax({
                 type: 'POST',
                 url: url,
-                data: {updateUserStatus: JSON.stringify(userRole)},
+                data: {updateUserStatus: JSON.stringify(userStatus)},
                 dataType: 'json',
             }).done(function (response){
+                setStatus(response.Status)
                 console.log(response);
                 pushHistory();
                 alert('Ваш профиль обновлен');
@@ -82,6 +85,7 @@ import $ from "jquery";
 
 
         function formCancel(){
+            pushHistory();
             console.log('form cancel')
         }
 
@@ -153,15 +157,21 @@ import $ from "jquery";
                     placeholder={props.user.Patronymic}
                     onChange={handlePatronymicChange}
                 />
-                <select value={props.user.Status}
-                    className="user--edit--form--input"
-                    type="text"
-                    name="patronymic"
-                    // placeholder={props.user.Status}
-                    onChange={handleRole}>
-                    <option>Active</option>
-                    <option>Blocked</option>
-                </select>
+                {/*<select value={props.user.Status}*/}
+                {/*    className="user--edit--form--input"*/}
+                {/*    type="text"*/}
+                {/*    name="patronymic"*/}
+                {/*    // placeholder={props.user.Status}*/}
+                {/*    onChange={handleRole}>*/}
+                {/*    <option>Active</option>*/}
+                {/*    <option>Blocked</option>*/}
+                {/*</select>*/}
+
+                {
+                    props.user.Status == "Active"
+                        ? <button onClick={handleStatus}>Block</button>
+                        : <button onClick={handleStatus}>Unblock</button>
+                }
 
 
 
