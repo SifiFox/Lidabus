@@ -13,9 +13,6 @@ const Fade = styled.div`animation: 0.3s ${keyframes`${fadeIn}`} 1`;
 
 
 const RegisterModal = props => {
-
-
-
     return (
         <div className={`modal__wrapper ${props.isRegisterOpened ? 'open' : 'close'}`}>
                 <div className="modal__body">

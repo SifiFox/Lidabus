@@ -3,6 +3,11 @@ import '../scss/findForm.scss'
 import Calendar from "./Calendar";
 
 function BookingFindForm(){
+
+
+
+
+
     return(
         <div className="booking--find--wrapper">
             <div className="booking--form--container">
@@ -38,7 +43,9 @@ function BookingFindForm(){
                             <option value="">5 пассажиров</option>
                         </select>
                     </div>
-                    <button className="form--submit" type="submit">
+                    <button className="form--submit" type="submit"
+
+                    >
                         <p>Найти</p>
                     </button>
                 </form>
