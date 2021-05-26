@@ -28,7 +28,11 @@ function getThreeOddDriverOnAuto($object){
     $currentTime = date("H:i");
     $passengerCount = intval($object['PassengerCount']);
 
-    $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, u.Patronymic, r.Rating, 
+    $query = "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));";
+    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+
+    if($result){
+        $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, u.Patronymic, r.Rating, 
                     a.Mark, a.Model, a.GovernmentNumber, a.SeatsNumber, a.Color, a.SeatsNumber, ro.ID AS Route_ID,
                     ro.Date, ro.Destination, ro.StartTreepTime, ro.EndTreepTime, ro.Status 
                     FROM users u 
@@ -44,22 +48,26 @@ function getThreeOddDriverOnAuto($object){
                     GROUP BY u.ID 
                     ORDER BY ro.StartTreepTime 
                     LIMIT 3";
-    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+        $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
-    if($result){
-        $data = array();
+        if($result){
+            $data = array();
 
-        while($row = mysqli_fetch_assoc($result)){
-            $data[] = $row;
+            while($row = mysqli_fetch_assoc($result)){
+                $data[] = $row;
+            }
+            $seatsNumber = intval($data['SeatsNumber']);
+            $freeSeatsCount = $seatsNumber - $passengerCount;
+            $data['FreeSeatsCount'] = $freeSeatsCount;
+
+            echo json_encode($data);
+
+            LogsWriteMessage("Getting odd drivers");
+            return json_encode($data);
+        }else{
+            LogsWriteMessage("DB error getting odd drivers");
+            return json_encode("ошибка БД");
         }
-        $seatsNumber = intval($data['SeatsNumber']);
-        $freeSeatsCount = $seatsNumber - $passengerCount;
-        $data['FreeSeatsCount'] = $freeSeatsCount;
-
-        echo json_encode($data);
-
-        LogsWriteMessage("Getting odd drivers");
-        return json_encode($data);
     }else{
         LogsWriteMessage("DB error getting odd drivers");
         return json_encode("ошибка БД");
@@ -75,7 +83,11 @@ function getThreeEvenDriverOnAuto($object){
     $currentTime = date("H:i");
     $passengerCount = intval($object['PassengerCount']);
 
-    $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, u.Patronymic, r.Rating, 
+    $query = "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));";
+    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+
+    if($result){
+        $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, u.Patronymic, r.Rating, 
                     a.Mark, a.Model, a.GovernmentNumber, a.SeatsNumber, a.Color, a.SeatsNumber, ro.ID AS Route_ID,
                     ro.Date, ro.Destination, ro.StartTreepTime, ro.EndTreepTime, ro.Status 
                     FROM users u 
@@ -91,24 +103,28 @@ function getThreeEvenDriverOnAuto($object){
                     GROUP BY u.ID 
                     ORDER BY ro.StartTreepTime 
                     LIMIT 3";
-    $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
+        $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
-    if($result){
-        $data = array();
+        if($result){
+            $data = array();
 
-        while($row = mysqli_fetch_assoc($result)){
-            $data[] = $row;
+            while($row = mysqli_fetch_assoc($result)){
+                $data[] = $row;
+            }
+            $seatsNumber = intval($data['SeatsNumber']);
+            $freeSeatsCount = $seatsNumber - $passengerCount;
+            $data['FreeSeatsCount'] = $freeSeatsCount;
+
+            echo json_encode($data);
+
+            LogsWriteMessage("Getting even drivers");
+            return json_encode($data);
+        }else{
+            LogsWriteMessage("DB error getting even drivers");
+            return json_encode("ошибка БД");
         }
-        $seatsNumber = intval($data['SeatsNumber']);
-        $freeSeatsCount = $seatsNumber - $passengerCount;
-        $data['FreeSeatsCount'] = $freeSeatsCount;
-
-        echo json_encode($data);
-
-        LogsWriteMessage("Getting even drivers");
-        return json_encode($data);
     }else{
-        LogsWriteMessage("DB error getting even drivers");
+        LogsWriteMessage("DB error getting odd drivers");
         return json_encode("ошибка БД");
     }
 }
