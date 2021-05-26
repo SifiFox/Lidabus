@@ -27,10 +27,10 @@ function BookingOutput(){
         localeUtils: MomentLocaleUtils,
         locale: "ru"
     }
-
-
-
+    
     return(
+
+        <>
         <div className="output--header">
             <div className="date">
                 <div className="output--date--day"
@@ -48,12 +48,12 @@ function BookingOutput(){
 
 
             <h2 className="info--title subTitle">Ближайшие</h2>
-
+        </div>
 
             <div className="test">
 
             </div>
-        </div>
+        </>
     )
 }
 export default BookingOutput

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'react-day-picker/lib/style.css';
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import "../scss/calendar.scss"
@@ -10,7 +10,7 @@ import MomentLocaleUtils, {
 import moment from "moment";
 
 
-const today = new Date();
+const today = new Date('L');
 
 
 
@@ -21,20 +21,38 @@ function Calendar(){
         locale: "ru"
     }
 
+    const outputDayPickerProps = {
+        localeUtils: MomentLocaleUtils,
+        locale: 'en'
+    }
+
     let tomorrow = new Date();
-    tomorrow = dayPickerProps.localeUtils.formatDate(tomorrow.setDate(today.getDate(today)+1));
+    tomorrow = dayPickerProps.localeUtils.formatDate(tomorrow.setDate(today.getDate(today)));
+
+    const [selectedDay, setSelectedDay] = useState(today)
+
+    function handleDayClick(day){
+
+        console.log(outputDayPickerProps.localeUtils.formatDate(day))
+        setSelectedDay(day)
+
+
+        console.log( moment(day, 'YYYY MM DD').format())
+    }
 
     return(
         <div>
             <DayPickerInput
-
                 dayPickerProps={dayPickerProps}
                 formatDate={formatDate}
                 format="LL"
                 placeholder={`${formatDate(tomorrow, 'LL', 'ru')}`}
                 onDayChange={day => {
-                    console.log(dayPickerProps.localeUtils.formatDate(today, 'LL', 'ru'))
-                    console.log(dayPickerProps.localeUtils.formatDate(tomorrow, 'LL', 'ru'))
+
+                    handleDayClick(day)
+                    // console.log(dayPickerProps.localeUtils.formatDate(today, 'LL', 'ru'))
+                    // console.log(dayPickerProps.localeUtils.formatDate(tomorrow, 'LL', 'ru'))
+                    // console.log(outputDayPickerProps.localeUtils.formatDate(today))
 
                 }}
             />
