@@ -18,7 +18,7 @@ function setOrderByUserID($order){
 
     $passengerCount = $order['PassengerCount'];
     $autoSeatsNumber = intval(getAutoSeatsNumberByID($order['ID_Auto']));
-    $seatsNumberInRoute = intval(getSeatsNumberByRoute($order['ID_Route']));
+    $seatsNumberInRoute = intval(getSeatsNumberByRoute($order['Route_ID']));
     $userID = $order['ID_User'];
 
     if(isUserActive($userID)){

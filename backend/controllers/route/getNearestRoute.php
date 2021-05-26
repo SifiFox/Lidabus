@@ -26,10 +26,11 @@ function getEvenDriverOnAuto($object){
 
     $date = date('Y/m/d');
     $destination = $object['Destination'];
-    $currentTime = date("h:i");
+    $currentTime = date("H:i");
+    $passengerCount = intval($object['PassengerCount']);
 
     $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, u.Patronymic, r.Rating, 
-                    a.Mark, a.Model, a.GovernmentNumber, a.SeatsNumber, a.Color, ro.ID AS Route_ID,
+                    a.Mark, a.Model, a.GovernmentNumber, a.SeatsNumber, a.Color, a.SeatsNumber, ro.ID AS Route_ID,
                     ro.Date, ro.Destination, ro.StartTreepTime, ro.EndTreepTime, ro.Status 
                     FROM users u 
                     INNER JOIN rating r ON r.ID = u.ID_Rating 
@@ -51,6 +52,9 @@ function getEvenDriverOnAuto($object){
         while($row = mysqli_fetch_assoc($result)){
             $data[] = $row;
         }
+        $seatsNumber = intval($data['SeatsNumber']);
+        $freeSeatsCount = $seatsNumber - $passengerCount;
+        $data['FreeSeatsCount'] = $freeSeatsCount;
 
         echo json_encode($data);
 
@@ -68,10 +72,11 @@ function getOddDriverOnAuto($object){
 
     $date = date('Y/m/d');
     $destination = $object['Destination'];
-    $currentTime = date("h:i");
+    $currentTime = date("H:i");
+    $passengerCount = intval($object['PassengerCount']);
 
     $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, u.Patronymic, r.Rating, 
-                    a.Mark, a.Model, a.GovernmentNumber, a.SeatsNumber, a.Color, ro.ID AS Route_ID,
+                    a.Mark, a.Model, a.GovernmentNumber, a.SeatsNumber, a.Color, a.SeatsNumber, ro.ID AS Route_ID,
                     ro.Date, ro.Destination, ro.StartTreepTime, ro.EndTreepTime, ro.Status 
                     FROM users u 
                     INNER JOIN rating r ON r.ID = u.ID_Rating 
@@ -93,6 +98,9 @@ function getOddDriverOnAuto($object){
         while($row = mysqli_fetch_assoc($result)){
             $data[] = $row;
         }
+        $seatsNumber = intval($data['SeatsNumber']);
+        $freeSeatsCount = $seatsNumber - $passengerCount;
+        $data['FreeSeatsCount'] = $freeSeatsCount;
 
         echo json_encode($data);
 
