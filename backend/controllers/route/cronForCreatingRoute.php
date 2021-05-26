@@ -1,6 +1,6 @@
 <?php
 
-createFutureRoutesForDaysNumber(date('Y-m-d'), 3);
+createFutureRoutesForDaysNumber(date('Y/m/d'), 3);
 
 function createFutureRoutesForDaysNumber($currentDate, $daysNumber){
     include "../../utils/logger.php";
