@@ -27,6 +27,15 @@ function getThreeOddDriverOnAuto($object){
     $destination = $object['Destination'];
     $currentTime = date("H:i");
 
+    $today = new DateTime();
+    $lastRouteTime = new DateTime('20:59:00');
+
+    if($today > $lastRouteTime){
+        $date = date('Y/m/d');
+    }else{
+        $date = date('Y/m/d', strtotime(date("Y/m/d/") .' +1 day'));
+    }
+
     $query = "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
@@ -77,6 +86,15 @@ function getThreeEvenDriverOnAuto($object){
     $date = date('Y/m/d');
     $destination = $object['Destination'];
     $currentTime = date("H:i");
+
+    $today = new DateTime();
+    $lastRouteTime = new DateTime('20:59:00');
+
+    if($today > $lastRouteTime){
+        $date = date('Y/m/d');
+    }else{
+        $date = date('Y/m/d', strtotime(date("Y/m/d/") .' +1 day'));
+    }
 
     $query = "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
