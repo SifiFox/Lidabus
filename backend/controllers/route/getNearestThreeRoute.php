@@ -26,7 +26,6 @@ function getThreeOddDriverOnAuto($object){
     $date = date('Y/m/d');
     $destination = $object['Destination'];
     $currentTime = date("H:i");
-    $passengerCount = intval($object['PassengerCount']);
 
     $query = "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
@@ -56,9 +55,6 @@ function getThreeOddDriverOnAuto($object){
             while($row = mysqli_fetch_assoc($result)){
                 $data[] = $row;
             }
-            $seatsNumber = intval($data['SeatsNumber']);
-            $freeSeatsCount = $seatsNumber - $passengerCount;
-            $data['FreeSeatsCount'] = $freeSeatsCount;
 
             echo json_encode($data);
 
@@ -81,7 +77,6 @@ function getThreeEvenDriverOnAuto($object){
     $date = date('Y/m/d');
     $destination = $object['Destination'];
     $currentTime = date("H:i");
-    $passengerCount = intval($object['PassengerCount']);
 
     $query = "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));";
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
@@ -111,9 +106,6 @@ function getThreeEvenDriverOnAuto($object){
             while($row = mysqli_fetch_assoc($result)){
                 $data[] = $row;
             }
-            $seatsNumber = intval($data['SeatsNumber']);
-            $freeSeatsCount = $seatsNumber - $passengerCount;
-            $data['FreeSeatsCount'] = $freeSeatsCount;
 
             echo json_encode($data);
 
