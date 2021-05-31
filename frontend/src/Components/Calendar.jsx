@@ -10,7 +10,7 @@ import MomentLocaleUtils, {
 import moment from "moment";
 
 
-const today = new Date('L');
+const today = new Date();
 
 
 

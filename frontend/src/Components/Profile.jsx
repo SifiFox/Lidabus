@@ -9,7 +9,7 @@ import {useHistory} from "react-router-dom";
 import AdminPanel from "./AdminPanel";
 import UserEditForm from "./UserEditForm";
 
-
+import $ from "jquery"
 
 function Profile(props){
 
@@ -56,8 +56,6 @@ function Profile(props){
                         </div>
 
                     </div>
-
-
 
                     <div className="profile--nav--right">
                         {
