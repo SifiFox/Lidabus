@@ -37,7 +37,6 @@ function getAutoSeatsNumberByID($autoID){
             $countAutoSeatsNumber = $row -> count;
         }
 
-        print_r(json_encode($countAutoSeatsNumber));
         LogsWriteMessage("Getting auto seatsNumber is success");
         return $countAutoSeatsNumber;
     }else{

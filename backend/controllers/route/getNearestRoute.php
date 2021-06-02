@@ -32,7 +32,7 @@ function getEvenDriverOnAuto($object){
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
     if($result){
-        $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, u.Patronymic, r.Rating, 
+        $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, u.Patronymic, r.Rating, a.ID as ID_Auto,
                     a.Mark, a.Model, a.GovernmentNumber, a.SeatsNumber, a.Color, a.SeatsNumber, ro.ID AS Route_ID,
                     ro.Date, ro.Destination, ro.StartTreepTime, ro.EndTreepTime, ro.Status 
                     FROM users u 
@@ -82,7 +82,7 @@ function getOddDriverOnAuto($object){
     $result = mysqli_query($dbLink, $query) or die ("Select error".mysqli_error($dbLink));
 
     if($result){
-        $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, u.Patronymic, r.Rating, 
+        $query = "SELECT u.ID, u.PhoneNumber, u.Surname, u.Name, u.Patronymic, r.Rating, a.ID as ID_Auto,
                     a.Mark, a.Model, a.GovernmentNumber, a.SeatsNumber, a.Color, a.SeatsNumber, ro.ID AS Route_ID,
                     ro.Date, ro.Destination, ro.StartTreepTime, ro.EndTreepTime, ro.Status 
                     FROM users u 
