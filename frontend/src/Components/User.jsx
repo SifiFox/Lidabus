@@ -64,8 +64,6 @@ import $ from "jquery";
             console.log(userStatus)
 
 
-
-
             let url = "http://lidabusdiplom.by/controllers/admin/users/updateUserStatus.php"
 
             $.ajax({
@@ -135,7 +133,6 @@ import $ from "jquery";
                     name="surname"
                     placeholder={props.user.Surname}
                     onChange={handleSurnameChange}
-                    // pattern="^[A-Za-z]{4,}"
                     title="Введите корректные данные"
                 />
 
@@ -157,15 +154,6 @@ import $ from "jquery";
                     placeholder={props.user.Patronymic}
                     onChange={handlePatronymicChange}
                 />
-                {/*<select value={props.user.Status}*/}
-                {/*    className="user--edit--form--input"*/}
-                {/*    type="text"*/}
-                {/*    name="patronymic"*/}
-                {/*    // placeholder={props.user.Status}*/}
-                {/*    onChange={handleRole}>*/}
-                {/*    <option>Active</option>*/}
-                {/*    <option>Blocked</option>*/}
-                {/*</select>*/}
 
                 {
                     props.user.Status == "Active"

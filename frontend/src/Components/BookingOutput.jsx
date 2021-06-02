@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import '../scss/general.scss'
 import '../scss/booking.scss'
 
@@ -8,6 +8,9 @@ import 'moment/locale/ru'
 import MomentLocaleUtils, {formatDate} from "react-day-picker/moment";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import moment from "moment";
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import User from "./User";
+import TopRoutes from "./TopRoutes";
 
 
 const data ={};
@@ -21,15 +24,20 @@ data[{}] = {
 
 const today = new Date();
 
+        function BookingOutput(){
+            const dayPickerProps = {
+                localeUtils: MomentLocaleUtils,
+                locale: "ru"
+            }
 
-function BookingOutput(){
-    const dayPickerProps = {
-        localeUtils: MomentLocaleUtils,
-        locale: "ru"
-    }
-    
+
+
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [items, setItems] = useState([]);
+
+
     return(
-
         <>
         <div className="output--header">
             <div className="date">
@@ -50,9 +58,15 @@ function BookingOutput(){
             <h2 className="info--title subTitle">Ближайшие</h2>
         </div>
 
-            <div className="test">
 
-            </div>
+            <TopRoutes
+                    Destination={'Лида'}
+            />
+
+            <TopRoutes
+                Destination={'Минск'}
+            />
+
         </>
     )
 }
