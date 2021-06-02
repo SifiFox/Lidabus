@@ -12,7 +12,7 @@ class DrawGrid extends React.Component {
                             <td className={
                                 this.props.reserved.indexOf(row) > -1
 
-                                ? 'reserved'
+                                ? ('reserved')
 
                                 : (this.props.choosed.indexOf(row) > -1 ? 'choosed' : 'avaliable')
                             }

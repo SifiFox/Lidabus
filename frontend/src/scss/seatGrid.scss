@@ -26,10 +26,14 @@ h1 {
   background: orange;
   color: #fff;
   display: inline-block;
+  pointer-events: none;
+  cursor: default;
 }
 
 .reserved::after {
-  content: 'RESERVED'
+  content: 'RESERVED';
+  pointer-events: none;
+  cursor: default;
 }
 
 .available::after {
@@ -51,4 +55,10 @@ h1 {
 
 li {
   list-style: none;
+}
+
+.testButton{
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
 }
