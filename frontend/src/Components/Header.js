@@ -4,11 +4,14 @@ import logo from "../img/logo.png"
 import aone from "../img/a1.png"
 import mts from "../img/mts.png"
 import life from "../img/life.png"
-import {Link} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
+import Booking from "./Booking";
+import BookingOutput from "./BookingOutput";
 
 
 function Nav() {
     return (
+        <>
         <header>
             <div className="nav--wrap">
                 <nav className="nav">
@@ -68,6 +71,8 @@ function Nav() {
                 </ul>
             </div>
         </header>
+
+        </>
     )
 }
 

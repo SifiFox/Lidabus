@@ -1,28 +1,44 @@
 import React, {useEffect, useState} from 'react'
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import $ from "jquery";
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import RouteOrder from "./RouteOrder";
 
+function BookingOutputDate(props){
 
-function TopRoutes(props){
+    // function getRoutes(){
+    //     let url = "http://lidabusdiplom.by/controllers/route/getRoutesByDate.php"
+    //
+    //     $.ajax({
+    //         xhrFields: {cors: false},
+    //         mode: "no-cors",
+    //         type: 'GET',
+    //         url: url,
+    //         data: {getRoutesByDate: JSON.stringify(props.findConfig)},
+    //         dataType: 'json'
+    //     }).done(function (response){
+    //         console.log(response)
+    //     })
+    // }
+
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+
     const [editShow, setEditShow] = useState({
         isShowed: false});
+
     function handleClickEdit(){
         editShow.isShowed == false ? setEditShow({isShowed: true}) : setEditShow({isShowed: false})
     }
-    let item = {
-        Destination: props.Destination};
-    let url = "http://lidabusdiplom.by/controllers/route/getNearestThreeRoute.php"
+
+    let url = "http://lidabusdiplom.by/controllers/route/getRoutesByDate.php"
     useEffect(() => {
         $.ajax({
             xhrFields: {cors: false},
             mode: "no-cors",
             type: 'GET',
             url: url,
-            data: {getDestination: JSON.stringify(item)},
+            data: {getRoutesByDate: JSON.stringify(props.findConfig)},
             dataType: 'json',
         })
             .then(
@@ -69,5 +85,13 @@ function TopRoutes(props){
                         </>
                     ))}
             </ul>
-        );}}
-export default TopRoutes
+        );}
+
+
+
+
+
+
+}
+
+export default BookingOutputDate

@@ -29,7 +29,6 @@ function AdminUsers(){
                     (result) => {
                         setIsLoaded(true);
                         setItems(result);
-                        // console.log(result);
                     },
                     (error) => {
                         setIsLoaded(true);
@@ -70,7 +69,6 @@ function AdminUsers(){
                             </>
                         ))}
                 </ul>
-
             );
     }
 }

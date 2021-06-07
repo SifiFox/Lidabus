@@ -1,10 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import '../scss/booking.scss'
 import BookingFindForm from "./BookingFindForm";
 import BookingOutput from "./BookingOutput";
 
 
+
 function Booking(){
+
+
+    const [output, setOutput] = useState(true)
+    const [outputDate, setOutputDate] = useState(false)
+
+    function updateData(value){
+        setOutput(value)
+    }
+
+    function updateOutputDate(value){
+        setOutputDate(value)
+    }
+
 
 
     return(
@@ -16,9 +30,19 @@ function Booking(){
                 <div className="title--line"></div>
             </div>
 
-            <BookingFindForm/>
+            <BookingFindForm
+                updateData={updateData}
+                updateOutputDate={updateOutputDate}
+            />
 
-            <BookingOutput/>
+            {
+                output
+                    ? <BookingOutput/>
+                    : null
+
+            }
+
+
         </div>
     )
 

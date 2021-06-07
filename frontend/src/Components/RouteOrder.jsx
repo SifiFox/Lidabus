@@ -11,25 +11,57 @@ class RouteOrder extends React.Component{
 
         localStorage.setItem('Route_ID', props.route.Route_ID)
 
+        this.handleMapLida = this.handleMapLida.bind(this);
+        this.handleMapMinsk = this.handleMapMinsk.bind(this);
         this.handleChangeFrom = this.handleChangeFrom.bind(this);
         this.handleChangeTo = this.handleChangeTo.bind(this);
+        this.handlePromocode = this.handlePromocode.bind(this);
 
         var arr = [];
         let item = {
             Route_ID: props.route.Route_ID
         }
+        var test = [ "1", "2", "3",
+            "4", "5", "6",
+            "7", "8", "9",
+            "10", "11", "12",
+            "13", "14", "15", "16"]
 
-        this.state = {
-            fromState: '',
-            toState: '',
-
-            seat: [
+        props.route.SeatsNumber == 14
+            ?
+            test = [
                 "1", "2", "3",
                 "4", "5", "6",
                 "7", "8", "9",
                 "10", "11", "12",
                 "13", "14"
-            ],
+            ]
+            : (props.route.SeatsNumber == 15 ?   test = [
+                "1", "2", "3",
+                "4", "5", "6",
+                "7", "8", "9",
+                "10", "11", "12",
+                "13", "14", "15"
+            ] : test = [
+                "1", "2", "3",
+                "4", "5", "6",
+                "7", "8", "9",
+                "10", "11", "12",
+                "13", "14", "15", "16"
+            ])
+
+
+        let init = false;
+
+        this.state = {
+            fromState: '',
+            toState: '',
+            promocode: '',
+
+            mapLidaShowed: init,
+            mapMinskShowed: init,
+
+            seat: test,
             seatAvailable: [
                 "1", "2", "3",
                 "4", "5", "6",
@@ -44,17 +76,6 @@ class RouteOrder extends React.Component{
 
             ]
         }
-
-        // props.route.Destination == "Лида"
-        //     ?   this.setState({
-        //         fromState: 'Вокзал',
-        //         toState: 'Толстова 32'
-        //     })
-        //     :  this.setState({
-        //         fromState: 'Толстова 32',
-        //         toState: 'Вокзал'
-        //     })
-
 
         let url = "http://lidabusdiplom.by/controllers/route/getIDPassengerSeatsByRoute.php";
 
@@ -91,9 +112,11 @@ class RouteOrder extends React.Component{
         this.setState({fromState: event.target.value});
     }
 
-
     handleChangeTo(event) {
         this.setState({toState: event.target.value});
+    }
+    handlePromocode(event){
+        this.setState({promocode: event.target.value});
     }
 
 
@@ -111,8 +134,17 @@ class RouteOrder extends React.Component{
         }
     }
 
+    handleMapLida(){
+            this.setState(state => ({
+                mapLidaShowed: !state.mapLidaShowed
+            }));
+    }
 
-
+    handleMapMinsk(){
+        this.setState(state => ({
+            mapMinskShowed: !state.mapMinskShowed
+        }));
+    }
 
     render() {
        function testChoosed(){
@@ -123,7 +155,7 @@ class RouteOrder extends React.Component{
                ID_PassengerSeat: testStr,
                PassengerCount: '',
                ID_Route: localStorage.getItem('Route_ID'),
-               Promocode: '',
+               Promocode: localStorage.getItem('Promocode'),
                ID_Auto: 2,
                StartPoint: localStorage.getItem('StartPoint'),
                EndPoint: localStorage.getItem('EndPoint')
@@ -142,6 +174,10 @@ class RouteOrder extends React.Component{
            console.log(item);
 
 
+          if(!localStorage.getItem("Name")) {
+              alert('вы не авторизированы');
+              document.location.assign('/');
+          }else{
            let url = "http://lidabusdiplom.by/controllers/order/setOrder.php";
            $.ajax({
                type: 'POST',
@@ -154,8 +190,7 @@ class RouteOrder extends React.Component{
                    document.location.assign('/profile');
                }
            })
-
-
+          }
        }
 
         return (
@@ -167,9 +202,9 @@ class RouteOrder extends React.Component{
                         available = { this.state.seatAvailable }
                         reserved = { this.state.seatReserved }
                         choosed = {this.state.seatChoosed}
+                        lidaShowed = {this.state.mapLidaShowed}
                         onClickData = { this.onClickData.bind(this) }
                     />
-
 
                     {
                         this.props.route.Destination == 'Лида' ?
@@ -182,6 +217,15 @@ class RouteOrder extends React.Component{
                                 <option value="Южный">Южный</option>
                                 <option value="Вокзал">Вокзал</option>
                             </select>
+                            <div className="clickable"
+                            onClick={this.handleMapLida}
+                            >
+                                Показать на карте
+                            </div>
+                            <iframe className={this.state.mapLidaShowed ? "visible" : "hidden"}
+                                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A198ebadabf978b0ad79aac6514e24d8af04f672aa829ceeb27ab6e5da7f5cd1e&amp;source=constructor"
+                                    width="320" height="240" frameBorder="0"></iframe>
+
 
                             <p>куда</p>
                             <select value={this.state.toState} onChange={this.handleChangeTo}>
@@ -190,9 +234,21 @@ class RouteOrder extends React.Component{
                                 <option value="Спортивная">Спортивная</option>
                                 <option value="Каменная горка">Каменная горка</option>
                             </select>
+                            <div className="clickable"
+                                 onClick={this.handleMapMinsk}
+                            >
+                                Показать на карте
+                            </div>
+                            <iframe className={this.state.mapMinskShowed ? "visible" : "hidden"}
+                                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A8afe147cbd720fdca1497002ab85b1d4c2ae8e46f546da07c589daef682e1ddf&amp;source=constructor"
+                                    width="320" height="240" frameBorder="0"></iframe>
+
 
                             <p>Промокод</p>
-                            <input type="text" placeholder="промокод" />
+                            <input type="text" placeholder="промокод" onChange={this.handlePromocode} />
+                            {
+                                localStorage.setItem('Promocode', this.state.promocode)
+                            }
                         </>
                         :
                         <>
@@ -213,6 +269,9 @@ class RouteOrder extends React.Component{
                                 <option value="Южный">Южный</option>
                                 <option value="Вокзал">Вокзал</option>
                             </select>
+                            <iframe
+                                src="https://yandex.ru/map-widget/v1/?um=constructor%3A198ebadabf978b0ad79aac6514e24d8af04f672aa829ceeb27ab6e5da7f5cd1e&amp;source=constructor"
+                                width="320" height="240" frameBorder="0"></iframe>
                         </>
                     }
 
