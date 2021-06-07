@@ -13,7 +13,6 @@ function getPromocodeID($promocode){
             $promocodeID = $row -> ID;
         }
 
-        print_r(json_encode($promocodeID));
         LogsWriteMessage("Promocode ID is succesfully received");
         return $promocodeID;
     }else{
@@ -35,7 +34,7 @@ function getPromocodeSale($promocode){
             $promocodeSale = $row;
         }
 
-        print_r(json_encode($promocodeSale));
+//        print_r(json_encode($promocodeSale));
         LogsWriteMessage("Promocode sale is succesfully received");
         return $promocodeSale;
     }else{
