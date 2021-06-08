@@ -12,6 +12,10 @@ import card from '../img/card.svg'
 import DayPicker from "react-day-picker";
 import MomentLocaleUtils, {formatDate} from "react-day-picker/moment";
 import DayPickerInput from "react-day-picker/DayPickerInput";
+import {Link, Route, Switch, useHistory} from "react-router-dom";
+import {Router} from "react-router";
+import RouteOrder from "./RouteOrder";
+import UserShowRoutes from "./UserShowRoutes";
 
 
 
@@ -20,7 +24,7 @@ const percentage = 4.8;
 const today = new Date();
 
 
-function ProfileCards(){
+function ProfileCards(props){
 
 
 
@@ -28,7 +32,6 @@ function ProfileCards(){
         localeUtils: MomentLocaleUtils,
         locale: "ru"
     }
-
 
     return(
         <div className="cards--wrap">
@@ -84,11 +87,12 @@ function ProfileCards(){
 
                 <h3 className="trips">мои поездки</h3>
 
-                <button className="primary--button">
-                    показать все
+                <button className="primary--button"
+                    onClick={props.takeRoutes}
+                >
+                   показать все
                 </button>
             </div>
-
         </div>
     )
 }

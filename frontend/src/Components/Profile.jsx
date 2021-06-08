@@ -10,6 +10,9 @@ import AdminPanel from "./AdminPanel";
 import UserEditForm from "./UserEditForm";
 
 import $ from "jquery"
+import UserShowRoutes from "./UserShowRoutes";
+import UserCurrentOrders from "./UserCurrentOrders";
+import ProfileDriver from "./ProfileDriver";
 
 function Profile(props){
 
@@ -34,6 +37,12 @@ function Profile(props){
     function handleHideClick(){
         setVisible({isShowed: false})
         console.log(visible.isShowed + " hided")
+    }
+
+    const [flag, setFlag] = useState(0)
+    function takeRoutes(){
+        setFlag(1)
+        console.log('takeRoutes')
     }
 
     return(
@@ -89,6 +98,19 @@ function Profile(props){
                     : null
             }
 
+
+
+            {
+            localStorage.getItem('Role') == 'User' ?
+            <UserCurrentOrders/> : null
+            }
+
+            {
+                localStorage.getItem('Role') == 'Driver' ?
+                    <ProfileDriver/> : null
+
+            }
+
             {
                 localStorage.getItem('Role') == 'ADMIN' ?
                     <AdminPanel/> : null
@@ -97,9 +119,17 @@ function Profile(props){
 
             {
                 localStorage.getItem('Role') == 'User' ?
-                    <ProfileCards/> : null
+                    <ProfileCards
+                        takeRoutes={takeRoutes}
+                    /> : null
             }
 
+            {
+                    flag == 1
+                        ?
+                        <UserShowRoutes/>
+                        : null
+            }
 
         </div>
     )

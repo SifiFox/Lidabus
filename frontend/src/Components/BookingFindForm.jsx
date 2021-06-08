@@ -78,6 +78,7 @@ function BookingFindForm(props){
     }
 
     return(
+
         <div className="booking--find--wrapper">
             <Router>
             <div className="booking--form--container">
@@ -144,7 +145,8 @@ function BookingFindForm(props){
                         ? <div className="help-inner">
                             <Switch>
                                 {/*<Route component={BookingOutputDate} path={'/booking/date'}/>*/}
-                                <Route render={()=><BookingOutputDate findConfig={item}/>} path={'/booking/date'}/>
+                                <Route render={()=><BookingOutputDate findConfig={item}/>} exact path={'/booking/date'}/>
+                                {/*<Route render={()=><BookingOutputDate findConfig={item}/>}  exact path={'/booking'}/>*/}
                             </Switch>
                         </div>
                         : null
@@ -152,6 +154,7 @@ function BookingFindForm(props){
 
             </Router>
         </div>
+
     )
 }
 

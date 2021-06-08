@@ -5,21 +5,6 @@ import RouteOrder from "./RouteOrder";
 
 function BookingOutputDate(props){
 
-    // function getRoutes(){
-    //     let url = "http://lidabusdiplom.by/controllers/route/getRoutesByDate.php"
-    //
-    //     $.ajax({
-    //         xhrFields: {cors: false},
-    //         mode: "no-cors",
-    //         type: 'GET',
-    //         url: url,
-    //         data: {getRoutesByDate: JSON.stringify(props.findConfig)},
-    //         dataType: 'json'
-    //     }).done(function (response){
-    //         console.log(response)
-    //     })
-    // }
-
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
