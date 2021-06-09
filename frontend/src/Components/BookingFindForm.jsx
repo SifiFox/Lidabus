@@ -38,7 +38,7 @@ function BookingFindForm(props){
 
 
 
-    const [selectedDay, setSelectedDay] = useState(to)
+    const [selectedDay, setSelectedDay] = useState(today)
 
 
 
@@ -47,6 +47,23 @@ function BookingFindForm(props){
         let testDay = moment(day).format(formate)
         setSelectedDay(testDay)
     }
+
+
+    function tomorrowRoutes(){
+        let tomorrow = dayPickerProps.localeUtils.formatDate(today.setDate(today.getDate(today) + 1))
+        let tomorrowSet = moment(tomorrow).format(formate)
+        setSelectedDay(tomorrowSet)
+    }
+
+
+    function afterTomorrowRoutes(){
+        let afterTomorrow = dayPickerProps.localeUtils.formatDate(today.setDate(today.getDate(today) + 2))
+        afterTomorrow = moment(afterTomorrow).format(formate)
+        setSelectedDay(afterTomorrow)
+        console.log(afterTomorrow)
+    }
+
+
 
     function handlePassCount(e){
         e.preventDefault();
@@ -82,14 +99,7 @@ function BookingFindForm(props){
     }
 
 
-    function tomorrowRoutes(){
-        console.log('tomorrow')
-    }
 
-
-    function afterTomorrowRoutes(){
-        console.log('dayAfterTomorrow')
-    }
 
 
     return(
@@ -146,6 +156,7 @@ function BookingFindForm(props){
 
             <div className="days--choice">
                 <p
+                    type="submit"
                 onClick={tomorrowRoutes}
                 >Завтра</p>
 

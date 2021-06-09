@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import '../scss/booking.scss'
 import BookingFindForm from "./BookingFindForm";
 import BookingOutput from "./BookingOutput";
+import BookingOutputDate from "./BookingOutpuDate";
+import {Route, Switch} from "react-router-dom";
 
 
 
@@ -37,11 +39,14 @@ function Booking(){
 
             {
                 output
-                    // ? <BookingOutput/>
                     ? <BookingOutput/>
-
                     : null
+            }
 
+            {
+                outputDate && output
+                ? <BookingOutputDate findConfig={outputDate}/>
+                : null
             }
 
 
