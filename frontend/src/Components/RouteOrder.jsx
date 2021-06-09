@@ -3,7 +3,7 @@ import $ from "jquery";
 import DrawGrid from "./DrawGrid";
 import '../scss/seatGrid.scss'
 
-class RouteOrder extends React.Component{
+class  RouteOrder extends React.Component{
     constructor(props) {
         super( props );
 

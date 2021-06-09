@@ -37,7 +37,9 @@ function Booking(){
 
             {
                 output
+                    // ? <BookingOutput/>
                     ? <BookingOutput/>
+
                     : null
 
             }

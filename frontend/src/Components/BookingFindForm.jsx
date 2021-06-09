@@ -17,9 +17,17 @@ import RouteOrder from "./RouteOrder";
 const formate = "YYYY/MM/DD";
 const today = new Date();
 
+// let initDay = dayPickerProps.localeUtils.formatDate(today.setDate(today.getDate(today)))
 
 function BookingFindForm(props){
 
+    const dayPickerProps = {
+        localeUtils: MomentLocaleUtils,
+        locale: "ru"
+    }
+
+    let initDay = dayPickerProps.localeUtils.formatDate(today.setDate(today.getDate(today)))
+    initDay = moment(initDay).format(formate);
 
     const [from, setFrom] = useState('Минск');
     const [to, setTo] = useState('Лида');
@@ -30,15 +38,12 @@ function BookingFindForm(props){
 
 
 
-    const [selectedDay, setSelectedDay] = useState(today)
+    const [selectedDay, setSelectedDay] = useState(to)
 
-    const dayPickerProps = {
-        localeUtils: MomentLocaleUtils,
-        locale: "ru"
-    }
+
 
     function handleDayClick(day){
-        day = dayPickerProps.localeUtils.formatDate(day.setDate(today.getDate(day)))
+        day = dayPickerProps.localeUtils.formatDate(day.setDate(day.getDate(day)))
         let testDay = moment(day).format(formate)
         setSelectedDay(testDay)
     }
@@ -66,7 +71,6 @@ function BookingFindForm(props){
             data: {getRoutesByDate: JSON.stringify(item)},
             dataType: 'json'
         }).done(function (response){
-            // console.log(response)
         })
     }
 
@@ -76,6 +80,17 @@ function BookingFindForm(props){
         Date: selectedDay,
         passCount: passCount
     }
+
+
+    function tomorrowRoutes(){
+        console.log('tomorrow')
+    }
+
+
+    function afterTomorrowRoutes(){
+        console.log('dayAfterTomorrow')
+    }
+
 
     return(
 
@@ -122,7 +137,6 @@ function BookingFindForm(props){
                     <button className="form--submit" type="submit">
                         <Link to={'/booking/date'}
                         onClick={() => {
-                            // document.location.assign('/booking/date')
                             props.updateData(output)
                         }}
                         >Найти</Link>
@@ -131,8 +145,13 @@ function BookingFindForm(props){
             </div>
 
             <div className="days--choice">
-                <p>Завтра</p>
-                <p>Послезавтра</p>
+                <p
+                onClick={tomorrowRoutes}
+                >Завтра</p>
+
+                <p
+                 onClick={afterTomorrowRoutes}
+                >Послезавтра</p>
             </div>
 
                 {/*{console.log(item)}*/}
@@ -144,9 +163,7 @@ function BookingFindForm(props){
                     outputDate
                         ? <div className="help-inner">
                             <Switch>
-                                {/*<Route component={BookingOutputDate} path={'/booking/date'}/>*/}
                                 <Route render={()=><BookingOutputDate findConfig={item}/>} exact path={'/booking/date'}/>
-                                {/*<Route render={()=><BookingOutputDate findConfig={item}/>}  exact path={'/booking'}/>*/}
                             </Switch>
                         </div>
                         : null

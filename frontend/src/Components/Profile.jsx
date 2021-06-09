@@ -13,6 +13,7 @@ import $ from "jquery"
 import UserShowRoutes from "./UserShowRoutes";
 import UserCurrentOrders from "./UserCurrentOrders";
 import ProfileDriver from "./ProfileDriver";
+import UserRoutesByDate from "./userRoutesByDate";
 
 function Profile(props){
 
@@ -40,10 +41,22 @@ function Profile(props){
     }
 
     const [flag, setFlag] = useState(0)
+    const [dateFlag, setDateFlag] = useState(0)
+
+
+    const [routesByDate, setRoutesByDate] = useState()
+
     function takeRoutes(){
         setFlag(1)
         console.log('takeRoutes')
     }
+
+    function userRoutesByDate(item){
+        console.log(item)
+        setDateFlag(1)
+        setRoutesByDate(item)
+    }
+
 
     return(
         <div className="profile--wrapper">
@@ -100,10 +113,10 @@ function Profile(props){
 
 
 
-            {
-            localStorage.getItem('Role') == 'User' ?
-            <UserCurrentOrders/> : null
-            }
+            {/*{*/}
+            {/*localStorage.getItem('Role') == 'User' ?*/}
+            {/*<UserCurrentOrders/> : null*/}
+            {/*}*/}
 
             {
                 localStorage.getItem('Role') == 'Driver' ?
@@ -121,11 +134,21 @@ function Profile(props){
                 localStorage.getItem('Role') == 'User' ?
                     <ProfileCards
                         takeRoutes={takeRoutes}
+                        userRoutesByDate={userRoutesByDate}
                     /> : null
             }
 
             {
-                    flag == 1
+                dateFlag == 1
+                ? <UserRoutesByDate
+                        item={routesByDate}/>
+                : null
+            }
+
+
+
+            {
+                    flag == 1 && dateFlag != 1
                         ?
                         <UserShowRoutes/>
                         : null

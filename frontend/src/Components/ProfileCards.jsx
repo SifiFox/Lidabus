@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
     CircularProgressbar,
     CircularProgressbarWithChildren,
@@ -16,22 +16,45 @@ import {Link, Route, Switch, useHistory} from "react-router-dom";
 import {Router} from "react-router";
 import RouteOrder from "./RouteOrder";
 import UserShowRoutes from "./UserShowRoutes";
+import moment from "moment";
 
 
 
 const percentage = 4.8;
 
 const today = new Date();
-
+const formate = "YYYY/MM/DD";
 
 function ProfileCards(props){
-
-
 
     const dayPickerProps = {
         localeUtils: MomentLocaleUtils,
         locale: "ru"
     }
+
+    let initDay = dayPickerProps.localeUtils.formatDate(today.setDate(today.getDate(today)))
+    initDay = moment(initDay).format(formate);
+
+
+    const [selectedDay, setSelectedDay] = useState(initDay)
+
+    let item ={
+        ID_User: localStorage.getItem("ID"),
+        Date: selectedDay
+    }
+
+    function handleDayClick(day) {
+        day = dayPickerProps.localeUtils.formatDate(day.setDate(day.getDate(day)))
+        let testDay = moment(day).format(formate)
+        setSelectedDay(testDay)
+    }
+
+    function sumbitData(){
+        props.userRoutesByDate(item)
+        setSelectedDay(initDay)
+    }
+
+
 
     return(
         <div className="cards--wrap">
@@ -75,16 +98,20 @@ function ProfileCards(props){
 
             <div className="card">
                 <DayPicker
-
                     dayPickerProps={dayPickerProps}
                     formatDate={formatDate}
                     format="LL"
-                    placeholder={`${formatDate(today, 'LL', 'ru')}`}
-                    onDayChange={day => {
-                        console.log(dayPickerProps.localeUtils.formatDate(today, 'LL', 'ru'))
+                    onDayClick={day => {
+                        handleDayClick(day)
                     }}
-                />
-
+                    // props.userRoutesByDate(item)
+            />
+                {
+                    selectedDay != initDay
+                    ? sumbitData()
+                    : console.log('equal')
+                    // console.log(selectedDay)
+                }
                 <h3 className="trips">мои поездки</h3>
 
                 <button className="primary--button"
@@ -93,6 +120,7 @@ function ProfileCards(props){
                    показать все
                 </button>
             </div>
+
         </div>
     )
 }
