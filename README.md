@@ -1,5 +1,1 @@
-# Lidabus
-Diplomwork
-Frontend: React JS
-Backend: PHP
-DBMS: MySQL
+# Diplomwork Grontend: React JS Backend: PHP DBMS: MySQL
