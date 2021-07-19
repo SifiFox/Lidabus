@@ -1,1 +1,1 @@
-# Diplomwork Grontend: React JS Backend: PHP DBMS: MySQL
+# Diplomwork Frontend: React JS; Backend: PHP; DBMS: MySQL
